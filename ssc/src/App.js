@@ -11,7 +11,9 @@ class App extends Component {
         return (
             <div className="App">
                 <h1>SSC</h1>
-                {username && <UserDashboard username = {username}/>}                
+                {/* 
+                    {username && <UserDashboard username = {username}/>}
+                */}
             </div>
         );
     }

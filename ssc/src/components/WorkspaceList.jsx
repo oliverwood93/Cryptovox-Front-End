@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Alert } from 'react-bootstrap';
+import { Alert, ListGroup } from 'react-bootstrap';
 import { makeAPICalls } from '../utils/apiCalls';
 import WorkspaceAdder from './WorkspaceAdder';
+import '../App.css';
 
 class WorkspaceList extends Component {
 
@@ -10,7 +11,7 @@ class WorkspaceList extends Component {
         workspaces: [],
         newWorkspace: '',
         newWorkspaceAdded: false,
-        newWorkspaceError: ''                
+        newWorkspaceError: '' ,     
     }
 
     getUserWorkspaces = ( username ) => {
@@ -21,7 +22,9 @@ class WorkspaceList extends Component {
         };
         makeAPICalls( apiObj )
             .then( ( workspaces ) => {
-                this.setState( { workspaces } );
+                this.setState( { workspaces }, () => {
+                    this.props.refreshDone();
+                } );                
             } )
             .catch( ( err ) => {
                 this.setState( { workspaces: [] } ); 
@@ -47,11 +50,9 @@ class WorkspaceList extends Component {
                         this.setState( { newWorkspace: '', newWorkspaceAdded: false, 
                             newWorkspaceError: 'Workspace could not be created' } );
                     }
-                    console.log( isWorkspaceCreated );
                     
                 } )
-                .catch( ( err ) => {
-                    console.log( err );
+                .catch( ( err ) => {                    
                     this.setState( { newWorkspace: '', newWorkspaceAdded: false, newWorkspaceError: err } );
                 } ); 
         } else {
@@ -65,29 +66,32 @@ class WorkspaceList extends Component {
     }
 
     componentDidUpdate ( prevProps, prevState ) {
-        const { newWorkspaceAdded } = this.state;
-        const { username } = this.props;
+        const { newWorkspaceAdded } = this.state;        
+        const { username, refreshList } = this.props;
         if ( newWorkspaceAdded !== prevState.newWorkspaceAdded ) {
             this.getUserWorkspaces( username );
-        }
+        } else if ( refreshList && refreshList !== prevProps.refreshList ) {
+            this.getUserWorkspaces( username );
+        }        
     }
-    componentDidMount() {
-        const { username } = this.props;
+    componentDidMount() {        
+        const { username } = this.props;        
         this.getUserWorkspaces( username );
     }
 
     render () {
         const { workspaces, newWorkspaceAdded, newWorkspaceError,newWorkspace } = this.state;
-        
+        const { handleWorkspaceClicked } = this.props;
         return (            
             <>
             {
                 workspaces && 
-                <div>
+                <ListGroup>
                     {workspaces.map( workspace => {
-                        return <p key={workspace.workspace}>{workspace.workspace}</p>;                     
-                    } )}
-                </div>
+                        return <ListGroup.Item data-admin={workspace.is_admin.toString()} key={workspace.workspace} 
+                            action className="singleWorkspaceItem" onClick={handleWorkspaceClicked}>{workspace.workspace}</ListGroup.Item>;                     
+                    } )}                    
+                </ListGroup>
             }
             {!newWorkspaceAdded && newWorkspaceError !== '' 
                 && <Alert variant="danger">{newWorkspaceError} </Alert>}
@@ -99,7 +103,10 @@ class WorkspaceList extends Component {
 }
 
 WorkspaceList.propTypes = {
-    username: PropTypes.string
+    username: PropTypes.string,
+    handleWorkspaceClicked: PropTypes.func,
+    refreshList: PropTypes.bool,
+    refreshDone: PropTypes.func
 };
 
 export default WorkspaceList;
