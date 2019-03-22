@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button } from 'react-bootstrap';
 
-const WorkspaceAdder = ( { handleAddWorkspace } ) => {
+const WorkspaceAdder = ( { handleAddWorkspace, handleNewWorkspaceChange, newWorkspace } ) => {    
     return (
         <Form onSubmit={handleAddWorkspace}>
             <Form.Group controlId="formBasicWorkspaceName">
-                <Form.Control type="text" placeholder="Enter new workspace to add" />
+                <Form.Control type="text" placeholder="Enter new workspace to add" onChange={handleNewWorkspaceChange}/>
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" disabled={newWorkspace === ''}>
                 Add
             </Button>
         </Form>
@@ -16,6 +16,8 @@ const WorkspaceAdder = ( { handleAddWorkspace } ) => {
 };
 
 WorkspaceAdder.propTypes = {
-    handleAddWorkspace: PropTypes.func
+    handleAddWorkspace: PropTypes.func,
+    handleNewWorkspaceChange: PropTypes.func,
+    newWorkspace: PropTypes.string
 };
 export default WorkspaceAdder;
