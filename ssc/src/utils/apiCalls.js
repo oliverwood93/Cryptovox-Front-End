@@ -1,5 +1,5 @@
 const axios = require( 'axios' );
-const { BASE_URL } = require( '../utils/urls' );
+const { BASE_URL } = require( '../utils/url' );
 
 const translateMethod = ( method ) => {
     const methodTranslation = {
@@ -48,10 +48,10 @@ const makeAPICalls = ( { url, reqObjectKey, params, data, method, multiRes, canc
     } else {
         return new Promise ( ( resolve, reject ) => {
             instance.request( )
-                .then( ( { data: { [ reqObjectKey ]: value } } ) => {                    
+                .then( ( { data: { [ reqObjectKey ]: value } } ) => { 
                     resolve( value );
                 } )
-                .catch( ( { response: { data } } ) => {                  
+                .catch( ( { response: { data } } ) => {                                      
                     const err = data.error ? data.error : genericMsg; 
                     reject( err ) ;
                 } );
