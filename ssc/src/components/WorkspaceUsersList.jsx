@@ -4,6 +4,7 @@ import { Alert, ListGroup, Button, Col, Row } from 'react-bootstrap';
 import { makeAPICalls } from '../utils/apiCalls';
 import WorkspaceAdder from './WorkspaceAdder';
 import '../App.css';
+import WorkspaceUserAdder from './WorkspaceUserAdder';
 
 class WorkspaceUsersList extends Component {
 
@@ -32,40 +33,40 @@ class WorkspaceUsersList extends Component {
             } ); 
     }
 
-    /* handleAddWorkspace = ( e ) => {
+    handleAddUser = ( e ) => {
         e.preventDefault();
-        const { newWorkspace } = this.state;
-        const { username } = this.props;
-        if ( newWorkspace !== '' ) {
+        const { newUser } = this.state;
+        const { username, workspace } = this.props;
+        console.log( newUser, workspace, username );
+        if ( newUser !== '' ) {
             const apiObj = {
-                url: '/workspaces',
-                reqObjectKey: 'workspace_added',
+                url: '/invites',
+                reqObjectKey: 'user_invited',
                 method: 'post',
-                data: { admin: username, name: newWorkspace }
+                data: { invitedBy: username, username: newUser, workspace }
             };
             makeAPICalls( apiObj )
-                .then( ( isWorkspaceCreated ) => {
-                    if ( isWorkspaceCreated ) {
-                        this.setState( { newWorkspace: '', newWorkspaceAdded: true, newWorkspaceError: '' } );
+                .then( ( isUserInvited ) => {
+                    if ( isUserInvited ) {
+                        this.setState( { newUser: '', newUserAdded: true, newUserError: '' } );
                     } else {
-                        this.setState( { newWorkspace: '', newWorkspaceAdded: false, 
-                            newWorkspaceError: 'Workspace could not be created' } );
+                        this.setState( { newUser: '', newUserAdded: false, 
+                            newUserError: 'User could not be invited' } );
                     }
                     
                 } )
                 .catch( ( err ) => {                    
-                    this.setState( { newWorkspace: '', newWorkspaceAdded: false, newWorkspaceError: err } );
+                    this.setState( { newUser: '', newUserAdded: false, newUserError: err } );
                 } ); 
         } else {
-            this.setState( { newWorkspaceAdded: false, newWorkspaceError: 'Workspace cannot be blank' } );
+            this.setState( { newUser: '', newUserAdded: false, newUserError: 'User cannot be blank' } );
         }
         
     }
- */
     
-    /* handleNewWorkspaceChange = ( e ) => {        
-        this.setState( { newWorkspace: e.target.value, newWorkspaceError: '' } );
-    } */
+    handleNewUserChange = ( e ) => {   
+        this.setState( { newUser: e.target.value, newUserError: '', newUserAdded: false } );
+    }
 
     handleUpdateAdmin = ( userToUpdate, currentAdminFlag ) => {
         const admin = this.props.username;
@@ -114,18 +115,18 @@ class WorkspaceUsersList extends Component {
     }
 
     componentDidUpdate ( prevProps, prevState ) {        
-        /* const { newWorkspaceAdded } = this.state;        
+        /* const { newUserAdded } = this.state;        
         const { username, refreshList } = this.props;
-        if ( newWorkspaceAdded !== prevState.newWorkspaceAdded ) {
-            this.getUserWorkspaces( username );
-        } else if ( refreshList && refreshList !== prevProps.refreshList ) {
+        if ( refreshList && refreshList !== prevProps.refreshList ) {
             this.getUserWorkspaces( username );
         }  */ 
-        const { workspaceUpdated } = this.state;
+        const { workspaceUpdated, newUserAdded } = this.state;
         const { workspace } = this.props;
         if ( workspace !== prevProps.workspace ) {
             this.getWorkspaceUsers( workspace );
         } else if ( workspaceUpdated ) {
+            this.getWorkspaceUsers( workspace );
+        } else if ( newUserAdded !== prevState.newUserAdded ) {
             this.getWorkspaceUsers( workspace );
         }
     }
@@ -171,10 +172,12 @@ class WorkspaceUsersList extends Component {
                     } )}                    
                 </ListGroup>
             }
-            {/* !newUserAdded && newUserError !== '' 
-                && <Alert variant="danger">{newUserError} </Alert> */}
-            {/* <WorkspaceAdder newWorkspace={newUser} handleNewUserChange={this.handleNewUserChange} 
-                handleAddUser={this.handleAddUser}/>      */}       
+            {!newUserAdded && newUserError !== '' 
+                && <Alert variant="danger">{newUserError} </Alert>}
+            {newUserAdded && newUserError == '' && newUser === ''
+            && <Alert variant="success">User has been invited</Alert>}
+            {<WorkspaceUserAdder newUser={newUser} handleNewUserChange={this.handleNewUserChange} 
+                handleAddUser={this.handleAddUser}/> }       
             </>
         );
     }    
