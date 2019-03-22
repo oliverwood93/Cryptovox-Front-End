@@ -161,7 +161,7 @@ class WorkspaceUsersList extends Component {
                                         </Col> 
 
                                         <Col>
-                                            <Button onClick={() => this.handleRemoveUser( user.username )}>Remove user</Button> 
+                                            <Button variant="danger" onClick={() => this.handleRemoveUser( user.username )}>Remove user</Button> 
                                         </Col>
                                     </>
                                     : <></>                            
