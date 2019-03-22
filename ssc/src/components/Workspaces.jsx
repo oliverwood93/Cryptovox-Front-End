@@ -4,6 +4,7 @@ import WorkspaceList from './WorkspaceList';
 import { Button, Container, Col, Row, Alert } from 'react-bootstrap';
 import { makeAPICalls } from '../utils/apiCalls';
 import DeleteWorkspaceModal from './DeleteWorkspaceModal';
+import WorkspaceUsersList from './WorkspaceUsersList';
 
 class Workspaces extends Component {    
 
@@ -81,6 +82,10 @@ class Workspaces extends Component {
                     </Col>
                     <Col>
                         <p>Files come here</p>
+                    </Col>
+                    <Col>
+                        {selectedWorkspace !== null &&
+                        <WorkspaceUsersList username={username} workspace={selectedWorkspace.workspace} refreshDone={this.refreshDone}/>}
                     </Col>
                 </Row>
                 {showDeleteConfirm && <DeleteWorkspaceModal showDeleteConfirm={showDeleteConfirm} 
