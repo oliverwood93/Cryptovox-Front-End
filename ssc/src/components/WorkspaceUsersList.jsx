@@ -87,7 +87,29 @@ class WorkspaceUsersList extends Component {
                 this.setState( { workspaceUpdated: false } ); 
             } );
 
-        //req: {'username': 'xxx', 'admin_username': 'xxx', 'make_admin': 'True/False'}
+    }
+
+    handleRemoveUser = ( userToDelete ) => {
+        const admin = this.props.username;
+        const { workspace } = this.props;
+        
+        const apiObj = {
+            url: '/deleteUser',
+            reqObjectKey: 'user_deleted_from_workspace',
+            method: 'delete',
+            data: { username: userToDelete, admin_username: admin, workspace_name: workspace }
+        };
+        makeAPICalls( apiObj )
+            .then( ( workspace_admin_updated ) => {
+                this.setState( { workspaceUpdated: workspace_admin_updated }, () => {
+                    this.props.refreshDone();
+                } );                
+            } )
+            .catch( ( err ) => {
+                this.setState( { workspaceUpdated: false } ); 
+            } );
+
+        //req: {'username': 'xxx', 'admin_username': 'xxx', 'workspace': 'yyy'}
 
     }
 
@@ -133,13 +155,13 @@ class WorkspaceUsersList extends Component {
                                 user.username !== username
                                     ? <>
                                         <Col>
-                                            <Button /* data-username={user.username}  */onClick={() => this.handleUpdateAdmin( user.username, user.is_admin )}>
+                                            <Button onClick={() => this.handleUpdateAdmin( user.username, user.is_admin )}>
                                                 {user.is_admin === 'True' ? 'Remove user from admin' : 'Make user admin'}
                                             </Button> 
                                         </Col> 
 
                                         <Col>
-                                            <Button>Remove user</Button> 
+                                            <Button onClick={() => this.handleRemoveUser( user.username )}>Remove user</Button> 
                                         </Col>
                                     </>
                                     : <></>                            
