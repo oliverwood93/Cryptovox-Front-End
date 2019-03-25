@@ -93,4 +93,33 @@ input[type='password'] {
   to {
     transform: scale(1);
   }
+
+.singleWorkspaceItem:hover{
+    background-color: lightskyblue;
+}
+
+.dashbord {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.workspaceList, .workspaceUserList {
+    margin-bottom: 5px;
+}
+
+.singleWorkspaceItem {
+    border-color: lightgrey;    
+    margin-top: 5px;
+    padding: 0.75rem;
+    width: 150px;
+}
+
+
+.userItemRow {
+    flex-wrap: nowrap;
+}
+
+.makeAdmin, .removeFromWorkspace {
+    margin-top: 5px;
+    padding-bottom: 5px;    
 }
