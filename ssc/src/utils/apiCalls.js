@@ -51,8 +51,8 @@ const makeAPICalls = ( { url, reqObjectKey, params, data, method, multiRes, canc
                 .then( ( { data: { [ reqObjectKey ]: value } } ) => { 
                     resolve( value );
                 } )
-                .catch( ( { response: { data } } ) => {                                      
-                    const err = data.error ? data.error : genericMsg; 
+                .catch( ( res ) => {                                      
+                    const err = res.data ? res.data.error : genericMsg; 
                     reject( err ) ;
                 } );
         } );
