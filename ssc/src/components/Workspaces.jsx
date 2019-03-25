@@ -66,8 +66,8 @@ class Workspaces extends Component {
     render () {
         const { selectedWorkspace, deleteError, refreshList, showDeleteConfirm } = this.state;
         const { username } = this.props;        
-        return (
-            <Container>
+        return (            
+            <div className="dashbord">
                 <Row>
                     <Col>
                         {selectedWorkspace !== null && selectedWorkspace.isAdmin === 'true' && 
@@ -80,17 +80,17 @@ class Workspaces extends Component {
                         <p>Workspace List</p>
                         <WorkspaceList refreshList={refreshList} username={username} handleWorkspaceClicked={this.handleWorkspaceClicked} refreshDone={this.refreshDone}/>
                     </Col>
-                    <Col>
+                    <Col>                        
                         <p>Files come here</p>
                     </Col>
-                    <Col>
+                    <Col className="workspacesUserCol">
                         {selectedWorkspace !== null &&
                         <WorkspaceUsersList username={username} workspace={selectedWorkspace.workspace} refreshDone={this.refreshDone}/>}
                     </Col>
                 </Row>
                 {showDeleteConfirm && <DeleteWorkspaceModal showDeleteConfirm={showDeleteConfirm} 
                     deleteWorkspace={this.deleteWorkspace} handleCloseModal={this.handleCloseModal}/>} 
-            </Container>
+            </div>
         );
     }    
 }

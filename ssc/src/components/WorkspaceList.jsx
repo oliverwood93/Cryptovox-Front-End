@@ -86,7 +86,7 @@ class WorkspaceList extends Component {
             <>
             {
                 workspaces && 
-                <ListGroup>
+                <ListGroup className="workspaceList">
                     {workspaces.map( workspace => {
                         return <ListGroup.Item data-admin={workspace.is_admin.toString()} key={workspace.workspace} 
                             action className="singleWorkspaceItem" onClick={handleWorkspaceClicked}>{workspace.workspace}</ListGroup.Item>;                     
