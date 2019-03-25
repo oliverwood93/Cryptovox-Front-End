@@ -1,5 +1,5 @@
 const axios = require( 'axios' );
-const { BASE_URL } = require( '../utils/urls' );
+const { BASE_URL } = require( '../utils/url' );
 
 const translateMethod = ( method ) => {
     const methodTranslation = {
@@ -18,7 +18,7 @@ const makeAPICalls = ( { url, reqObjectKey, params, data, method, multiRes, canc
         params,
         method,
         data,
-        cancelToken
+        // cancelToken
     } );    
     const action = translateMethod( method );    
     const genericMsg = `Could not ${ action } ${ reqObjectKey }. Contact Support.`;
