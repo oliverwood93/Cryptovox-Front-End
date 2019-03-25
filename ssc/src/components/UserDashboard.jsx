@@ -1,19 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Workspaces from './Workspaces';
+import React from "react";
+import PropTypes from "prop-types";
+import Workspaces from "./Workspaces";
+import PendingInvites from "./PendingInvites";
 
-const UserDashboard = ( { username } ) => {    
-    return (
-        <div>
-            <h1>Hello {username}</h1>
-            <p>Invites come here</p>
-            <Workspaces username={username}/>
-        </div>
-    );
+const UserDashboard = ({ username }) => {
+  return (
+    <div>
+      <h1>Hello {username}</h1>
+      <PendingInvites username={username} />
+      <Workspaces username={username} />
+    </div>
+  );
 };
 
 UserDashboard.propTypes = {
-    username: PropTypes.string
+  username: PropTypes.string
 };
 
 export default UserDashboard;
