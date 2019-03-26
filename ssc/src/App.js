@@ -10,12 +10,15 @@ class App extends Component {
     state = {
         // pls do note remove
         // username: null,
+
         username: 'Coddzilla'
+
     };
     render() {
         const { username } = this.state;
         return (
             <div className="App">
+
                 <h1 className="header">SSC</h1>
                 <Router>
                     <Home path="/" />
@@ -23,6 +26,7 @@ class App extends Component {
                     {/* Added by shumanator....pls do not remove*/}
                     {username && <UserDashboard username={username} />}
                 </Router>
+
             </div>
         );
     }
