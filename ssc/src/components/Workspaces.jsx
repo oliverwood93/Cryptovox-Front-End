@@ -15,6 +15,12 @@ class Workspaces extends Component {
         showDeleteConfirm: false
     };
 
+    componentDidUpdate( prevProps, prevState ) {
+        if ( this.props.refreshWorkspaces !== prevProps.refreshWorkspaces && this.props.refreshWorkspaces ) {
+            this.setState( { refreshList: true } );
+        }
+    }
+
     refreshDone = () => {
         this.setState( { refreshList: false } );
     };

@@ -174,3 +174,22 @@
       margin-top: 5px;
       padding-bottom: 5px;    
   }
+
+.overallDashboard {
+   margin-left: 10px;
+   margin-right: 10px;
+ }
+
+ .invitesDiv {   
+   width: 100%;   
+   float: right;
+ }
+
+ /* .invitesList {
+  
+   float: right;
+ } */
+
+ .acceptRejectSpan {
+   padding: 5px;
+ }
