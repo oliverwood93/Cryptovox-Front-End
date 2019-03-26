@@ -37,7 +37,7 @@ export default class Mic extends Component {
         const audioURL = window.URL.createObjectURL( blob );
         const audios = audioURL;
         this.setState( { audios, blob } );
-        this.props.handleRecordedAudio( blob );
+        this.props.handleRecordedAudio( blob, true );
     }
 
     deleteAudio() {

@@ -5,16 +5,16 @@ export default function DragAndDrop({fileSelectedHandler, selectedFile}) {
   return (
     
       <div id="drop-area">
-        <form className="my-form">
-          <p>
+      <form className="my-form" onDrop={fileSelectedHandler}>
+        {!selectedFile ? <p>
             Upload a file with the file dialog or by dragging and
-            dropping into the dashed region
-            </p>
-          <input type="file" id="fileElem" onChange={fileSelectedHandler} />
+          dropping into the dashed region
+            </p> : <h1>{selectedFile.name}</h1>}
+          <input type="file" id="fileElem" />
           <label className="button" htmlFor="fileElem">
             Select a files
           </label>
-         {selectedFile && <p>{selectedFile.name}</p>}
+         
         </form>
     </div>
   )
