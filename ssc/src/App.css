@@ -1,3 +1,7 @@
+/* * {
+  background-color: #F04A4A;
+}
+ */
 #drop-area {
     border: 2px dashed #ccc;
     border-radius: 20px;
@@ -77,7 +81,7 @@
     }
   }
   
-  button {
+  .homeButtons {
     background-color: rgb(35, 149, 241);
     color: white;
     padding: 14px 20px;
@@ -162,7 +166,7 @@
       border-color: lightgrey;    
       margin-top: 5px;
       padding: 0.75rem;
-      width: 150px;
+      width: 200px;
   }
   
   
@@ -185,11 +189,15 @@
    float: right;
  }
 
- /* .invitesList {
-  
-   float: right;
- } */
-
  .acceptRejectSpan {
    padding: 5px;
  }
+
+ .workspaceListCol {
+    background-color: gainsboro;
+    width: 40vh;
+    padding-left: 20px;
+ }
+
+
+ 
