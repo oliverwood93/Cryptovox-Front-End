@@ -85,7 +85,7 @@ export default class Home extends Component {
                             onChange={this.handlePasswordRChange}
                             required
                         />
-                        <button disabled={isDisabled1}>Register</button>
+                        <button className="homeButtons" disabled={isDisabled1}>Register</button>
                     </form>
                 )}
                 {this.state.newUserError !== '' && (

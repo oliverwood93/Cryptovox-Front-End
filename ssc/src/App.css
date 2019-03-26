@@ -1,3 +1,7 @@
+/* * {
+  background-color: #F04A4A;
+}
+ */
 #drop-area {
   border: 2px dashed #ccc;
   border-radius: 20px;
@@ -215,3 +219,23 @@ input[type='password'] {
   top: 520px;
   left: 496px;
 }
+
+.overallDashboard {
+   margin-left: 10px;
+   margin-right: 10px;
+ }
+
+ .invitesDiv {   
+   width: 100%;   
+   float: right;
+ }
+
+ .acceptRejectSpan {
+   padding: 5px;
+ }
+
+ .workspaceListCol {
+    background-color: gainsboro;
+    width: 40vh;
+    padding-left: 20px;
+ }
