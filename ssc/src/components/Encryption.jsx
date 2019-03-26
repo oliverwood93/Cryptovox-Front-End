@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import uuid from 'uuid';
-import '../app.css';
+import '../App.css';
 import Mic from '../components/Mic';
 import AudioFileUpload from '../components/AudioFileUpload';
 import FileToEncrypt from '../components/FileToEncrypt';
@@ -74,7 +74,7 @@ export default class Encryption extends Component {
         data.append( 'bucket_name', 'workspace4567' );
         axios.post( 'http://localhost:5000/api/encryptFile', data ).then( data => {
             console.log( data );
-        } ).catch(({response}) => console.log({status: response.status, msg: response.data.error}))
+        } ).catch( ( { response } ) => console.log( { status: response.status, msg: response.data.error } ) );
     };
 
     render() {

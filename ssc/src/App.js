@@ -15,8 +15,7 @@ class App extends Component {
         this.setState( { username } );
     }
     render() {
-        const { username } = this.state;
-        //console.log( username );
+        const { username } = this.state;        
         return (
             <div className="App">
 

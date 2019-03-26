@@ -87,36 +87,20 @@ class Workspaces extends Component {
         const { username } = this.props;        
         return (            
             <div className="dashbord">
-
                 <Row>
                     <Col>
-                        {selectedWorkspace !== null &&
-                            selectedWorkspace.isAdmin === 'true' && (
-                            <Button
-                                variant="danger"
-                                onClick={this.handleDeleteWorkspace}
-                            >
-                                    Delete Workspace
-                            </Button>
-                        )}
-                        {deleteError !== '' && (
-                            <Alert variant="danger">{deleteError} </Alert>
-                        )}
-                    </Col>
+                        {selectedWorkspace !== null && selectedWorkspace.isAdmin === 'true' && 
+                    <Button variant="danger" onClick={this.handleDeleteWorkspace}>Delete Workspace</Button>}
+                        {deleteError !== '' && <Alert variant="danger">{deleteError} </Alert>}
+                    </Col> 
                 </Row>
                 <Row>
                     <Col>
                         <p>Workspace List</p>
-                        <WorkspaceList
-                            refreshList={refreshList}
-                            username={username}
-                            handleWorkspaceClicked={this.handleWorkspaceClicked}
-                            refreshDone={this.refreshDone}
-                        />
+                        <WorkspaceList refreshList={refreshList} username={username} handleWorkspaceClicked={this.handleWorkspaceClicked} refreshDone={this.refreshDone}/>
                     </Col>
-
-                    <Col>
-                        <p>Files List here</p>
+                    <Col>                        
+                        <p>Files come here</p>
                         {selectedWorkspace !== null && (
                             <WorkspaceFilesList
                                 username={username}
@@ -125,30 +109,9 @@ class Workspaces extends Component {
                             />
                         )}
                     </Col>
-                        {selectedWorkspace !== null && (
-                            <WorkspaceUsersList
-                                username={username}
-                                workspace={selectedWorkspace.workspace}
-                                refreshDone={this.refreshDone}
-                            />
-                        )}
-                    </Col>
-                </Row>
-                {showDeleteConfirm && (
-                    <DeleteWorkspaceModal
-                        showDeleteConfirm={showDeleteConfirm}
-                        deleteWorkspace={this.deleteWorkspace}
-                        handleCloseModal={this.handleCloseModal}
-                    />
-                )}
-            </Container>
-
-                    <Col>                        
-                        <p>Files come here</p>
-                    </Col>
                     <Col className="workspacesUserCol">
                         {selectedWorkspace !== null &&
-                        <WorkspaceUsersList username={username} workspace={selectedWorkspace.workspace} refreshDone={this.refreshDone}/>}
+                    <WorkspaceUsersList username={username} workspace={selectedWorkspace.workspace} refreshDone={this.refreshDone}/>}
                     </Col>
                 </Row>
                 {showDeleteConfirm && <DeleteWorkspaceModal showDeleteConfirm={showDeleteConfirm} 
