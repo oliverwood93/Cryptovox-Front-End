@@ -21,7 +21,7 @@
 
 .userItemRow {
   flex-wrap: nowrap;
-  background-image: url("https://i.ytimg.com/vi/2NUwspS2RuY/maxresdefault.jpg");
+  background-color: lavender;
   border-radius: 15px, 15px, 15px, 15px;
 }
 
@@ -199,6 +199,79 @@ input[type="password"] {
   border-color: lightgrey;
   margin-top: 5px;
   padding: 0.75rem;
+  width: 150px;
+}
+
+.userItemRow {
+  flex-wrap: nowrap;
+}
+
+.makeAdmin,
+.removeFromWorkspace {
+  margin-top: 5px;
+  padding-bottom: 5px;
+}
+
+.logout {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  left: 1690px;
+  top: 50px;
+  width: 150px;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: start;
+}
+.child {
+  width: 50%;
+}
+
+.alert1 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 296px;
+  height: 52px;
+  top: 200px;
+  left: 496px;
+}
+
+.alert2 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 296px;
+  height: 52px;
+  top: 520px;
+  left: 496px;
+}
+
+.singleWorkspaceItem:hover {
+  background-color: lightskyblue;
+}
+
+.dashbord {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.workspaceList,
+.workspaceUserList {
+  margin-bottom: 5px;
+}
+
+.singleWorkspaceItem {
+  border-color: lightgrey;
+  margin-top: 5px;
+  padding: 0.75rem;
   width: 200px;
 }
 
@@ -220,17 +293,8 @@ input[type="password"] {
   margin-right: 10px;
 }
 
-.invitesDiv {
-  width: 100%;
-  float: right;
-}
-
-.acceptRejectSpan {
-  padding: 5px;
-}
-
 .workspaceListCol {
-  background-color: rgb(202, 202, 250);
+  background-color: rgb(32, 173, 159);
   width: 40vh;
   padding-left: 20px;
 }

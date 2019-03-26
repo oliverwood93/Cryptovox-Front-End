@@ -95,23 +95,27 @@ class Workspaces extends Component {
             </Card>
           </Col>
           <Col>
-            <p>Files come here</p>
-            {selectedWorkspace !== null && (
-              <WorkspaceFilesList
-                username={username}
-                workspace={selectedWorkspace.workspace}
-                refreshDone={this.refreshDone}
-              />
-            )}
+            <Card className="workspaceFilelist">
+              <p>Files come here</p>
+              {selectedWorkspace !== null && (
+                <WorkspaceFilesList
+                  username={username}
+                  workspace={selectedWorkspace.workspace}
+                  refreshDone={this.refreshDone}
+                />
+              )}
+            </Card>
           </Col>
           <Col className="workspacesUserCol">
-            {selectedWorkspace !== null && (
-              <WorkspaceUsersList
-                username={username}
-                workspace={selectedWorkspace.workspace}
-                refreshDone={this.refreshDone}
-              />
-            )}
+            <Card className="workspaceUserlistCol">
+              {selectedWorkspace !== null && (
+                <WorkspaceUsersList
+                  username={username}
+                  workspace={selectedWorkspace.workspace}
+                  refreshDone={this.refreshDone}
+                />
+              )}
+            </Card>
           </Col>
         </Row>
         {showDeleteConfirm && (

@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { makeAPICalls } from '../utils/apiCalls';
 import '../App.css';
 import { Card, Button } from 'react-bootstrap';
-import './WorkSpaceFiles.css';
 
 class WorkspaceFilesList extends Component {
     state = {
