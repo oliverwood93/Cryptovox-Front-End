@@ -175,31 +175,27 @@ class WorkspaceUsersList extends Component {
             <>
             {
                 users && 
-                <ListGroup>
+                <ListGroup className="workspaceUserList">
                     {users.map( user => {
                         
-                        return <Row key={user.username} >                        
+                        return <Row key={user.username} className="userItemRow" >                        
                             <Col>
                                 <ListGroup.Item
                                     action className="singleWorkspaceItem" onClick={handleWorkspaceClicked}>{
                                         user.username}
                                 </ListGroup.Item>
                             </Col>
-                            {
-                                user.username !== username
-                                    ? <>
-                                        <Col>
-                                            <Button onClick={() => this.handleUpdateAdmin( user.username, user.is_admin )}>
-                                                {user.is_admin === 'True' ? 'Remove user from admin' : 'Make user admin'}
-                                            </Button> 
-                                        </Col> 
+                            
+                            <Col>
+                                <Button size="sm" disabled={user.username === username} className="makeAdmin" onClick={() => this.handleUpdateAdmin( user.username, user.is_admin )}>
+                                    {user.is_admin === 'True' ? 'Remove admin' : 'Make admin'}
+                                </Button> 
+                            </Col> 
 
-                                        <Col>
-                                            <Button variant="danger" onClick={() => this.handleRemoveUser( user.username )}>Remove user</Button> 
-                                        </Col>
-                                    </>
-                                    : <></>                            
-                            }                                                                                      
+                            <Col>
+                                <Button size="sm" disabled={user.username === username}className="removeFromWorkspace" variant="danger" onClick={() => this.handleRemoveUser( user.username )}>Remove user</Button> 
+                            </Col>
+                                                                                                                  
                         </Row>;
                         
                     } )}                    
@@ -208,10 +204,9 @@ class WorkspaceUsersList extends Component {
             {!newUserAdded && newUserError !== '' 
                 && <Alert variant="danger">{newUserError} </Alert>}
             {newUserAdded && newUserError === '' && newUser === ''
-            && <Alert variant="success">User has been invited</Alert>}            
-            {/*<WorkspaceUserAddAutoSuggester nonMembers={nonMembers} />*/                
+            && <Alert variant="success">User has been invited</Alert>}                    
                 <WorkspaceUserAdder newUser={newUser} filteredUsers={filteredUsers} handleNewUserChange={this.handleNewUserChange} 
-                    handleAddUser={this.handleAddUser} handleItemClick={this.handleItemClick}/> }       
+                    handleAddUser={this.handleAddUser} handleItemClick={this.handleItemClick}/>      
             </>
         );
     }    

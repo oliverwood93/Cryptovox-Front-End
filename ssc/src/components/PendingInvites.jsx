@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+
 import { getInvites, respond } from "../utils/apiCalls";
+
 import { Button } from "react-bootstrap";
 
 class PendingInvites extends Component {
   state = {
     inviteList: [],
+
     isClicked: false,
     response: null
   };
@@ -46,11 +49,13 @@ class PendingInvites extends Component {
   componentDidMount() {
     this.fetchInvites();
   }
+
   componentDidUpdate(prevProps, prevState) {
     if (this.props.response !== prevProps.response) {
       console.log("hello");
     }
   }
+
   fetchInvites = () => {
     const { username } = this.props;
 
@@ -68,6 +73,7 @@ class PendingInvites extends Component {
   handleNotification = () => {
     this.setState({ isClicked: !this.state.isClicked });
   };
+
   handleResponse = (answer, workspace) => {
     const { response } = this.state;
     respond(this.props.username, { response, workspace });
