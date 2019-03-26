@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import WorkspaceList from './WorkspaceList';
-import { Button, Container, Col, Row, Alert } from 'react-bootstrap';
+import { Button, Container, Col, Row, Alert, Card } from 'react-bootstrap';
 import { makeAPICalls } from '../utils/apiCalls';
 import DeleteWorkspaceModal from './DeleteWorkspaceModal';
 import WorkspaceUsersList from './WorkspaceUsersList';
@@ -101,10 +101,11 @@ class Workspaces extends Component {
                     </Col> 
                 </Row>
                 <Row>
-                    <Col>
-                        
-                        {selectedWorkspace && <h3>{selectedWorkspace.workspace}</h3>}
-                        <WorkspaceList refreshList={refreshList} username={username} handleWorkspaceClicked={this.handleWorkspaceClicked} refreshDone={this.refreshDone}/>
+                    <Col >
+                        <Card className="workspaceListCol">
+                            {selectedWorkspace && <h3>{selectedWorkspace.workspace}</h3>}
+                            <WorkspaceList refreshList={refreshList} username={username} handleWorkspaceClicked={this.handleWorkspaceClicked} refreshDone={this.refreshDone}/>
+                        </Card>
                     </Col>
                     <Col>                        
                         <p>Files come here</p>
