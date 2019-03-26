@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import WorkspaceList from "./WorkspaceList";
-import { Button, Container, Col, Row, Alert } from "react-bootstrap";
+import { Button, Container, Col, Row, Alert, Card } from "react-bootstrap";
 import { makeAPICalls } from "../utils/apiCalls";
 import DeleteWorkspaceModal from "./DeleteWorkspaceModal";
 import WorkspaceUsersList from "./WorkspaceUsersList";
@@ -14,6 +14,15 @@ class Workspaces extends Component {
     refreshList: false,
     showDeleteConfirm: false
   };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.props.refreshWorkspaces !== prevProps.refreshWorkspaces &&
+      this.props.refreshWorkspaces
+    ) {
+      this.setState({ refreshList: true });
+    }
+  }
 
   refreshDone = () => {
     this.setState({ refreshList: false });
@@ -48,37 +57,6 @@ class Workspaces extends Component {
   deleteWorkspace = () => {
     const { workspace } = this.state.selectedWorkspace;
     const { username } = this.props;
-
-    const apiObj = {
-      url: "/workspaces",
-      reqObjectKey: "workspace_deleted",
-      data: { deleted_by: username, workspace: workspace },
-      method: "delete"
-    };
-    makeAPICalls(apiObj)
-      .then(workspace_deleted => {
-        if (workspace_deleted) {
-          this.setState({
-            deleteError: "",
-            selectedWorkspace: null,
-            refreshList: true,
-            showDeleteConfirm: false
-          });
-        } else {
-          this.setState({
-            deleteError: "Workspace could not be deleted",
-            refreshList: false,
-            showDeleteConfirm: false
-          });
-        }
-      })
-      .catch(err => {
-        this.setState({
-          deleteError: "Workspace could not be deleted",
-          refreshList: false,
-          showDeleteConfirm: false
-        });
-      });
   };
 
   render() {
@@ -106,13 +84,15 @@ class Workspaces extends Component {
         </Row>
         <Row>
           <Col>
-            <p>Workspace List</p>
-            <WorkspaceList
-              refreshList={refreshList}
-              username={username}
-              handleWorkspaceClicked={this.handleWorkspaceClicked}
-              refreshDone={this.refreshDone}
-            />
+            <Card className="workspaceListCol">
+              {selectedWorkspace && <h3>{selectedWorkspace.workspace}</h3>}
+              <WorkspaceList
+                refreshList={refreshList}
+                username={username}
+                handleWorkspaceClicked={this.handleWorkspaceClicked}
+                refreshDone={this.refreshDone}
+              />
+            </Card>
           </Col>
           <Col>
             <p>Files come here</p>

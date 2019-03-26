@@ -1,209 +1,236 @@
-<<<<<<< HEAD
-
-.singleWorkspaceItem:hover{
-    background-color: lightskyblue;
+.singleWorkspaceItem:hover {
+  background-color: lightskyblue;
 }
 
 .dashbord {
-    margin-left: 10px;
-    margin-right: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
-.workspaceList, .workspaceUserList {
-    margin-bottom: 5px;
+.workspaceList,
+.workspaceUserList {
+  margin-bottom: 5px;
 }
 
 .singleWorkspaceItem {
-    border-color: lightgrey;    
-    margin-top: 5px;
-    padding: 0.75rem;
-    width: 150px;
+  border-color: lightgrey;
+  margin-top: 5px;
+  padding: 0.75rem;
+  width: 150px;
 }
-
 
 .userItemRow {
-    flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  background-image: url("https://i.ytimg.com/vi/2NUwspS2RuY/maxresdefault.jpg");
+  border-radius: 15px, 15px, 15px, 15px;
 }
 
-.makeAdmin, .removeFromWorkspace {
-    margin-top: 5px;
-    padding-bottom: 5px;    
+.makeAdmin,
+.removeFromWorkspace {
+  margin-top: 5px;
+  padding-bottom: 5px;
 }
-=======
+
+/* * {
+  background-color: #F04A4A;
+}
+ */
+
 #drop-area {
-    border: 2px dashed #ccc;
-    border-radius: 20px;
-    width: 480px;
-    font-family: sans-serif;
-    margin: 100px auto;
-    padding: 20px;
+  border: 2px dashed #ccc;
+  border-radius: 20px;
+  width: 480px;
+  font-family: sans-serif;
+  margin: 100px auto;
+  padding: 20px;
+}
+#drop-area.highlight {
+  border-color: purple;
+}
+p {
+  margin-top: 0;
+}
+.my-form {
+  margin-bottom: 10px;
+}
+#gallery {
+  margin-top: 10px;
+}
+#gallery img {
+  width: 150px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.button {
+  display: inline-block;
+  padding: 10px;
+  background: #ccc;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.button:hover {
+  background: #ddd;
+}
+#fileElem {
+  display: none;
+}
+
+#record {
+  width: 5vw;
+  height: auto;
+}
+
+/*Will and Shumanator app.css*/
+
+.font {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.header {
+  top: 40px;
+  left: 44%;
+  font-size: 4.5rem;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 2.5s;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
   }
-  #drop-area.highlight {
-    border-color: purple;
-  }
-  p {
-    margin-top: 0;
-  }
-  .my-form {
-    margin-bottom: 10px;
-  }
-  #gallery {
-    margin-top: 10px;
-  }
-  #gallery img {
-    width: 150px;
-    margin-bottom: 10px;
-    margin-right: 10px;
-    vertical-align: middle;
-  }
-  .button {
-    display: inline-block;
-    padding: 10px;
-    background: #ccc;
-    cursor: pointer;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-  .button:hover {
-    background: #ddd;
-  }
-  #fileElem {
-    display: none;
-  }
-  
-  #record{
-    width: 5vw;
-    height: auto
-  }
-  
-  
-  
-  /*Will and Shumanator app.css*/
-  
-  .font {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  }
-  
-  .header {
-    top: 40px;
-    left: 44%;
-    font-size: 4.5rem;
-    display: flex;
-    position: fixed;
-    align-items: center;
-    justify-content: center;
+  100% {
     opacity: 1;
-    animation-name: fadeInOpacity;
-    animation-iteration-count: 1;
-    animation-timing-function: ease-in;
-    animation-duration: 2.5s;
   }
-  
-  @keyframes fadeInOpacity {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
+}
+
+.homeButtons {
+  background-color: rgb(35, 149, 241);
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+}
+
+.container {
+  padding: 16px;
+  width: 100%;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  top: 25%;
+  left: 25%;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 2.5s;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 75%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto;
+  width: 58%;
+  padding-left: 5px;
+  position: fixed;
+  border: none;
+  top: 43%;
+  left: 25.5%;
+}
+
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s;
+}
+
+@-webkit-keyframes animatezoom {
+  from {
+    -webkit-transform: scale(0);
   }
-  
-  button {
-    background-color: rgb(35, 149, 241);
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 30%;
+  to {
+    -webkit-transform: scale(1);
   }
-  
-  .container {
-    padding: 16px;
-    width: 100%;
-    position: fixed;
-    align-items: center;
-    justify-content: center;
-    top: 25%;
-    left: 25%;
-    animation-name: fadeInOpacity;
-    animation-iteration-count: 1;
-    animation-timing-function: ease-in;
-    animation-duration: 2.5s;
+}
+
+@keyframes animatezoom {
+  from {
+    transform: scale(0);
   }
-  
-  input[type='text'],
-  input[type='password'] {
-    width: 75%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+  to {
+    transform: scale(1);
   }
-  
-  .modal-content {
-    background-color: #fefefe;
-    margin: 5% auto 15% auto;
-    width: 58%;
-    padding-left: 5px;
-    position: fixed;
-    border: none;
-    top: 43%;
-    left: 25.5%;
-  }
-  
-  .animate {
-    -webkit-animation: animatezoom 0.6s;
-    animation: animatezoom 0.6s;
-  }
-  
-  @-webkit-keyframes animatezoom {
-    from {
-      -webkit-transform: scale(0);
-    }
-    to {
-      -webkit-transform: scale(1);
-    }
-  }
-  
-  @keyframes animatezoom {
-    from {
-      transform: scale(0);
-    }
-    to {
-      transform: scale(1);
-    }
-  }
-  
-  .singleWorkspaceItem:hover{
-      background-color: lightskyblue;
-  }
-  
-  .dashbord {
-      margin-left: 10px;
-      margin-right: 10px;
-  }
-  
-  .workspaceList, .workspaceUserList {
-      margin-bottom: 5px;
-  }
-  
-  .singleWorkspaceItem {
-      border-color: lightgrey;    
-      margin-top: 5px;
-      padding: 0.75rem;
-      width: 150px;
-  }
-  
-  
-  .userItemRow {
-      flex-wrap: nowrap;
-  }
-  
-  .makeAdmin, .removeFromWorkspace {
-      margin-top: 5px;
-      padding-bottom: 5px;    
-  }
->>>>>>> 63dc66d29e5705948294876888d807f8964c9019
+}
+
+.singleWorkspaceItem:hover {
+  background-color: lightskyblue;
+}
+
+.dashbord {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.workspaceList,
+.workspaceUserList {
+  margin-bottom: 5px;
+}
+
+.singleWorkspaceItem {
+  border-color: lightgrey;
+  margin-top: 5px;
+  padding: 0.75rem;
+  width: 200px;
+}
+
+.userItemRow {
+  flex-wrap: nowrap;
+  height: 100vh;
+  overflow-y: auto;
+  /* padding: 5px; */
+}
+
+.makeAdmin,
+.removeFromWorkspace {
+  margin-top: 5px;
+  padding-bottom: 5px;
+}
+
+.overallDashboard {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.invitesDiv {
+  width: 100%;
+  float: right;
+}
+
+.acceptRejectSpan {
+  padding: 5px;
+}
+
+.workspaceListCol {
+  background-color: rgb(202, 202, 250);
+  width: 40vh;
+  padding-left: 20px;
+}
