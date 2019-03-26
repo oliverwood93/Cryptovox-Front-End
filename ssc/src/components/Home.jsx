@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Link } from '@reach/router';
 import { navigate } from '@reach/router';
-import { getLoginDetails, addUser } from './api';
+import { makeAPICalls } from '../utils/apiCalls';
 import { Alert } from 'react-bootstrap';
 
 function validate( username, password ) {
@@ -26,13 +26,14 @@ export default class Home extends Component {
     };
 
     render() {
+        
         const errors = validate( this.state.username, this.state.password );
         const isDisabled = Object.keys( errors ).some( x => errors[ x ] );
         const errors1 = validate(
             this.state.registerUsername,
             this.state.registerPassword
         );
-        const isDisabled1 = Object.keys( errors1 ).some( x => errors1[ x ] );
+        const isDisabled1 = Object.keys( errors1 ).some( x => errors1[ x ] );        
         return (
             <div className="font">
                 {!this.state.userSignedIn && (
@@ -120,20 +121,34 @@ export default class Home extends Component {
     };
 
     handleSubmit = event => {
+        const { username } = this.state;
+        
         if ( !this.canBeSubmitted() ) {
             event.preventDefault();
             return;
         } else {
             event.preventDefault();
-            getLoginDetails( {
-                username: this.state.username,
-                password: this.state.password
-            } )
-                .then( () => {
-                    this.setState( { userSignedIn: true } );
-                    navigate( '/dashboard' );
+
+            const apiObj = {
+                url: '/login',
+                reqObjectKey: 'user_exists',
+                method: 'post',
+                data: { username: this.state.username, password: this.state.password } 
+            };
+            makeAPICalls( apiObj )
+                .then( ( userExists ) => {
+                    if ( userExists ) {
+                        this.setState( { userSignedIn: true }, () => {
+                            this.props.handleUpdateUser( username ); 
+                            navigate( '/dashboard', { state: { username }, replace: true } );
+                        } );                  
+                    } else {
+                        this.setState( {
+                            signInError: 'Invalid username and/or password'
+                        } );
+                    }                    
                 } )
-                .catch( () => {
+                .catch( ( err ) => {
                     this.setState( {
                         signInError: 'Invalid username and/or password'
                     } );
@@ -148,20 +163,33 @@ export default class Home extends Component {
     }
 
     handleSubmit1 = event => {
+        const { registerUsername } = this.state;
+        
         if ( !this.canBeSubmitted1() ) {
             event.preventDefault();
             return;
         } else {
             event.preventDefault();
-            addUser( {
-                username: this.state.registerUsername,
-                password: this.state.registerPassword
-            } )
-                .then( () => {
-                    this.setState( { userSignedIn: true } );
-                    navigate( '/dashboard' );
+            const apiObj = {
+                url: '/users',
+                reqObjectKey: 'user_added',
+                method: 'post',
+                data: { username: this.state.registerUsername, password: this.state.registerPassword } 
+            };
+            makeAPICalls( apiObj )
+                .then( ( userAdded ) => {
+                    if ( userAdded ) {
+                        this.setState( { userSignedIn: true }, () => {
+                            this.props.handleUpdateUser( registerUsername ); 
+                            navigate( '/dashboard', { state: { username: registerUsername }, replace: true } );
+                        } );                  
+                    } else {
+                        this.setState( {
+                            newUserError: 'Username already exists, please sign in'
+                        } );
+                    }                    
                 } )
-                .catch( () => {
+                .catch( ( err ) => {
                     this.setState( {
                         newUserError: 'Username already exists, please sign in'
                     } );

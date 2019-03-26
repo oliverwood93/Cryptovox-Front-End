@@ -1,50 +1,53 @@
-import React, { Component } from "react";
-import { getInvites } from "../utils/apiCalls";
-import { Button } from "react-bootstrap";
+import React, { Component } from 'react';
+import { makeAPICalls } from '../utils/apiCalls';
+import { Button } from 'react-bootstrap';
 
 class PendingInvites extends Component {
   state = {
-    inviteList: [],
-    isClicked: false
+      invites: [],
+      isClicked: false
   };
   render() {
-    const { inviteList } = this.state;
+      const { invites } = this.state;
 
-    return (
-      <div>
-        <Button variant="warning" onClick={this.handleNotification}>
+      return (
+          <div>
+              <Button variant="warning" onClick={this.handleNotification}>
           View notifications
-        </Button>
-        {this.state.isClicked &&
-          inviteList.map(invite => {
-            return (
-              <div key={invite.workspace}>
-                {invite.invited_by} added you to {invite.workspace}
-              </div>
-            );
-          })}
-      </div>
-    );
+              </Button>
+              {this.state.isClicked &&
+          invites.map( invite => {
+              return (
+                  <div key={invite.workspace}>
+                      {invite.invited_by} added you to {invite.workspace}
+                  </div>
+              );
+          } )}
+          </div>
+      );
   }
   componentDidMount() {
-    this.fetchInvites();
+      this.fetchInvites();
   }
   fetchInvites = () => {
-    const { username } = this.props;
+      const { username } = this.props;
 
-    getInvites(username)
-      .then(invites => {
-        const inviteList = invites.data.data.invites;
-        console.log(inviteList);
-        this.setState({ inviteList });
-      })
-      .catch(error => {
-        return error;
-      });
+      const apiObj = {
+          url: `/invites/${ username }`,
+          reqObjectKey: 'invites',
+          method: 'get'
+      };
+      makeAPICalls( apiObj )
+          .then( ( invites ) => {
+              this.setState( { invites } );                
+          } )
+          .catch( ( err ) => {
+              this.setState( { invites: [] } ); 
+          } );
   };
 
   handleNotification = () => {
-    this.setState({ isClicked: !this.state.isClicked });
+      this.setState( { isClicked: !this.state.isClicked } );
   };
 }
 

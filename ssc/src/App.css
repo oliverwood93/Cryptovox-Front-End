@@ -93,6 +93,7 @@ input[type='password'] {
   to {
     transform: scale(1);
   }
+}
 
 .singleWorkspaceItem:hover{
     background-color: lightskyblue;
