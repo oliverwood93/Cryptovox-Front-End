@@ -180,11 +180,16 @@
    margin-right: 10px;
  }
 
- .invitesDiv {      
+ .invitesDiv {   
+   width: 100%;   
    float: right;
  }
 
- .invitesList {
-  width: 100%;
+ /* .invitesList {
+  
    float: right;
+ } */
+
+ .acceptRejectSpan {
+   padding: 5px;
  }
