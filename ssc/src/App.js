@@ -17,9 +17,7 @@ class App extends Component {
     render() {
         const { username } = this.state;        
         return (
-            <div className="App">
-
-                <h1 className="header">SSC</h1>
+            <div className="App">                
                 <Router>
                     <Home path="/" handleUpdateUser={this.handleUpdateUser}/>
                     <UserDashboard path="/dashboard" username={username} />

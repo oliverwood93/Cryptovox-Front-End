@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { makeAPICalls } from '../utils/apiCalls';
-import { Button } from 'react-bootstrap';
+import { Dropdown, Alert } from 'react-bootstrap';
 
 class PendingInvites extends Component {
   state = {
@@ -11,18 +11,19 @@ class PendingInvites extends Component {
       const { invites } = this.state;
 
       return (
-          <div>
-              <Button variant="warning" onClick={this.handleNotification}>
-          View notifications
-              </Button>
-              {this.state.isClicked &&
-          invites.map( invite => {
-              return (
-                  <div key={invite.workspace}>
-                      {invite.invited_by} added you to {invite.workspace}
-                  </div>
-              );
-          } )}
+          <div className="invitesDiv">
+              {invites.length > 0 
+                  ? <Dropdown>
+                      <Dropdown.Toggle className="invitesList" variant="warning" id="dropdown-custom-1">View Invites</Dropdown.Toggle>
+                      <Dropdown.Menu>
+                          {invites && invites.map( invite => {
+                              return <Dropdown.Item key={invite.workspace} eventKey={invite.workspace}>{invite.invited_by} added you to {invite.workspace}</Dropdown.Item>;
+                          } )
+                          }            
+                      </Dropdown.Menu>
+                  </Dropdown>
+                  : <Alert variant="primary">No pending invites</Alert>
+              }
           </div>
       );
   }
@@ -46,9 +47,6 @@ class PendingInvites extends Component {
           } );
   };
 
-  handleNotification = () => {
-      this.setState( { isClicked: !this.state.isClicked } );
-  };
 }
 
 export default PendingInvites;

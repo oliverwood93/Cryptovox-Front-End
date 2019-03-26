@@ -5,7 +5,7 @@ import PendingInvites from './PendingInvites';
 
 const UserDashboard = ( { location: { state: { username } } } ) => {    
     return (
-        <div>
+        <div className="overallDashboard">
             <h1>Hello {username}</h1>
             <PendingInvites username={username} />
             <Workspaces username={username} />
