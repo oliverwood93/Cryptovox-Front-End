@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { Router } from '@reach/router';
 import Home from './components/Home';
 import UserDashboard from './components/UserDashboard';
@@ -6,9 +7,8 @@ import './App.css';
 
 class App extends Component {
     state = {
-        // pls do note remove
         username: null,
-        //username: 'Coddzilla'
+
     };
 
     handleUpdateUser = ( username ) => {        
@@ -19,11 +19,13 @@ class App extends Component {
         //console.log( username );
         return (
             <div className="App">
+
                 <h1 className="header">SSC</h1>
                 <Router>
                     <Home path="/" handleUpdateUser={this.handleUpdateUser}/>
                     <UserDashboard path="/dashboard" username={username} />
                 </Router>
+
             </div>
         );
     }
