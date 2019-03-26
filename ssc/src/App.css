@@ -77,6 +77,17 @@ p {
   100% {
     opacity: 1;
   }
+
+  
+  .makeAdmin, .removeFromWorkspace {
+      margin-top: 5px;
+      padding-bottom: 5px;    
+  }
+
+  .workspace-file-view{
+    height: 60vh;
+  }
+
 }
 
 button {
@@ -239,3 +250,4 @@ input[type='password'] {
     width: 40vh;
     padding-left: 20px;
  }
+
