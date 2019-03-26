@@ -38,46 +38,8 @@ export const makeAPICalls = ( {
                 .then( ( { status } ) => {
                     resolve( status );
                 } )
-                .catch( ( { response: { data } } ) => {
-                    const err = data.error ? data.error : genericMsg;
-                    reject( err );
-                } );
-        } );
-    } else if ( multiRes ) {
-        return new Promise( ( resolve, reject ) => {
-            instance
-                .request()
-                .then( ( { data } ) => {
-                    resolve( data );
-                } )
                 .catch( res => {
                     const err = res.data ? res.data.error : genericMsg;
-                    reject( err );
-                } );
-        } );
-    } else {
-        return new Promise( ( resolve, reject ) => {
-            instance
-                .request()
-                .then( ( { data: { [ reqObjectKey ]: value } } ) => {
-                    resolve( value );
-                } )
-                .catch( ( { response: { data } } ) => {
-                    const err = data.error ? data.error : genericMsg;
-                    reject( err );
-                } );
-        } );
-    }
-
-    if ( method === 'delete' ) {
-        return new Promise( ( resolve, reject ) => {
-            instance
-                .request()
-                .then( ( { status } ) => {
-                    resolve( status );
-                } )
-                .catch( ( { response: { data } } ) => {
-                    const err = data.error ? data.error : genericMsg;
                     reject( err );
                 } );
         } );
@@ -106,9 +68,4 @@ export const makeAPICalls = ( {
                 } );
         } );
     }
-};
-export const getInvites = async username => {
-    const data = await axios.get( `${ BASE_URL }/invites/${ username }` );
-
-    return { data };
 };
