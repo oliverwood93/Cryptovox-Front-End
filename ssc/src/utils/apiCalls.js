@@ -38,8 +38,8 @@ export const makeAPICalls = ({
         .then(({ status }) => {
           resolve(status);
         })
-        .catch(({ response: { data } }) => {
-          const err = data.error ? data.error : genericMsg;
+        .catch(res => {
+          const err = res.data ? res.data.error : genericMsg;
           reject(err);
         });
     });
@@ -62,16 +62,14 @@ export const makeAPICalls = ({
         .then(({ data: { [reqObjectKey]: value } }) => {
           resolve(value);
         })
-        // .catch( ( { response: { data } } ) => {
-        .catch(data => {
-          // changed this in order to check my function calls... it was complaining about data not being defined
-          console.log(data);
-          const err = data.error ? data.error : genericMsg;
+        .catch(res => {
+          const err = res.data ? res.data.error : genericMsg;
           reject(err);
         });
     });
   }
 };
+
 export const getInvites = async username => {
   const data = await axios.get(`${BASE_URL}/invites/${username}`);
   console.log({ data });

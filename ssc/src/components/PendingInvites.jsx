@@ -1,18 +1,14 @@
 import React, { Component } from "react";
-
-import { getInvites, respond } from "../utils/apiCalls";
-
+import { makeAPICalls } from "../utils/apiCalls";
 import { Button } from "react-bootstrap";
 
 class PendingInvites extends Component {
   state = {
-    inviteList: [],
-
-    isClicked: false,
-    response: null
+    invites: [],
+    isClicked: false
   };
   render() {
-    const { inviteList } = this.state;
+    const { invites } = this.state;
 
     return (
       <div>
@@ -20,26 +16,10 @@ class PendingInvites extends Component {
           View notifications
         </Button>
         {this.state.isClicked &&
-          inviteList.map(invite => {
+          invites.map(invite => {
             return (
               <div key={invite.workspace}>
-                {invite.invited_by} invited you to {invite.workspace}
-                <Button
-                  variant="success"
-                  onClick={() => {
-                    this.handleResponse("True", invite.workspace);
-                  }}
-                >
-                  Accept
-                </Button>
-                <Button
-                  variant="danger"
-                  onClick={() => {
-                    this.handleResponse("False", invite.workspace);
-                  }}
-                >
-                  Reject
-                </Button>
+                {invite.invited_by} added you to {invite.workspace}
               </div>
             );
           })}
@@ -49,35 +29,25 @@ class PendingInvites extends Component {
   componentDidMount() {
     this.fetchInvites();
   }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.response !== prevProps.response) {
-      console.log("hello");
-    }
-  }
-
   fetchInvites = () => {
     const { username } = this.props;
 
-    getInvites(username)
+    const apiObj = {
+      url: `/invites/${username}`,
+      reqObjectKey: "invites",
+      method: "get"
+    };
+    makeAPICalls(apiObj)
       .then(invites => {
-        const inviteList = invites.data.data.invites;
-        console.log(inviteList);
-        this.setState({ inviteList });
+        this.setState({ invites });
       })
-      .catch(error => {
-        return error;
+      .catch(err => {
+        this.setState({ invites: [] });
       });
   };
 
   handleNotification = () => {
     this.setState({ isClicked: !this.state.isClicked });
-  };
-
-  handleResponse = (answer, workspace) => {
-    const { response } = this.state;
-    respond(this.props.username, { response, workspace });
-    this.setState({ response: answer });
   };
 }
 
