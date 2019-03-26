@@ -79,18 +79,15 @@ class Workspaces extends Component {
                     showDeleteConfirm: false
                 } );
             } );
-    };
 
-    render() {
-        const {
-            selectedWorkspace,
-            deleteError,
-            refreshList,
-            showDeleteConfirm
-        } = this.state;
-        const { username } = this.props;
-        return (
-            <Container>
+    }
+    
+    render () {
+        const { selectedWorkspace, deleteError, refreshList, showDeleteConfirm } = this.state;
+        const { username } = this.props;        
+        return (            
+            <div className="dashbord">
+
                 <Row>
                     <Col>
                         {selectedWorkspace !== null &&
@@ -117,6 +114,7 @@ class Workspaces extends Component {
                             refreshDone={this.refreshDone}
                         />
                     </Col>
+
                     <Col>
                         <p>Files List here</p>
                         {selectedWorkspace !== null && (
@@ -127,7 +125,6 @@ class Workspaces extends Component {
                             />
                         )}
                     </Col>
-                    <Col>
                         {selectedWorkspace !== null && (
                             <WorkspaceUsersList
                                 username={username}
@@ -145,6 +142,19 @@ class Workspaces extends Component {
                     />
                 )}
             </Container>
+
+                    <Col>                        
+                        <p>Files come here</p>
+                    </Col>
+                    <Col className="workspacesUserCol">
+                        {selectedWorkspace !== null &&
+                        <WorkspaceUsersList username={username} workspace={selectedWorkspace.workspace} refreshDone={this.refreshDone}/>}
+                    </Col>
+                </Row>
+                {showDeleteConfirm && <DeleteWorkspaceModal showDeleteConfirm={showDeleteConfirm} 
+                    deleteWorkspace={this.deleteWorkspace} handleCloseModal={this.handleCloseModal}/>} 
+            </div>
+
         );
     }
 }
