@@ -102,7 +102,8 @@ class Workspaces extends Component {
                 </Row>
                 <Row>
                     <Col>
-                        <p>Workspace List</p>
+                        
+                        {selectedWorkspace && <h3>{selectedWorkspace.workspace}</h3>}
                         <WorkspaceList refreshList={refreshList} username={username} handleWorkspaceClicked={this.handleWorkspaceClicked} refreshDone={this.refreshDone}/>
                     </Col>
                     <Col>                        
