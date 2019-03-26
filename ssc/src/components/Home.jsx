@@ -26,18 +26,17 @@ export default class Home extends Component {
     };
 
     render() {
-        
         const errors = validate( this.state.username, this.state.password );
         const isDisabled = Object.keys( errors ).some( x => errors[ x ] );
         const errors1 = validate(
             this.state.registerUsername,
             this.state.registerPassword
         );
-        const isDisabled1 = Object.keys( errors1 ).some( x => errors1[ x ] );        
+        const isDisabled1 = Object.keys( errors1 ).some( x => errors1[ x ] );
         return (
             <div className="font">
                 {!this.state.userSignedIn && (
-                    <form onSubmit={this.handleSubmit} className="container">
+                    <form onSubmit={this.handleSubmit} className="container1">
                         <input
                             type="text"
                             placeholder="Username"
@@ -53,8 +52,8 @@ export default class Home extends Component {
                             required
                         />
                         <button disabled={isDisabled}>Login</button>
-                        <p>
-                            Haven't got an account? Register
+                        <p className="register">
+                            Haven't got an account? Register{' '}
                             <Link to={'/'} onClick={this.handleRegister}>
                                 {' '}
                                 here.
@@ -63,7 +62,9 @@ export default class Home extends Component {
                     </form>
                 )}
                 {this.state.signInError !== '' && (
-                    <Alert variant="danger">{this.state.signInError}</Alert>
+                    <Alert className="alert1" variant="danger">
+                        {this.state.signInError}
+                    </Alert>
                 )}
                 {this.state.showRegistration && !this.state.userSignedIn && (
                     <form
@@ -84,11 +85,13 @@ export default class Home extends Component {
                             onChange={this.handlePasswordRChange}
                             required
                         />
-                        <button disabled={isDisabled1}>Register</button>
+                        <button className="homeButtons" disabled={isDisabled1}>Register</button>
                     </form>
                 )}
                 {this.state.newUserError !== '' && (
-                    <Alert variant="danger">{this.state.newUserError}</Alert>
+                    <Alert className="alert2" variant="danger">
+                        {this.state.newUserError}
+                    </Alert>
                 )}
             </div>
         );
@@ -122,7 +125,7 @@ export default class Home extends Component {
 
     handleSubmit = event => {
         const { username } = this.state;
-        
+
         if ( !this.canBeSubmitted() ) {
             event.preventDefault();
             return;
@@ -133,22 +136,28 @@ export default class Home extends Component {
                 url: '/login',
                 reqObjectKey: 'user_exists',
                 method: 'post',
-                data: { username: this.state.username, password: this.state.password } 
+                data: {
+                    username: this.state.username,
+                    password: this.state.password
+                }
             };
             makeAPICalls( apiObj )
-                .then( ( userExists ) => {
+                .then( userExists => {
                     if ( userExists ) {
                         this.setState( { userSignedIn: true }, () => {
-                            this.props.handleUpdateUser( username ); 
-                            navigate( '/dashboard', { state: { username }, replace: true } );
-                        } );                  
+                            this.props.handleUpdateUser( username );
+                            navigate( '/dashboard', {
+                                state: { username },
+                                replace: true
+                            } );
+                        } );
                     } else {
                         this.setState( {
                             signInError: 'Invalid username and/or password'
                         } );
-                    }                    
+                    }
                 } )
-                .catch( ( err ) => {
+                .catch( err => {
                     this.setState( {
                         signInError: 'Invalid username and/or password'
                     } );
@@ -164,7 +173,7 @@ export default class Home extends Component {
 
     handleSubmit1 = event => {
         const { registerUsername } = this.state;
-        
+
         if ( !this.canBeSubmitted1() ) {
             event.preventDefault();
             return;
@@ -174,22 +183,29 @@ export default class Home extends Component {
                 url: '/users',
                 reqObjectKey: 'user_added',
                 method: 'post',
-                data: { username: this.state.registerUsername, password: this.state.registerPassword } 
+                data: {
+                    username: this.state.registerUsername,
+                    password: this.state.registerPassword
+                }
             };
             makeAPICalls( apiObj )
-                .then( ( userAdded ) => {
+                .then( userAdded => {
                     if ( userAdded ) {
                         this.setState( { userSignedIn: true }, () => {
-                            this.props.handleUpdateUser( registerUsername ); 
-                            navigate( '/dashboard', { state: { username: registerUsername }, replace: true } );
-                        } );                  
+                            this.props.handleUpdateUser( registerUsername );
+                            navigate( '/dashboard', {
+                                state: { username: registerUsername },
+                                replace: true
+                            } );
+                        } );
                     } else {
                         this.setState( {
-                            newUserError: 'Username already exists, please sign in'
+                            newUserError:
+                                'Username already exists, please sign in'
                         } );
-                    }                    
+                    }
                 } )
-                .catch( ( err ) => {
+                .catch( err => {
                     this.setState( {
                         newUserError: 'Username already exists, please sign in'
                     } );

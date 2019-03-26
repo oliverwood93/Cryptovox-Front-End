@@ -17,6 +17,12 @@ class Workspaces extends Component {
         showUploadPane: false
     };
 
+    componentDidUpdate( prevProps, prevState ) {
+        if ( this.props.refreshWorkspaces !== prevProps.refreshWorkspaces && this.props.refreshWorkspaces ) {
+            this.setState( { refreshList: true } );
+        }
+    }
+
     refreshDone = () => {
         this.setState( { refreshList: false } );
     };
@@ -105,14 +111,11 @@ class Workspaces extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
-                        <p>Workspace List</p>
-                        <WorkspaceList
-                            refreshList={refreshList}
-                            username={username}
-                            handleWorkspaceClicked={this.handleWorkspaceClicked}
-                            refreshDone={this.refreshDone}
-                        />
+                    <Col >
+                        <Card className="workspaceListCol">
+                            {selectedWorkspace && <h3>{selectedWorkspace.workspace}</h3>}
+                            <WorkspaceList refreshList={refreshList} username={username} handleWorkspaceClicked={this.handleWorkspaceClicked} refreshDone={this.refreshDone}/>
+                        </Card>             
                     </Col>
                     <Col>
                         <div className="file-option-button">

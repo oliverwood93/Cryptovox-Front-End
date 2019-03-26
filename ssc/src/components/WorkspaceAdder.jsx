@@ -4,7 +4,7 @@ import { Form, Button } from 'react-bootstrap';
 
 const WorkspaceAdder = ( { handleAddWorkspace, handleNewWorkspaceChange, newWorkspace } ) => {    
     return (
-        <Form onSubmit={handleAddWorkspace}>
+        <Form onSubmit={handleAddWorkspace} className="workspaceAdder">
             <Form.Group controlId="formBasicWorkspaceName">
                 <Form.Control type="text" value = {newWorkspace} placeholder="Enter new workspace to add" onChange={handleNewWorkspaceChange}/>
             </Form.Group>
