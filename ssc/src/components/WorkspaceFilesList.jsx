@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { makeAPICalls } from '../utils/apiCalls';
 import '../App.css';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, CardColumns } from 'react-bootstrap';
 import './WorkSpaceFiles.css';
 import Mic from '../components/Mic';
 import axios from 'axios';
@@ -12,7 +12,8 @@ class WorkspaceFilesList extends Component {
         workspaceFilesUpdated: false,
         loading: false,
         selectedFile: null,
-        showDecrypt: false
+        showDecrypt: false,
+        notIdentified: false
     };
 
     componentDidMount() {
@@ -21,10 +22,11 @@ class WorkspaceFilesList extends Component {
         this.getWorkspaceFiles( workspace );
     }
     render() {
-        const { files, selectedFile, showDecrypt } = this.state;
+        const { files, selectedFile, showDecrypt, notIdentified } = this.state;
         // const { workspace } = this.props;
         return (
-            <div className="filesStyle">
+            // <CardColumns className="filesStyle">
+            <Fragment>
                 {files.map( singlefile => {
                     return (
                         <div key={singlefile.file_name} className="container">
@@ -50,17 +52,30 @@ class WorkspaceFilesList extends Component {
                                         Decrypt
                                     </Button>
                                     {showDecrypt && (
-                                        <Mic
-                                            decrypt={true}
-                                            handleRecordedAudio={this.handleClick}
-                                        />
+                                        <div>
+                                            <Mic
+                                                decrypt={true}
+                                                handleRecordedAudio={this.handleClick}
+                                            />
+                                            <input
+                                                accept="audio/*"
+                                                type="file"
+                                                onChange={(e) => this.handleClick(e.target.files[0])}
+                                            />
+                                        </div>
+                                    )}
+                                    {notIdentified && (
+                                        <p>
+                                            We have not identifed your audio, if this is the correct
+                                            file then please upload directly
+                                        </p>
                                     )}
                                 </Card.Body>
                             </Card>
                         </div>
                     );
                 } )}
-            </div>
+            </Fragment>
         );
     }
     getWorkspaceFiles = workspace => {
@@ -80,14 +95,18 @@ class WorkspaceFilesList extends Component {
             } );
     };
 
-    handleClick = audiofile => {
+    handleClick = (audiofile) => {
+        console.log(audiofile)
         const { selectedFile } = this.state;
         const { workspace } = this.props;
         const data = new FormData();
         data.append( 'file', audiofile );
 
-        axios.post( `http://localhost:5000/api/decryptFile/${ workspace }/${ selectedFile }`, data )
-        .then(({response}) => console.log(response))
+        axios
+            .post( `http://localhost:5000/api/decryptFile/${ workspace }/${ selectedFile }`, data )
+            .then( ( { data } ) => {
+                if ( data.notIdentified ) this.setState( { notIdentified: true } );
+            } );
         // data.append( 'filename', selectedFile );
         // data.append
 

@@ -27,7 +27,7 @@ export default class Mic extends Component {
             this.mediaRecorder.stop();
             this.setState( { recording: false } );
             this.saveAudio();
-        }, 10000 );
+        }, 7000 );
     }
 
     // stopRecording( e ) {
