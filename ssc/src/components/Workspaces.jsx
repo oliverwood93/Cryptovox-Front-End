@@ -26,7 +26,7 @@ class Workspaces extends Component {
     handleWorkspaceClicked = e => {
         this.setState( {
             selectedWorkspace: {
-                workspace: e.target.textContent,
+                workspace: 'workspace1',
                 isAdmin: e.target.dataset.admin
             },
             deleteError: '',
