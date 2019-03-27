@@ -6,7 +6,7 @@ const WorkspaceAdder = ( { handleAddWorkspace, handleNewWorkspaceChange, newWork
     return (
         <Form onSubmit={handleAddWorkspace} className="workspaceAdder">
             <Form.Group controlId="formBasicWorkspaceName">
-                <Form.Control type="text" value = {newWorkspace} placeholder="Enter new workspace to add" onChange={handleNewWorkspaceChange}/>
+                <Form.Control type="text" value = {newWorkspace} placeholder="Enter new workspace to add" onChange={handleNewWorkspaceChange} autoComplete="off"/>
             </Form.Group>
             <Button variant="primary" type="submit" disabled={newWorkspace === ''}>
                 Add
