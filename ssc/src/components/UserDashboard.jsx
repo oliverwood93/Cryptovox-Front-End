@@ -15,9 +15,10 @@ class UserDashboard extends Component {
 
     render() {
         const { refreshWorkspaces } = this.state;
-        const { username } = this.props;
+        const { username } = this.props;        
         return (
-            <>
+            username !== null
+                ? <>
             <Row className="overallDashboard">
                 <Col/>
                 <Col>
@@ -26,6 +27,7 @@ class UserDashboard extends Component {
             </Row>            
             <Workspaces username={username} refreshWorkspaces={refreshWorkspaces}/>                          
             </>
+                : <></>
         );
     }
 }

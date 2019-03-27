@@ -24,6 +24,12 @@ class App extends Component {
         navigate( '/' );
     };
 
+    componentDidMount () {
+        if ( localStorage.getItem( 'userLoggedIn' ) ) {
+            this.setState( { username: localStorage.getItem( 'userLoggedIn' ) } );
+        } 
+    }
+
     render() {
         const { username } = this.state;
         return (
