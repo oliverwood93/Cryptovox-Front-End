@@ -314,7 +314,7 @@ input::placeholder {
 .workspaceTitle {
   margin-top: 20px;
   margin-bottom: 30px;
-  font-family: "Lucida Console", Monaco, monospace;
+  /* font-family: "Lucida Console", Monaco, monospace; */
 }
 
 div.form-group {
