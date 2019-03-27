@@ -1,0 +1,21 @@
+module.exports.mimeMap = {
+    aac: 'audio/acc',
+    doc: 'application/msword',
+    txt: 'text/plain',
+    gif: 'image/gif',
+    jpg: 'image/jpeg',
+    mp3: 'audio/mpeg',
+    odt: 'application/vnd.oasis.opendocument.text',
+    png: 'image/png',
+    pdf: 'application/pdf',
+    ppt: 'application/vnd.ms-powerpoint',
+    rar: 'application/x-rar-compressed',
+    rtf: 'application/rtf',
+    tar: 'application/x-tar',
+    vsd: 'application/vnd.visio',
+    wav: 'audio/wav',
+    xls: 'application/vnd.ms-excel',
+    xml: 'application/xml',
+    zip: 'application/zip',
+};
+

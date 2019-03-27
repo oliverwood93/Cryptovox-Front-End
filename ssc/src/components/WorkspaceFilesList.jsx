@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { makeAPICalls } from '../utils/apiCalls';
 import '../App.css';
-import { Card, Button, CardColumns } from 'react-bootstrap';
+import { Card, Button, CardColumns, Modal } from 'react-bootstrap';
 import Mic from '../components/Mic';
 import axios from 'axios';
+import formatDownload from '../utils/formatDownload';
 
 class WorkspaceFilesList extends Component {
     state = {
@@ -12,27 +13,42 @@ class WorkspaceFilesList extends Component {
         loading: false,
         selectedFile: null,
         showDecrypt: false,
-        notIdentified: false
+        notIdentified: false,
+        wrongKey: false
     };
 
     componentDidMount() {
         const { workspace } = this.props;
         this.getWorkspaceFiles( workspace );
     }
+    componentDidUpdate( prevProps ) {
+        const { workspace } = this.props;
+        if ( prevProps.workspace !== workspace ) {
+            this.getWorkspaceFiles( workspace );
+            this.setState( { notIdentified: false } );
+        }
+    }
     render() {
-        const { files, showDecrypt, notIdentified } = this.state;
+        const { files, showDecrypt, notIdentified, wrongKey } = this.state;
         return (
             <Fragment>
                 {files.map( singlefile => {
                     return (
                         <div key={singlefile.file_name} className="container">
-                            {/* <li>
-                                <h3>{file.file_name}</h3>
-                            </li> */}
+                            {wrongKey && <Modal show={wrongKey}>
+                                <Modal.Dialog>
+                                    <Modal.Header />
+                                    <Modal.Body>
+                                        <p>Wrong Audio Key Used, if you used recorded please try again by uploading the audio file</p>
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                        <Button onClick={() => this.setState({wrongKey: false})}>Close</Button>
+                                    </Modal.Footer>
+                                </Modal.Dialog>
+                            </Modal>        }
                             <Card style={{ width: '30vw' }}>
                                 <Card.Title>{singlefile.file_name}</Card.Title>
                                 <Card.Body>
-                                    
                                     <Button
                                         variant="primary"
                                         data-filename={singlefile.file_name}
@@ -60,8 +76,8 @@ class WorkspaceFilesList extends Component {
                                     )}
                                     {notIdentified && (
                                         <p>
-                                            We have not identified your audio, if this is the correct
-                                            file then please upload directly
+                                            We have not identified your audio, if this is the
+                                            correct file then please upload directly
                                         </p>
                                     )}
                                 </Card.Body>
@@ -90,20 +106,20 @@ class WorkspaceFilesList extends Component {
     };
 
     handleClick = audiofile => {
-        console.log( audiofile );
         const { selectedFile } = this.state;
         const { workspace } = this.props;
         const data = new FormData();
         data.append( 'file', audiofile );
-
         axios
             .post(
                 `https://ssc-be.herokuapp.com/api/decryptFile/${ workspace }/${ selectedFile }`,
-                data
+                data,
+                { responseType: 'arraybuffer' }
             )
             .then( ( { data } ) => {
-                if ( data.notIdentified ) this.setState( { notIdentified: true } );
-            } ); 
+                formatDownload( data, selectedFile );
+            } )
+            .catch(err =>  this.setState({wrongKey: true}));
     };
 }
 export default WorkspaceFilesList;
