@@ -1,6 +1,5 @@
 .App {
   background-color: #fffcf7;
-  max-height: 100%;
 }
 
 #drop-area {
@@ -49,14 +48,16 @@ p {
   height: auto;
 }
 
-.font {
+#loginForm {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: #fffcf7;
 }
 
 .header {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   position: relative;
-  top: 50px;
   text-align: center;
   justify-content: center;
   opacity: 1;
@@ -64,8 +65,8 @@ p {
   animation-iteration-count: 1;
   animation-timing-function: ease-in;
   animation-duration: 2.5s;
-  margin-bottom: 10px;
-  height: 150px;
+  top: 50px;
+  background-color: #fffcf7;
 }
 
 @keyframes fadeInOpacity {
@@ -84,6 +85,7 @@ p {
   align-items: center;
   height: 50px;
   width: auto;
+  border-radius: 5px 5px 5px 5px;
 }
 .fullUserList {
   background-color: #9dd9d2;
@@ -116,6 +118,7 @@ button {
   border: none;
   cursor: pointer;
   width: 26%;
+  border-radius: 5px 5px 5px 5px;
 }
 
 .container1 {
@@ -140,11 +143,12 @@ input[type='password'] {
   display: inline-block;
   border: 1px solid #ccc;
   box-sizing: border-box;
+  border-radius: 5px 5px 5px 5px;
 }
 
 .modal-content {
   background-color: #fefefe;
-  margin: 5% auto 15% auto;
+  margin: 5% auto auto auto;
   width: 58.5%;
   padding-left: 5px;
   position: fixed;
@@ -184,7 +188,7 @@ input[type='password'] {
   display: grid;
   margin-top: 7vh;
   width: 100%;
-  height: 75vh;
+  height: 79vh;
   grid-auto-columns: 1fr 2fr 1fr;
   grid-template-areas: 'workspace files users';
 }
@@ -193,8 +197,8 @@ input[type='password'] {
   grid-area: workspace;
 }
 .file-section-container {
-  background-color: slategray;
-  width: 50vw;
+  background-color: #a1b5d8;
+  width: 49vw;
   max-height: 100%;
   overflow-y: scroll;
   grid-area: files;
@@ -215,8 +219,10 @@ input[type='password'] {
 .singleWorkspaceItem {
   border-color: lightgrey;
   margin-top: 5px;
+  margin-bottom: 5px;
   padding: 0.75rem;
   width: 15vw;
+  border-radius: 5px 5px 5px 5px;
 }
 
 .userItemRow {
@@ -246,8 +252,9 @@ input[type='password'] {
   justify-content: center;
   width: 296px;
   height: 52px;
-  top: 30px;
+  top: 140px;
   left: 28.9%;
+  border-radius: 5px 5px 5px 5px;
 }
 
 .alert2 {
@@ -257,8 +264,9 @@ input[type='password'] {
   justify-content: center;
   width: 296px;
   height: 52px;
-  top: 360px;
+  top: 395px;
   left: 28.7%;
+  border-radius: 5px 5px 5px 5px;
 }
 
 .overallDashboard {
@@ -267,8 +275,10 @@ input[type='password'] {
 }
 
 .invitesDiv {
-  width: 100%;
+  width: 17.5%;
+  text-align: center;
   float: right;
+  margin-right: 144px;
 }
 
 .acceptRejectSpan {
@@ -278,7 +288,7 @@ input[type='password'] {
 .workspaceListCol {
   grid-area: workspace;
   background-color: #9dd9d2;
-  width: 60vh;
+  width: 24.5vw;
   padding-left: 20px;
   padding-right: 0;
   margin-right: 0;

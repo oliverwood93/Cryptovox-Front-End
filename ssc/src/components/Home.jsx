@@ -34,7 +34,7 @@ export default class Home extends Component {
         );
         const isDisabled1 = Object.keys( errors1 ).some( x => errors1[ x ] );
         return (
-            <div className="font">
+            <div className="loginForm">
                 {!this.state.userSignedIn && (
                     <form onSubmit={this.handleSubmit} className="container1">
                         <input
@@ -148,7 +148,7 @@ export default class Home extends Component {
                     if ( userExists ) {
                         localStorage.setItem( 'userLoggedIn', username );
                         this.setState( { userSignedIn: true }, () => {
-                            this.props.handleLogin( );
+                            this.props.handleLogin();
                         } );
                     } else {
                         this.setState( {
@@ -192,7 +192,7 @@ export default class Home extends Component {
                     if ( userAdded ) {
                         localStorage.setItem( 'userLoggedIn', registerUsername );
                         this.setState( { userSignedIn: true }, () => {
-                            this.props.handleLogin( ); 
+                            this.props.handleLogin();
                         } );
                     } else {
                         this.setState( {

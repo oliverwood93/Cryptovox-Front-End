@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Workspaces from './Workspaces';
 import PendingInvites from './PendingInvites';
-import { Row, Col } from 'react-bootstrap';
 
 class UserDashboard extends Component {
     state = {
