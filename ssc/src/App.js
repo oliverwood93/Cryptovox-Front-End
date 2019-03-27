@@ -11,14 +11,24 @@ class App extends Component {
         username: null
     };
 
-    handleUpdateUser = username => {
-        this.setState( { username } );
+    handleLogin = () => {
+        if ( localStorage.getItem( 'userLoggedIn' ) ) {
+            this.setState( { username: localStorage.getItem( 'userLoggedIn' ) } );
+            navigate( '/dashboard' );
+        }
     };
 
     handleLogout = () => {
+        localStorage.removeItem( 'userLoggedIn' );
         this.setState( { username: null } );
         navigate( '/' );
     };
+
+    componentDidMount() {
+        if ( localStorage.getItem( 'userLoggedIn' ) ) {
+            this.setState( { username: localStorage.getItem( 'userLoggedIn' ) } );
+        }
+    }
 
     render() {
         const { username } = this.state;
@@ -26,7 +36,7 @@ class App extends Component {
             <div className="App">
                 <Header username={username} handleLogout={this.handleLogout} />
                 <Router>
-                    <Home path="/" handleUpdateUser={this.handleUpdateUser} />
+                    <Home path="/" handleLogin={this.handleLogin} />
                     <UserDashboard path="/dashboard" username={username} />
                 </Router>
             </div>

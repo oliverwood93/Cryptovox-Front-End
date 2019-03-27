@@ -2,33 +2,34 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Workspaces from './Workspaces';
 import PendingInvites from './PendingInvites';
-import { Row, Col } from 'react-bootstrap';
 
-class UserDashboard extends Component{    
+class UserDashboard extends Component {
     state = {
         refreshWorkspaces: false
-    }
+    };
 
     handleRefresh = () => {
         this.setState( { refreshWorkspaces: true } );
-    }
-    
-    render () {
+    };
+
+    render() {
         const { refreshWorkspaces } = this.state;
-        const { location: { state: { username } } } = this.props;        
-        return (
+        const { username } = this.props;
+        return username !== null ? (
             <>
-            <Row className="overallDashboard">
-                <Col/>
-                <Col>
-                    <PendingInvites username={username} handleRefresh={this.handleRefresh}/>
-                </Col>
-            </Row>            
-            <Workspaces username={username} refreshWorkspaces={refreshWorkspaces}/>                          
+                <PendingInvites
+                    username={username}
+                    handleRefresh={this.handleRefresh}
+                />
+                <Workspaces
+                    username={username}
+                    refreshWorkspaces={refreshWorkspaces}
+                />
             </>
+        ) : (
+            <></>
         );
     }
-    
 }
 
 UserDashboard.propTypes = {

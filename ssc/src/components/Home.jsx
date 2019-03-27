@@ -1,7 +1,7 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable complexity */
 import React, { Component } from 'react';
 import { Link } from '@reach/router';
-import { navigate } from '@reach/router';
 import { makeAPICalls } from '../utils/apiCalls';
 import { Alert } from 'react-bootstrap';
 
@@ -34,7 +34,7 @@ export default class Home extends Component {
         );
         const isDisabled1 = Object.keys( errors1 ).some( x => errors1[ x ] );
         return (
-            <div className="font">
+            <div className="loginForm">
                 {!this.state.userSignedIn && (
                     <form onSubmit={this.handleSubmit} className="container1">
                         <input
@@ -85,7 +85,9 @@ export default class Home extends Component {
                             onChange={this.handlePasswordRChange}
                             required
                         />
-                        <button className="homeButtons" disabled={isDisabled1}>Register</button>
+                        <button className="homeButtons" disabled={isDisabled1}>
+                            Register
+                        </button>
                     </form>
                 )}
                 {this.state.newUserError !== '' && (
@@ -144,12 +146,9 @@ export default class Home extends Component {
             makeAPICalls( apiObj )
                 .then( userExists => {
                     if ( userExists ) {
+                        localStorage.setItem( 'userLoggedIn', username );
                         this.setState( { userSignedIn: true }, () => {
-                            this.props.handleUpdateUser( username );
-                            navigate( '/dashboard', {
-                                state: { username },
-                                replace: true
-                            } );
+                            this.props.handleLogin();
                         } );
                     } else {
                         this.setState( {
@@ -157,7 +156,7 @@ export default class Home extends Component {
                         } );
                     }
                 } )
-                .catch( err => {
+                .catch( () => {
                     this.setState( {
                         signInError: 'Invalid username and/or password'
                     } );
@@ -171,8 +170,20 @@ export default class Home extends Component {
         return !isDisabled;
     }
 
+    isRegisterUserNameValid = name => {
+        const regex = /[a-zA-Z0-9]/g;
+        const validLength = name.length >= 6 && name.length <= 20;
+        const regexMatch = name.match( regex );
+        const isNameValid = regexMatch && validLength;
+        return isNameValid;
+    };
+    isRegisterPasswordValid = password => {
+        const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,30}$/g;
+        const regexMatch = password.match( regex );
+        return regexMatch !== null;
+    };
     handleSubmit1 = event => {
-        const { registerUsername } = this.state;
+        const { registerUsername, registerPassword } = this.state;
 
         if ( !this.canBeSubmitted1() ) {
             event.preventDefault();
@@ -188,28 +199,54 @@ export default class Home extends Component {
                     password: this.state.registerPassword
                 }
             };
-            makeAPICalls( apiObj )
-                .then( userAdded => {
-                    if ( userAdded ) {
-                        this.setState( { userSignedIn: true }, () => {
-                            this.props.handleUpdateUser( registerUsername );
-                            navigate( '/dashboard', {
-                                state: { username: registerUsername },
-                                replace: true
+            const regUserisValid = this.isRegisterUserNameValid(
+                registerUsername
+            );
+            const regPsswordIsValid = this.isRegisterPasswordValid(
+                registerPassword
+            );
+            if (
+                registerUsername !== '' &&
+                registerPassword !== '' &&
+                regUserisValid &&
+                regPsswordIsValid
+            ) {
+                makeAPICalls( apiObj )
+                    .then( userAdded => {
+                        if ( userAdded ) {
+                            localStorage.setItem(
+                                'userLoggedIn',
+                                registerUsername
+                            );
+                            this.setState( { userSignedIn: true }, () => {
+                                this.props.handleLogin();
                             } );
-                        } );
-                    } else {
+                        } else {
+                            this.setState( {
+                                newUserError:
+                                    'Username already exists, please sign in'
+                            } );
+                        }
+                    } )
+                    .catch( err => {
                         this.setState( {
                             newUserError:
                                 'Username already exists, please sign in'
                         } );
-                    }
-                } )
-                .catch( err => {
-                    this.setState( {
-                        newUserError: 'Username already exists, please sign in'
                     } );
-                } );
+            } else {
+                if ( !regUserisValid ) {
+                    this.setState( {
+                        newUserError:
+                            'Username should contain min six letters . e.g. joHn12'
+                    } );
+                } else {
+                    this.setState( {
+                        newUserError:
+                            'Password should contain Minimum eight characters, at least one letter (one uppercase must) and one number'
+                    } );
+                }
+            }
         }
     };
 

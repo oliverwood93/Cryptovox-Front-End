@@ -1,7 +1,16 @@
+/* eslint-disable complexity */
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import WorkspaceList from './WorkspaceList';
-import { Button, Container, Col, Row, Alert, Card, CardColumns } from 'react-bootstrap';
+import {
+    Button,
+    Container,
+    Col,
+    Row,
+    Alert,
+    Card,
+    CardColumns
+} from 'react-bootstrap';
 import { makeAPICalls } from '../utils/apiCalls';
 import DeleteWorkspaceModal from './DeleteWorkspaceModal';
 import WorkspaceUsersList from './WorkspaceUsersList';
@@ -138,6 +147,7 @@ class Workspaces extends Component {
                                 className="upload-file-button"
                                 disabled={showUploadPane}
                                 onClick={() => this.setState( { showUploadPane: true } )}
+
                             >
                                 Upload File
                             </Button>
@@ -159,6 +169,7 @@ class Workspaces extends Component {
                             workspace={selectedWorkspace.workspace}
                             switchToViewFiles={this.switchToViewFiles}
                         />
+
                     )}
                 </div>
                 <div className="workspacesUserCol">
