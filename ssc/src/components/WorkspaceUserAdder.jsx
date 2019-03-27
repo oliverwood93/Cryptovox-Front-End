@@ -7,7 +7,7 @@ const WorkspaceUserAdder = ( { handleAddUser, handleNewUserChange, newUser, filt
     return (
         <Form onSubmit={handleAddUser}>
             <Form.Group controlId="formBasicUserName">
-                <Form.Control type="text" value = {newUser} placeholder="Enter new User to add" onChange={handleNewUserChange}/>
+                <Form.Control type="text" value = {newUser} placeholder="Enter new User to add" onChange={handleNewUserChange} autoComplete="off"/>
                 {newUser !== '' && <ListGroup>                    
                     {                                            
                         croppedList.map( user => {

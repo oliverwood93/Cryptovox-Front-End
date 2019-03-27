@@ -93,6 +93,16 @@ class WorkspaceFilesList extends Component {
         this.setState({ users: [], workspaceFilesUpdated: false });
       });
   };
+  // makeAPICalls(apiObj)
+  //   .then(files => {
+  //     this.setState({ files, workspaceFilesUpdated: true }, () => {
+  //       this.props.refreshDone();
+  //     });
+  //   })
+  //   .catch(err => {
+  //     this.setState({ users: [], workspaceFilesUpdated: false });
+  //   });
+  // };
 
   handleClick = audiofile => {
     console.log(audiofile);

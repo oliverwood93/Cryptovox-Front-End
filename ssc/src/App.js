@@ -8,7 +8,7 @@ import "./App.css";
 
 class App extends Component {
   state = {
-    username: null
+    username: "Codd"
   };
 
   handleUpdateUser = username => {

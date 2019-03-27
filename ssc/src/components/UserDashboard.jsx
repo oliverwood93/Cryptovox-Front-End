@@ -22,7 +22,6 @@ class UserDashboard extends Component {
     } = this.props;
     return (
       <>
-        <h1>Hello {username}</h1>
         <Row className="overallDashboard">
           <Col />
           <Col>

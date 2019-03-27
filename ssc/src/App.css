@@ -19,12 +19,6 @@
   width: 150px;
 }
 
-.userItemRow {
-  flex-wrap: nowrap;
-  background-color: lavender;
-  border-radius: 15px, 15px, 15px, 15px;
-}
-
 .makeAdmin,
 .removeFromWorkspace {
   margin-top: 5px;
@@ -214,6 +208,10 @@ input[type="password"] {
 
 .userItemRow {
   flex-wrap: nowrap;
+  background-color: lavender;
+  border-radius: 15px, 15px, 15px, 15px;
+  overflow-y: auto;
+  padding: 5px;
 }
 
 .makeAdmin,
@@ -283,13 +281,6 @@ input[type="password"] {
   margin-top: 5px;
   padding: 0.75rem;
   width: 200px;
-}
-
-.userItemRow {
-  flex-wrap: nowrap;
-  height: 100vh;
-  overflow-y: auto;
-  /* padding: 5px; */
 }
 
 .makeAdmin,
