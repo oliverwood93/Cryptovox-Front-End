@@ -31,32 +31,57 @@ class WorkspaceList extends Component {
             } ); 
     }
 
+    isWorkspaceValid = ( name ) => {
+        /* 
+                AWS bucket rules:
+                - Should not contain uppercase characters
+                - Should not contain underscores (_)
+                - Should be between 3 and 63 characters long
+                - Should not end with a dash
+                - Cannot contain two, adjacent periods
+                - Cannot contain dashes next to periods (e.g., "my-.bucket.com" and "my.-bucket" are invalid)
+        */ 
+        const regex = /([A-Z_]*)((\.\.)\1+)*(\.\-)*(\-\.)*(-$)*/g;
+        const validLength = name.length >= 3 && name.length <= 63;
+        const regexMatch = name.match( regex );
+        const regexInvalid = regexMatch.every( ( el ) => {
+            return el = '';
+        } );
+        const isValid = ( !regexInvalid && validLength );        
+        return isValid;
+        
+    }
+
     handleAddWorkspace = ( e ) => {
         e.preventDefault();
         const { newWorkspace } = this.state;
         const { username } = this.props;
-        if ( newWorkspace !== '' ) {
-            const apiObj = {
-                url: '/workspaces',
-                reqObjectKey: 'workspace_added',
-                method: 'post',
-                data: { admin: username, name: newWorkspace }
-            };
-            makeAPICalls( apiObj )
-                .then( ( isWorkspaceCreated ) => {
-                    if ( isWorkspaceCreated ) {
-                        this.setState( { newWorkspace: '', newWorkspaceAdded: true, newWorkspaceError: '' } );
-                    } else {
-                        this.setState( { newWorkspace: '', newWorkspaceAdded: false, 
-                            newWorkspaceError: 'Workspace could not be created' } );
-                    }
+        if ( newWorkspace !== '' && this.isWorkspaceValid( newWorkspace ) ) { const apiObj = {
+            url: '/workspaces',
+            reqObjectKey: 'workspace_added',
+            method: 'post',
+            data: { admin: username, name: newWorkspace }
+        };
+        makeAPICalls( apiObj )
+            .then( ( isWorkspaceCreated ) => {
+                if ( isWorkspaceCreated ) {
+                    this.setState( { newWorkspace: '', newWorkspaceAdded: true, newWorkspaceError: '' } );
+                } else {
+                    this.setState( { newWorkspace: '', newWorkspaceAdded: false, 
+                        newWorkspaceError: 'Workspace could not be created' } );
+                }
                     
-                } )
-                .catch( ( err ) => {                    
-                    this.setState( { newWorkspace: '', newWorkspaceAdded: false, newWorkspaceError: err } );
-                } ); 
+            } )
+            .catch( ( err ) => {                    
+                this.setState( { newWorkspace: '', newWorkspaceAdded: false, newWorkspaceError: err } );
+            } ); 
         } else {
-            this.setState( { newWorkspaceAdded: false, newWorkspaceError: 'Workspace cannot be blank' } );
+            if ( newWorkspace == '' ) {
+                this.setState( { newWorkspaceAdded: false, newWorkspaceError: 'Workspace cannot be blank' } );
+            } else {
+                this.setState( { newWorkspaceAdded: false, newWorkspaceError: 'Workspace must be 3-63 characters, cannot contain uppercase or underscore, must not end in dash, should not have 2 adjacent period and dashes cannot be next to periods.' } );
+            }
+            
         }
         
     }
