@@ -163,9 +163,28 @@ input[type='password'] {
 }
 
 .dashbord {
-  margin-left: 10px;
-  margin-right: 10px;
+  display: grid;
+  margin-top: 7vh;
+  grid-auto-columns: 0.7fr 1fr 0.7fr;
+ grid-template-areas: "workspace files users"
 }
+
+.workspaces {
+  grid-area: workspace;
+
+}
+.file-section-container{
+  background-color: slategray;
+  width: 50vw;
+  grid-area: files;
+  margin-left: 0.25vw;
+   margin-right: 0.25vw;
+}
+
+.workspacesUserCol {
+  grid-area: users;
+}
+
 
 .workspaceList,
 .workspaceUserList {
@@ -249,5 +268,13 @@ input[type='password'] {
     background-color: gainsboro;
     width: 40vh;
     padding-left: 20px;
+    padding-right: 0;
+    margin-right: 0;
  }
+
+
+div.form-group{
+  width: 20vw;
+  margin-right: 0;
+}
 
