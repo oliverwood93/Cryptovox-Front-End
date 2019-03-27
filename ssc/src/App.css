@@ -1,10 +1,6 @@
 .App {
   background-color: #fffcf7;
-  grid-template: 1fr 1fr 8fr/ 1fr 3fr 1fr;
-  grid-template-areas:
-    'Header Header Header'
-    'Dash Dash Dash'
-    'Workspace Files Users';
+  max-height: 100%;
 }
 
 #drop-area {
@@ -16,7 +12,7 @@
   padding: 20px;
 }
 #drop-area.highlight {
-  border-color: #a1b5d8;
+  border-color: purple;
 }
 p {
   margin-top: 0;
@@ -59,7 +55,6 @@ p {
 }
 
 .header {
-  grid-area: Header;
   position: relative;
   top: 50px;
   text-align: center;
@@ -83,24 +78,23 @@ p {
 }
 
 #logout {
-  position: fixed;
-  left: 90%;
-  top: 45px;
+  position: relative;
+  left: 40%;
+  top: -65px;
   align-items: center;
   height: 50px;
   width: auto;
 }
 .fullUserList {
-  background-color: #738290;
-  grid-area: Users;
+  background-color: lightgrey;
 }
 
 .singleUserListBlock {
   display: flex;
-  justify-content: space-around;
-
+  justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
+  background-color: lavender;
   border-radius: black 15px, 15px, 15px, 15px;
   overflow-y: auto;
   /* border-style: solid;
@@ -112,9 +106,6 @@ p {
 .removeFromWorkspace {
   margin-top: 5px;
   padding-bottom: 5px;
-  margin: 2px 5px;
-  width: 67px;
-  height: auto;
 }
 
 .workspace-file-view {
@@ -190,45 +181,44 @@ input[type='password'] {
 }
 
 .singleWorkspaceItem:hover {
-  background-color: #70587c;
+  background-color: lightskyblue;
 }
 
-/* .dashbord {
+.dashbord {
   display: grid;
   margin-top: 7vh;
-  grid-auto-columns: 0.7fr 1fr 0.7fr;
+  width: 100%;
+  grid-auto-columns: 1fr 2fr 1fr;
   grid-template-areas: 'workspace files users';
 }
-*/
-.workspaces {
-  grid-area: Workspace;
-}
 
+.workspaces {
+  grid-area: workspace;
+}
 .file-section-container {
-  background-color: #f7f4ef;
+  background-color: slategray;
   width: 50vw;
-  grid-area: Files;
+  max-height: 100%;
+  overflow-y: scroll;
+  grid-area: files;
   margin-left: 0.25vw;
   margin-right: 0.25vw;
 }
-/*
+
 .workspacesUserCol {
   grid-area: users;
-  background-color: #9dd9d2;
 }
-*/
+
 .workspaceList,
 .workspaceUserList {
   margin-bottom: 5px;
 }
 
 .singleWorkspaceItem {
-  background-color: #e6e6e9;
-  border-color: black;
+  border-color: lightgrey;
   margin-top: 5px;
   padding: 0.75rem;
-  width: 250px;
-  height: auto;
+  width: 150px;
 }
 
 .userItemRow {
@@ -281,7 +271,6 @@ input[type='password'] {
 .invitesDiv {
   width: 100%;
   float: right;
-  grid-area: Dash;
 }
 
 .acceptRejectSpan {
@@ -289,6 +278,7 @@ input[type='password'] {
 }
 
 .workspaceListCol {
+  grid-area: workspace;
   background-color: #9dd9d2;
   width: 40vh;
   padding-left: 20px;
@@ -298,9 +288,5 @@ input[type='password'] {
 
 div.form-group {
   width: 20vw;
-  margin-top: 10px;
-  justify-items: center;
-  align-items: center;
-
-  position: relative;
+  margin-right: 0;
 }
