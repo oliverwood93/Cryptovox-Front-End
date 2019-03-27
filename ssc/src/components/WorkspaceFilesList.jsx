@@ -5,7 +5,6 @@ import { Card, Button, CardColumns } from 'react-bootstrap';
 import Mic from '../components/Mic';
 import axios from 'axios';
 
-
 class WorkspaceFilesList extends Component {
     state = {
         files: [],
@@ -60,7 +59,7 @@ class WorkspaceFilesList extends Component {
                                             <input
                                                 accept="audio/*"
                                                 type="file"
-                                                onChange={(e) => this.handleClick(e.target.files[0])}
+                                                onChange={( e ) => this.handleClick( e.target.files[ 0 ] )}
                                             />
                                         </div>
                                     )}
@@ -95,8 +94,8 @@ class WorkspaceFilesList extends Component {
             } );
     };
 
-    handleClick = (audiofile) => {
-        console.log(audiofile)
+    handleClick = ( audiofile ) => {
+        console.log( audiofile );
         const { selectedFile } = this.state;
         const { workspace } = this.props;
         const data = new FormData();

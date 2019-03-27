@@ -22,19 +22,13 @@ class UserDashboard extends Component {
         } = this.props;
         return (
             <>
-                <Row className="overallDashboard">
-                    <Col />
-                    <Col>
-                        <PendingInvites
-                            username={username}
-                            handleRefresh={this.handleRefresh}
-                        />
-                    </Col>
-                </Row>
-                <Workspaces
-                    username={username}
-                    refreshWorkspaces={refreshWorkspaces}
-                />
+            <Row className="overallDashboard">
+                <Col/>
+                <Col>
+                    <PendingInvites username={username} handleRefresh={this.handleRefresh}/>
+                </Col>
+            </Row>            
+            <Workspaces username={username} refreshWorkspaces={refreshWorkspaces}/>                          
             </>
         );
     }
