@@ -229,6 +229,7 @@ class WorkspaceUsersList extends Component {
         const { handleWorkspaceClicked, username } = this.props;
         return (
             <>
+                <h3 className="usersTitle">Users</h3>
                 {users && (
                     <ListGroup className="fullUserList">
                         {users.map( user => {

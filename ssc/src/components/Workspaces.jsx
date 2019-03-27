@@ -128,7 +128,9 @@ class Workspaces extends Component {
                 </div>
                 <Card className="workspaceListCol">
                     {selectedWorkspace && (
-                        <h3>{selectedWorkspace.workspace}</h3>
+                        <h3 className="workspaceTitle">
+                            {selectedWorkspace.workspace}
+                        </h3>
                     )}
                     <WorkspaceList
                         refreshList={refreshList}
