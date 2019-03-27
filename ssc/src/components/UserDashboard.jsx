@@ -18,7 +18,6 @@ class UserDashboard extends Component{
         const { location: { state: { username } } } = this.props;        
         return (
             <>
-            <h1>Hello {username}</h1>
             <Row className="overallDashboard">
                 <Col/>
                 <Col>
