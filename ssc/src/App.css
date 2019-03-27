@@ -1,7 +1,8 @@
-/* * {
-  background-color: #F04A4A;
+.App {
+  background-color: #fffcf7;
+  max-height: 100%;
 }
- */
+
 #drop-area {
   border: 2px dashed #ccc;
   border-radius: 20px;
@@ -28,6 +29,11 @@ p {
   margin-right: 10px;
   vertical-align: middle;
 }
+
+.addButton {
+  margin-left: 6px;
+  margin-top: 0px;
+}
 .button {
   display: inline-block;
   padding: 10px;
@@ -48,11 +54,9 @@ p {
   height: auto;
 }
 
-/*Will and Shumanator app.css*/
-
 .font {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .header {
@@ -79,34 +83,37 @@ p {
 }
 
 #logout {
-  position: fixed;
-  left: 90%;
-  top: 45px;
+  position: relative;
+  left: 40%;
+  top: -65px;
   align-items: center;
   height: 50px;
   width: auto;
 }
 .fullUserList {
-  background-color: lightgrey;
+  background-color: #9dd9d2;
 }
 
 .singleUserListBlock {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   flex-wrap: nowrap;
-  background-color: lavender;
-  border-radius: black 15px, 15px, 15px, 15px;
-  overflow-y: auto;
-  /* border-style: solid;
- border-width: 0.5px; */
-  margin: 2px;
+  height: 53px;
+  /* border-radius: black 15px, 15px, 15px, 15px; */
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-left: 5px;
+  margin-right: 2px;
 }
 
 .makeAdmin,
 .removeFromWorkspace {
-  margin-top: 5px;
-  padding-bottom: 5px;
+  height: 48.5px;
+  width: 80px;
+  /* padding: 2px; */
+  /* margin-top: 5px;
+  padding-bottom: 5px; */
 }
 
 .workspace-file-view {
@@ -137,14 +144,18 @@ button {
   animation-duration: 2.5s;
 }
 
-input[type='text'],
-input[type='password'] {
+input[type="text"],
+input[type="password"] {
   width: 75%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
+  background-color: #74c7bd;
   box-sizing: border-box;
+}
+input::placeholder {
+  color: black;
 }
 
 .modal-content {
@@ -188,8 +199,10 @@ input[type='password'] {
 .dashbord {
   display: grid;
   margin-top: 7vh;
-  grid-auto-columns: 0.7fr 1fr 0.7fr;
-  grid-template-areas: 'workspace files users';
+  width: 100%;
+  height: 75vh;
+  grid-auto-columns: 1fr 2fr 1fr;
+  grid-template-areas: "workspace files users";
 }
 
 .workspaces {
@@ -197,7 +210,9 @@ input[type='password'] {
 }
 .file-section-container {
   background-color: slategray;
-  width: 50vw;
+  width: 49vw;
+  max-height: 100%;
+  overflow-y: scroll;
   grid-area: files;
   margin-left: 0.25vw;
   margin-right: 0.25vw;
@@ -205,6 +220,8 @@ input[type='password'] {
 
 .workspacesUserCol {
   grid-area: users;
+  background-color: #9dd9d2;
+  border-radius: 5px 5px 5px 5px;
 }
 
 .workspaceList,
@@ -214,19 +231,14 @@ input[type='password'] {
 
 .singleWorkspaceItem {
   border-color: lightgrey;
-  margin-top: 5px;
+  margin-top: 2px;
+  margin-bottom: 5px;
   padding: 0.75rem;
-  width: 150px;
+  width: 14vw;
 }
 
 .userItemRow {
   flex-wrap: nowrap;
-}
-
-.makeAdmin,
-.removeFromWorkspace {
-  margin-top: 5px;
-  padding-bottom: 5px;
 }
 
 .container {
@@ -276,14 +288,28 @@ input[type='password'] {
 }
 
 .workspaceListCol {
-  background-color: gainsboro;
-  width: 40vh;
+  grid-area: workspace;
+  background-color: #9dd9d2;
+  width: 24.5vw;
   padding-left: 20px;
   padding-right: 0;
   margin-right: 0;
 }
 
+.workspaceTitle {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
 div.form-group {
   width: 20vw;
-  margin-right: 0;
+  margin-left: 6px;
+  margin-top: 6px;
+  margin-bottom: 0px;
+  width: 315px;
+}
+
+.usersTitle {
+  margin-top: 20px;
+  margin-bottom: 22px;
 }
