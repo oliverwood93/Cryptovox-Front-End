@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { Link } from '@reach/router';
 import { makeAPICalls } from '../utils/apiCalls';
 import { Alert } from 'react-bootstrap';
-//import { validateAll } from 'indicative';
 
 function validate( username, password ) {
     return {
@@ -23,11 +22,7 @@ export default class Home extends Component {
         registerPassword: '',
         users: [],
         signInError: '',
-        newUserError: '',
-        // registerUserError: '',
-        // registerPasswordError: '',
-        // ReguserNameValid: false,
-        // RegPasswordValid: false
+        newUserError: ''
     };
 
     render() {
@@ -81,8 +76,6 @@ export default class Home extends Component {
                             placeholder="Username"
                             value={this.state.registerUsername}
                             onChange={this.handleUsernameRChange}
-                            // pattern="[a-z0-9]{6,}" //Minimum 6 characters
-                            //title="Username should  contain min six letters. e.g. john12"
                             required
                         />
                         <input
@@ -90,7 +83,6 @@ export default class Home extends Component {
                             placeholder="Password"
                             value={this.state.registerPassword}
                             onChange={this.handlePasswordRChange}
-                            //pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" //Minimum eight characters, at least one letter and one number
                             required
                         />
                         <button className="homeButtons" disabled={isDisabled1}>
@@ -187,9 +179,8 @@ export default class Home extends Component {
     };
     isRegisterPasswordValid = password => {
         const regex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,30}$/g;
-        // const validLength = password.length >= 8 && password.length <= 30;
         const regexMatch = password.match( regex );
-        return regexMatch!==null;
+        return regexMatch !== null;
     };
     handleSubmit1 = event => {
         const { registerUsername, registerPassword } = this.state;
@@ -208,8 +199,8 @@ export default class Home extends Component {
                     password: this.state.registerPassword
                 }
             };
-            const regUserisValid=this.isRegisterUserNameValid( registerUsername ) 
-            const regPsswordIsValid= this.isRegisterPasswordValid( registerPassword )
+            const regUserisValid = this.isRegisterUserNameValid( registerUsername ); 
+            const regPsswordIsValid = this.isRegisterPasswordValid( registerPassword );
             if (
                 registerUsername !== '' &&
                 registerPassword !== '' &&
@@ -218,22 +209,10 @@ export default class Home extends Component {
                 makeAPICalls( apiObj )
                     .then( userAdded => {
                         if ( userAdded ) {
-                            this.setState(
-                                {
-                                    userSignedIn: true,
-                                    ReguserNameValid: true,
-                                    RegPasswordValid: true
-                                },
-                                () => {
-                                    this.props.handleUpdateUser(
-                                        registerUsername
-                                    );
-                                    navigate( '/dashboard', {
-                                        state: { username: registerUsername },
-                                        replace: true
-                                    } );
-                                }
-                            );
+                            localStorage.setItem( 'userLoggedIn', registerUsername );
+                            this.setState( { userSignedIn: true }, () => {
+                                this.props.handleLogin( ); 
+                            } );                            
                         } else {
                             this.setState( {
                                 newUserError:
@@ -248,8 +227,7 @@ export default class Home extends Component {
                         } );
                     } );
             } else {
-
-                if (!regUserisValid) {
+                if ( !regUserisValid ) {
                     this.setState( {
                         newUserError:
                             'Username should contain min six letters . e.g. joHn12'
