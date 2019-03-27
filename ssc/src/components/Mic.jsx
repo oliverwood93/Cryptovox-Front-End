@@ -23,14 +23,19 @@ export default class Mic extends Component {
         this.chunks = [];
         this.mediaRecorder.start( 10 );
         this.setState( { recording: true } );
+        setTimeout( () => {
+            this.mediaRecorder.stop();
+            this.setState( { recording: false } );
+            this.saveAudio();
+        }, 7000 );
     }
 
-    stopRecording( e ) {
-        e.preventDefault();
-        this.mediaRecorder.stop();
-        this.setState( { recording: false } );
-        this.saveAudio();
-    }
+    // stopRecording( e ) {
+    //     e.preventDefault();
+    //     this.mediaRecorder.stop();
+    //     this.setState( { recording: false } );
+    //     this.saveAudio();
+    // }
 
     saveAudio() {
         const blob = new Blob( this.chunks, { type: 'audio/ogg; codecs=opus' } );
@@ -46,6 +51,7 @@ export default class Mic extends Component {
 
     render() {
         const { recording, audios } = this.state;
+        const { decrypt } = this.props;
 
         return (
             // <div className="camera">
@@ -60,7 +66,7 @@ export default class Mic extends Component {
             //     <div>
             <div>
                 {!recording && <button onClick={e => this.startRecording( e )}>Record</button>}
-                {recording && (
+                {/* {recording && (
                     <button
                         onClick={e => {
                             this.stopRecording( e );
@@ -68,11 +74,12 @@ export default class Mic extends Component {
                     >
                         Stop
                     </button>
-                )}
+                )} */}
+                {recording && <p>Recording...</p>}
 
-                <h3>Recorded audios:</h3>
+                {!decrypt && <h3>Recorded audios:</h3>}
 
-                {audios && (
+                {audios && !decrypt && (
                     <div key="audio">
                         <audio controls style={{ width: 200 }} src={audios} />
                         <div>

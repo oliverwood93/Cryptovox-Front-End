@@ -67,11 +67,12 @@ export default class Encryption extends Component {
     };
 
     fileUploadHandler = file => {
+        const {workspace} = this.props
         const data = new FormData();
         data.append( 'file', file );
         data.append( 'filename', file.name ? file.name : `${ Date.now() }.ogg` );
         data.append( 'session_id', this.state.sessionId );
-        data.append( 'bucket_name', 'workspace4567' );
+        data.append( 'bucket_name', workspace );
         axios.post( 'http://localhost:5000/api/encryptFile', data ).then( data => {
             console.log( data );
         } ).catch( ( { response } ) => console.log( { status: response.status, msg: response.data.error } ) );

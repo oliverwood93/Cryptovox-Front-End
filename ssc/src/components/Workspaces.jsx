@@ -1,10 +1,19 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import WorkspaceList from "./WorkspaceList";
-import { Button, Container, Col, Row, Alert, Card } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  Col,
+  Row,
+  Alert,
+  Card,
+  CardColumns
+} from "react-bootstrap";
 import { makeAPICalls } from "../utils/apiCalls";
 import DeleteWorkspaceModal from "./DeleteWorkspaceModal";
 import WorkspaceUsersList from "./WorkspaceUsersList";
+import Encryption from "./Encryption";
 import WorkspaceFilesList from "./WorkspaceFilesList";
 
 class Workspaces extends Component {
@@ -12,7 +21,8 @@ class Workspaces extends Component {
     selectedWorkspace: null,
     deleteError: "",
     refreshList: false,
-    showDeleteConfirm: false
+    showDeleteConfirm: false,
+    showUploadPane: false
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -57,6 +67,37 @@ class Workspaces extends Component {
   deleteWorkspace = () => {
     const { workspace } = this.state.selectedWorkspace;
     const { username } = this.props;
+
+    const apiObj = {
+      url: "/workspaces",
+      reqObjectKey: "workspace_deleted",
+      data: { deleted_by: username, workspace: workspace },
+      method: "delete"
+    };
+    makeAPICalls(apiObj)
+      .then(workspace_deleted => {
+        if (workspace_deleted) {
+          this.setState({
+            deleteError: "",
+            selectedWorkspace: null,
+            refreshList: true,
+            showDeleteConfirm: false
+          });
+        } else {
+          this.setState({
+            deleteError: "Workspace could not be deleted",
+            refreshList: false,
+            showDeleteConfirm: false
+          });
+        }
+      })
+      .catch(err => {
+        this.setState({
+          deleteError: "Workspace could not be deleted",
+          refreshList: false,
+          showDeleteConfirm: false
+        });
+      });
   };
 
   render() {
@@ -64,7 +105,8 @@ class Workspaces extends Component {
       selectedWorkspace,
       deleteError,
       refreshList,
-      showDeleteConfirm
+      showDeleteConfirm,
+      showUploadPane
     } = this.state;
     const { username } = this.props;
     return (
@@ -95,27 +137,43 @@ class Workspaces extends Component {
             </Card>
           </Col>
           <Col>
-            <Card className="workspaceFilelist">
-              <p>Files come here</p>
-              {selectedWorkspace !== null && (
-                <WorkspaceFilesList
-                  username={username}
-                  workspace={selectedWorkspace.workspace}
-                  refreshDone={this.refreshDone}
-                />
-              )}
-            </Card>
+            <div className="file-option-button">
+              <Button
+                disabled={!showUploadPane}
+                onClick={() => this.setState({ showUploadPane: false })}
+              >
+                View Files
+              </Button>
+              <Button
+                disabled={showUploadPane}
+                onClick={() => this.setState({ showUploadPane: true })}
+              >
+                Upload File
+              </Button>
+            </div>
+            {selectedWorkspace !== null && !showUploadPane && (
+              <Fragment>
+                <CardColumns className="filesStyle">
+                  <WorkspaceFilesList
+                    username={username}
+                    workspace={selectedWorkspace.workspace}
+                    refreshDone={this.refreshDone}
+                  />
+                </CardColumns>
+              </Fragment>
+            )}
+            {showUploadPane && (
+              <Encryption workspace={selectedWorkspace.workspace} />
+            )}
           </Col>
           <Col className="workspacesUserCol">
-            <Card className="workspaceUserlistCol">
-              {selectedWorkspace !== null && (
-                <WorkspaceUsersList
-                  username={username}
-                  workspace={selectedWorkspace.workspace}
-                  refreshDone={this.refreshDone}
-                />
-              )}
-            </Card>
+            {selectedWorkspace !== null && (
+              <WorkspaceUsersList
+                username={username}
+                workspace={selectedWorkspace.workspace}
+                refreshDone={this.refreshDone}
+              />
+            )}
           </Col>
         </Row>
         {showDeleteConfirm && (
