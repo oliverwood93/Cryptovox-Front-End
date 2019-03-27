@@ -247,43 +247,33 @@ class WorkspaceUsersList extends Component {
                                         </ListGroup.Item>
                                     </div>
 
-                                    <div>
-                                        <Button
-                                            size="sm"
-                                            disabled={
-                                                user.username === username
-                                            }
-                                            className="makeAdmin"
-                                            onClick={() =>
-                                                this.handleUpdateAdmin(
-                                                    user.username,
-                                                    user.is_admin
-                                                )
-                                            }
-                                        >
-                                            {user.is_admin === 'True'
-                                                ? 'Remove admin'
-                                                : 'Make admin'}
-                                        </Button>
-                                    </div>
+                                    <Button
+                                        size="sm"
+                                        disabled={user.username === username}
+                                        className="makeAdmin"
+                                        onClick={() =>
+                                            this.handleUpdateAdmin(
+                                                user.username,
+                                                user.is_admin
+                                            )
+                                        }
+                                    >
+                                        {user.is_admin === 'True'
+                                            ? 'Remove admin'
+                                            : 'Make admin'}
+                                    </Button>
 
-                                    <div>
-                                        <Button
-                                            size="sm"
-                                            disabled={
-                                                user.username === username
-                                            }
-                                            className="removeFromWorkspace"
-                                            variant="danger"
-                                            onClick={() =>
-                                                this.handleRemoveUser(
-                                                    user.username
-                                                )
-                                            }
-                                        >
-                                            Remove user
-                                        </Button>
-                                    </div>
+                                    <Button
+                                        size="sm"
+                                        disabled={user.username === username}
+                                        className="removeFromWorkspace"
+                                        variant="danger"
+                                        onClick={() =>
+                                            this.handleRemoveUser( user.username )
+                                        }
+                                    >
+                                        Remove user
+                                    </Button>
                                 </div>
                             );
                         } )}

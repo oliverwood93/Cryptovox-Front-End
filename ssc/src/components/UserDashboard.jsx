@@ -15,19 +15,20 @@ class UserDashboard extends Component {
 
     render() {
         const { refreshWorkspaces } = this.state;
-        const { username } = this.props;        
-        return (
-            username !== null
-                ? <>
-            <Row className="overallDashboard">
-                <Col/>
-                <Col>
-                    <PendingInvites username={username} handleRefresh={this.handleRefresh}/>
-                </Col>
-            </Row>            
-            <Workspaces username={username} refreshWorkspaces={refreshWorkspaces}/>                          
+        const { username } = this.props;
+        return username !== null ? (
+            <>
+                <PendingInvites
+                    username={username}
+                    handleRefresh={this.handleRefresh}
+                />
+                <Workspaces
+                    username={username}
+                    refreshWorkspaces={refreshWorkspaces}
+                />
             </>
-                : <></>
+        ) : (
+            <></>
         );
     }
 }
