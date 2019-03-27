@@ -173,25 +173,23 @@ input[type='password'] {
   display: grid;
   margin-top: 7vh;
   grid-auto-columns: 0.7fr 1fr 0.7fr;
- grid-template-areas: "workspace files users"
+  grid-template-areas: 'workspace files users';
 }
 
 .workspaces {
   grid-area: workspace;
-
 }
-.file-section-container{
+.file-section-container {
   background-color: slategray;
   width: 50vw;
   grid-area: files;
   margin-left: 0.25vw;
-   margin-right: 0.25vw;
+  margin-right: 0.25vw;
 }
 
 .workspacesUserCol {
   grid-area: users;
 }
-
 
 .workspaceList,
 .workspaceUserList {
@@ -243,7 +241,7 @@ input[type='password'] {
   justify-content: center;
   width: 296px;
   height: 52px;
-  top: 290px;
+  top: 360px;
   left: 28.7%;
 }
 
@@ -261,16 +259,15 @@ input[type='password'] {
   padding: 5px;
 }
 
- .workspaceListCol {
-    background-color: gainsboro;
-    width: 40vh;
-    padding-left: 20px;
-    padding-right: 0;
-    margin-right: 0;
- }
+.workspaceListCol {
+  background-color: gainsboro;
+  width: 40vh;
+  padding-left: 20px;
+  padding-right: 0;
+  margin-right: 0;
+}
 
-
-div.form-group{
+div.form-group {
   width: 20vw;
   margin-right: 0;
 }

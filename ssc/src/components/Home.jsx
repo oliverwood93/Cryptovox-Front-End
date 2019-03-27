@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable complexity */
 import React, { Component } from 'react';
 import { Link } from '@reach/router';
@@ -85,7 +86,9 @@ export default class Home extends Component {
                             onChange={this.handlePasswordRChange}
                             required
                         />
-                        <button className="homeButtons" disabled={isDisabled1}>Register</button>
+                        <button className="homeButtons" disabled={isDisabled1}>
+                            Register
+                        </button>
                     </form>
                 )}
                 {this.state.newUserError !== '' && (
@@ -157,7 +160,7 @@ export default class Home extends Component {
                         } );
                     }
                 } )
-                .catch( err => {
+                .catch( () => {
                     this.setState( {
                         signInError: 'Invalid username and/or password'
                     } );
@@ -205,7 +208,7 @@ export default class Home extends Component {
                         } );
                     }
                 } )
-                .catch( err => {
+                .catch( () => {
                     this.setState( {
                         newUserError: 'Username already exists, please sign in'
                     } );
