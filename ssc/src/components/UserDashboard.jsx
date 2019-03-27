@@ -15,11 +15,7 @@ class UserDashboard extends Component {
 
   render() {
     const { refreshWorkspaces } = this.state;
-    const {
-      location: {
-        state: { username }
-      }
-    } = this.props;
+    const { username } = this.props;
     return (
       <>
         <Row className="overallDashboard">

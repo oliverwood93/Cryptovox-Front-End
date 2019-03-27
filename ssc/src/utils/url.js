@@ -1,4 +1,4 @@
-exports.BASE_URL = "https://ssc-shumanator.herokuapp.com/api";
+exports.BASEs_URL = "https://ssc-be.herokuapp.com/api";
 exports.USERS_EP = "users";
 exports.LOGIN_EP = "login";
 exports.DELETE_USER_EP = "deleteUser";
