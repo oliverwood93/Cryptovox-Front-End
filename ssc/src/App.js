@@ -15,19 +15,19 @@ class App extends Component {
         if ( localStorage.getItem( 'userLoggedIn' ) ) {
             this.setState( { username: localStorage.getItem( 'userLoggedIn' ) } );
             navigate( '/dashboard' );
-        }        
+        }
     };
 
     handleLogout = () => {
-        localStorage.removeItem( 'userLoggedIn' ); 
+        localStorage.removeItem( 'userLoggedIn' );
         this.setState( { username: null } );
         navigate( '/' );
     };
 
-    componentDidMount () {
+    componentDidMount() {
         if ( localStorage.getItem( 'userLoggedIn' ) ) {
             this.setState( { username: localStorage.getItem( 'userLoggedIn' ) } );
-        } 
+        }
     }
 
     render() {
