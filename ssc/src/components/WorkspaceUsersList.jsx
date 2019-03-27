@@ -219,12 +219,12 @@ class WorkspaceUsersList extends Component {
     } = this.state;
     const { handleWorkspaceClicked, username } = this.props;
     return (
-      <div>
+      <div classname="fullUersList">
         {users && (
           <ListGroup className="workspaceUserList">
             {users.map(user => {
               return (
-                <section key={user.username} className="userItemRow">
+                <div key={user.username} className="singleUserListBlock">
                   <div>
                     <ListGroup.Item
                       action
@@ -259,7 +259,7 @@ class WorkspaceUsersList extends Component {
                       Remove user
                     </Button>
                   </div>
-                </section>
+                </div>
               );
             })}
           </ListGroup>

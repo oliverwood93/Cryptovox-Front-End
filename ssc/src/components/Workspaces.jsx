@@ -111,32 +111,25 @@ class Workspaces extends Component {
     const { username } = this.props;
     return (
       <div className="dashbord">
-        <Row>
-          <Col>
-            {selectedWorkspace !== null &&
-              selectedWorkspace.isAdmin === "true" && (
-                <Button variant="danger" onClick={this.handleDeleteWorkspace}>
-                  Delete Workspace
-                </Button>
-              )}
-            {deleteError !== "" && (
-              <Alert variant="danger">{deleteError} </Alert>
-            )}
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Card className="workspaceListCol">
-              {selectedWorkspace && <h3>{selectedWorkspace.workspace}</h3>}
-              <WorkspaceList
-                refreshList={refreshList}
-                username={username}
-                handleWorkspaceClicked={this.handleWorkspaceClicked}
-                refreshDone={this.refreshDone}
-              />
-            </Card>
-          </Col>
-          <Col>
+        <div className="workspaces">
+          {selectedWorkspace !== null && selectedWorkspace.isAdmin === "true" && (
+            <Button variant="danger" onClick={this.handleDeleteWorkspace}>
+              Delete Workspace
+            </Button>
+          )}
+          {deleteError !== "" && <Alert variant="danger">{deleteError} </Alert>}
+          <Card className="workspaceListCol">
+            {selectedWorkspace && <h3>{selectedWorkspace.workspace}</h3>}
+            <WorkspaceList
+              refreshList={refreshList}
+              username={username}
+              handleWorkspaceClicked={this.handleWorkspaceClicked}
+              refreshDone={this.refreshDone}
+            />
+          </Card>
+        </div>
+        <div className="file-section-container">
+          {selectedWorkspace !== null && (
             <div className="file-option-button">
               <Button
                 disabled={!showUploadPane}
@@ -151,31 +144,31 @@ class Workspaces extends Component {
                 Upload File
               </Button>
             </div>
-            {selectedWorkspace !== null && !showUploadPane && (
-              <Fragment>
-                <CardColumns className="filesStyle">
-                  <WorkspaceFilesList
-                    username={username}
-                    workspace={selectedWorkspace.workspace}
-                    refreshDone={this.refreshDone}
-                  />
-                </CardColumns>
-              </Fragment>
-            )}
-            {showUploadPane && (
-              <Encryption workspace={selectedWorkspace.workspace} />
-            )}
-          </Col>
-          <Col className="workspacesUserCol">
-            {selectedWorkspace !== null && (
-              <WorkspaceUsersList
-                username={username}
-                workspace={selectedWorkspace.workspace}
-                refreshDone={this.refreshDone}
-              />
-            )}
-          </Col>
-        </Row>
+          )}
+          {selectedWorkspace !== null && !showUploadPane && (
+            <Fragment>
+              <CardColumns className="filesStyle">
+                <WorkspaceFilesList
+                  username={username}
+                  workspace={selectedWorkspace.workspace}
+                  refreshDone={this.refreshDone}
+                />
+              </CardColumns>
+            </Fragment>
+          )}
+          {showUploadPane && (
+            <Encryption workspace={selectedWorkspace.workspace} />
+          )}
+        </div>
+        <div className="workspacesUserCol">
+          {selectedWorkspace !== null && (
+            <WorkspaceUsersList
+              username={username}
+              workspace={selectedWorkspace.workspace}
+              refreshDone={this.refreshDone}
+            />
+          )}
+        </div>
         {showDeleteConfirm && (
           <DeleteWorkspaceModal
             showDeleteConfirm={showDeleteConfirm}
