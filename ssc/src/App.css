@@ -206,7 +206,10 @@ input[type="password"] {
   width: 150px;
 }
 
-.userItemRow {
+.workspaceUserList {
+  display: flex;
+  justify-content: center;
+  align-content: space-between;
   flex-wrap: nowrap;
   background-color: lavender;
   border-radius: 15px, 15px, 15px, 15px;

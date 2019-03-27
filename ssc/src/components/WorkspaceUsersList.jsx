@@ -219,13 +219,13 @@ class WorkspaceUsersList extends Component {
     } = this.state;
     const { handleWorkspaceClicked, username } = this.props;
     return (
-      <>
+      <div>
         {users && (
           <ListGroup className="workspaceUserList">
             {users.map(user => {
               return (
-                <Row key={user.username} className="userItemRow">
-                  <Col>
+                <section key={user.username} className="userItemRow">
+                  <div>
                     <ListGroup.Item
                       action
                       className="singleWorkspaceItem"
@@ -233,9 +233,9 @@ class WorkspaceUsersList extends Component {
                     >
                       {user.username}
                     </ListGroup.Item>
-                  </Col>
+                    {/* </div>
 
-                  <Col>
+                  <div> */}
                     <Button
                       size="sm"
                       disabled={user.username === username}
@@ -246,9 +246,9 @@ class WorkspaceUsersList extends Component {
                     >
                       {user.is_admin === "True" ? "Remove admin" : "Make admin"}
                     </Button>
-                  </Col>
+                    {/* </div>
 
-                  <Col>
+                  <div> */}
                     <Button
                       size="sm"
                       disabled={user.username === username}
@@ -258,8 +258,8 @@ class WorkspaceUsersList extends Component {
                     >
                       Remove user
                     </Button>
-                  </Col>
-                </Row>
+                  </div>
+                </section>
               );
             })}
           </ListGroup>
@@ -277,7 +277,7 @@ class WorkspaceUsersList extends Component {
           handleAddUser={this.handleAddUser}
           handleItemClick={this.handleItemClick}
         />
-      </>
+      </div>
     );
   }
 }
