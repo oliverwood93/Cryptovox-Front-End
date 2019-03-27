@@ -278,3 +278,8 @@ div.form-group{
   margin-right: 0;
 }
 
+.file-option-button {
+  display: inline-block;
+  justify-items: center;
+  width: 30vw
+}

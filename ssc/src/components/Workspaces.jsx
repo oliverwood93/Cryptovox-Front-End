@@ -126,12 +126,14 @@ class Workspaces extends Component {
                             {selectedWorkspace !== null && (
                                 <div className="file-option-button">
                                     <Button
+                                    className="view-file-button"
                                         disabled={!showUploadPane}
                                         onClick={() => this.setState( { showUploadPane: false } )}
                                     >
                                         View Files
                                     </Button>
                                     <Button
+                                className="upload-file-button"
                                         disabled={showUploadPane}
                                         onClick={() => this.setState( { showUploadPane: true } )}
                                     >

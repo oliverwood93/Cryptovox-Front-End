@@ -17,14 +17,11 @@ class WorkspaceFilesList extends Component {
 
     componentDidMount() {
         const { workspace } = this.props;
-        console.log( this.props );
         this.getWorkspaceFiles( workspace );
     }
     render() {
-        const { files, selectedFile, showDecrypt, notIdentified } = this.state;
-        // const { workspace } = this.props;
+        const { files, showDecrypt, notIdentified } = this.state;
         return (
-            // <CardColumns className="filesStyle">
             <Fragment>
                 {files.map( singlefile => {
                     return (
@@ -32,12 +29,10 @@ class WorkspaceFilesList extends Component {
                             {/* <li>
                                 <h3>{file.file_name}</h3>
                             </li> */}
-                            <Card style={{ width: '10rem' }}>
+                            <Card style={{ width: '30vw' }}>
+                                <Card.Title>{singlefile.file_name}</Card.Title>
                                 <Card.Body>
-                                    <Card.Title>{singlefile.file_name}</Card.Title>
-                                    <Card.Text>
-                                        Some quick example text to build on the card title.
-                                    </Card.Text>
+                                    
                                     <Button
                                         variant="primary"
                                         data-filename={singlefile.file_name}
@@ -59,13 +54,13 @@ class WorkspaceFilesList extends Component {
                                             <input
                                                 accept="audio/*"
                                                 type="file"
-                                                onChange={( e ) => this.handleClick( e.target.files[ 0 ] )}
+                                                onChange={e => this.handleClick( e.target.files[ 0 ] )}
                                             />
                                         </div>
                                     )}
                                     {notIdentified && (
                                         <p>
-                                            We have not identifed your audio, if this is the correct
+                                            We have not identified your audio, if this is the correct
                                             file then please upload directly
                                         </p>
                                     )}
@@ -94,7 +89,7 @@ class WorkspaceFilesList extends Component {
             } );
     };
 
-    handleClick = ( audiofile ) => {
+    handleClick = audiofile => {
         console.log( audiofile );
         const { selectedFile } = this.state;
         const { workspace } = this.props;
@@ -102,65 +97,13 @@ class WorkspaceFilesList extends Component {
         data.append( 'file', audiofile );
 
         axios
-            .post( `http://localhost:5000/api/decryptFile/${ workspace }/${ selectedFile }`, data )
+            .post(
+                `https://ssc-be.herokuapp.com/api/decryptFile/${ workspace }/${ selectedFile }`,
+                data
+            )
             .then( ( { data } ) => {
                 if ( data.notIdentified ) this.setState( { notIdentified: true } );
-            } );
-        // data.append( 'filename', selectedFile );
-        // data.append
-
-        // console.log( event );
-
-        // const filename = event.target.dataset.filename;
-        // console.log( filename );
-        // const { workspace } = this.props;
-        // this.setState(
-        //     {
-        //         errors: null,
-        //         loading: true,
-        //         filename: filename
-        //     },
-        //     () => {
-        //         const apiObj = {
-        //             url: `/decryptFile/${ workspace }/${ filename }`,
-        //             reqObjectKey: 'filename',
-        //             method: 'get'
-        //         };
-        //         makeAPICalls( apiObj )
-        //             .then( response => response.blob() )
-        //             .then( blob => {
-        //                 // 2. Create blob link to download
-        //                 const url = window.URL.createObjectURL(
-        //                     new Blob( [ blob ] )
-        //                 );
-        //                 const link = document.createElement( 'a' );
-        //                 link.href = url;
-        //                 link.setAttribute(
-        //                     'download',
-        //                     `sample.${ this.state.file }`
-        //                 );
-        //                 // 3. Append to html page
-        //                 document.body.appendChild( link );
-        //                 // 4. Force download
-        //                 link.click();
-        //                 // 5. Clean up and remove the link
-        //                 link.parentNode.removeChild( link );
-        //                 this.setState( {
-        //                     loading: false
-        //                 } );
-        //             } )
-        //             .catch( error => {
-        //                 error.json().then( json => {
-        //                     this.setState( {
-        //                         errors: json,
-        //                         loading: false
-        //                     } );
-        //                 } );
-        //             } );
-        //     }
-        // );
-
-        // event.preventDefault();
+            } ); 
     };
 }
 export default WorkspaceFilesList;

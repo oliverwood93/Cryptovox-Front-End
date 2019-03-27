@@ -10,11 +10,13 @@ export default class Encryption extends Component {
     state = {
         selectedAudioFile: null,
         selectedFileToEncrypt: null,
+        isFileToEncryptSelected: false,
         sessionId: null,
         trackInfo: null,
         notRecognised: false,
         recordedNotRecognised: false,
-        fileError: false
+        fileError: false,
+        isRecorded: false
     };
     audioSelectedHandler = event => {
         this.setState( { selectedAudioFile: event.target.files[ 0 ] } );
@@ -27,9 +29,9 @@ export default class Encryption extends Component {
         data.append( 'filename', file.name ? file.name : `${ Date.now() }.ogg` );
         data.append( 'session_id', sessionId );
         if ( isRecorded ) data.append( 'isRecorded', isRecorded );
-        this.setState( { sessionId } );
+        this.setState( { sessionId, isRecorded } );
         axios
-            .post( 'http://localhost:5000/api/audiokey', data )
+            .post( 'https://ssc-be.herokuapp.com/api/audiokey', data )
             .then( ( { data } ) => {
                 if ( data.artist ) {
                     this.setState( {
@@ -63,19 +65,27 @@ export default class Encryption extends Component {
             .catch( err => console.log( err ) );
     };
     fileSelectedHandler = event => {
-        this.setState( { selectedFileToEncrypt: event.target.files[ 0 ] } );
+        this.setState( {
+            selectedFileToEncrypt: event.target.files[ 0 ],
+            isFileToEncryptSelected: true
+        } );
     };
 
     fileUploadHandler = file => {
-        const {workspace} = this.props
+        const { workspace } = this.props;
         const data = new FormData();
         data.append( 'file', file );
         data.append( 'filename', file.name ? file.name : `${ Date.now() }.ogg` );
         data.append( 'session_id', this.state.sessionId );
         data.append( 'bucket_name', workspace );
-        axios.post( 'http://localhost:5000/api/encryptFile', data ).then( data => {
-            console.log( data );
-        } ).catch( ( { response } ) => console.log( { status: response.status, msg: response.data.error } ) );
+        axios
+            .post( 'https://ssc-be.herokuapp.com/api/encryptFile', data )
+            .then( data => {
+                console.log( data );
+            } )
+            .catch( ( { response } ) =>
+                console.log( { status: response.status, msg: response.data.error } )
+            );
     };
 
     render() {
@@ -85,11 +95,12 @@ export default class Encryption extends Component {
             fileError,
             selectedAudioFile,
             recordedNotRecognised,
-            selectedFileToEncrypt
+            selectedFileToEncrypt,
+            isFileToEncryptSelected,
+            isRecorded
         } = this.state;
 
         return (
-            // console.log(trackInfo)
             <div>
                 <AudioFileUpload
                     audioSelectedHandler={this.audioSelectedHandler}
@@ -102,10 +113,14 @@ export default class Encryption extends Component {
                     recordedNotRecognised={recordedNotRecognised}
                 />
                 <Mic handleRecordedAudio={this.audioUploadHandler} />
-                <FileToEncrypt selectedAudioFile={selectedAudioFile}
+                <FileToEncrypt
+                    recordedNotRecognised={recordedNotRecognised}
+                    selectedAudioFile={selectedAudioFile}
                     fileSelectedHandler={this.fileSelectedHandler}
                     fileUploadHandler={this.fileUploadHandler}
                     selectedFileToEncrypt={selectedFileToEncrypt}
+                    isFileToEncryptSelected={isFileToEncryptSelected}
+                    isRecorded={isRecorded}
                 />
             </div>
         );
