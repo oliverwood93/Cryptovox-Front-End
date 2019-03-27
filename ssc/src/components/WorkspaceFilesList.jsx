@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { makeAPICalls } from '../utils/apiCalls';
 import '../App.css';
 import { Card, Button, CardColumns } from 'react-bootstrap';
-import './WorkSpaceFiles.css';
 import Mic from '../components/Mic';
 import axios from 'axios';
 
