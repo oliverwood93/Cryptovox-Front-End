@@ -209,13 +209,14 @@ input::placeholder {
   grid-area: workspace;
 }
 .file-section-container {
-  background-color: slategray;
+  background-color: rgb(245, 250, 255);
   width: 49vw;
   max-height: 100%;
   overflow-y: scroll;
   grid-area: files;
   margin-left: 0.25vw;
   margin-right: 0.25vw;
+  border-radius: 5px 5px 5px 5px;
 }
 
 .workspacesUserCol {
