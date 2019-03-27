@@ -1,7 +1,6 @@
 /* eslint-disable complexity */
 import React, { Component } from 'react';
 import { Link } from '@reach/router';
-import { navigate } from '@reach/router';
 import { makeAPICalls } from '../utils/apiCalls';
 import { Alert } from 'react-bootstrap';
 
@@ -144,12 +143,9 @@ export default class Home extends Component {
             makeAPICalls( apiObj )
                 .then( userExists => {
                     if ( userExists ) {
+                        localStorage.setItem( 'userLoggedIn', username );
                         this.setState( { userSignedIn: true }, () => {
-                            this.props.handleUpdateUser( username );
-                            navigate( '/dashboard', {
-                                state: { username },
-                                replace: true
-                            } );
+                            this.props.handleLogin( );
                         } );
                     } else {
                         this.setState( {
@@ -191,12 +187,9 @@ export default class Home extends Component {
             makeAPICalls( apiObj )
                 .then( userAdded => {
                     if ( userAdded ) {
+                        localStorage.setItem( 'userLoggedIn', registerUsername );
                         this.setState( { userSignedIn: true }, () => {
-                            this.props.handleUpdateUser( registerUsername );
-                            navigate( '/dashboard', {
-                                state: { username: registerUsername },
-                                replace: true
-                            } );
+                            this.props.handleLogin( ); 
                         } );
                     } else {
                         this.setState( {
