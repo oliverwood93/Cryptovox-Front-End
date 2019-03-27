@@ -66,7 +66,6 @@ class WorkspaceUsersList extends Component {
         e.preventDefault();
         const { newUser } = this.state;
         const { username, workspace } = this.props;
-        console.log( newUser, workspace, username );
         if ( newUser !== '' ) {
             const apiObj = {
                 url: '/invites',

@@ -4,18 +4,22 @@ export default function FileToEncrypt( {
     fileSelectedHandler,
     fileUploadHandler,
     selectedFileToEncrypt,
-    selectedAudioFile
+    selectedAudioFile,
+    recordedNotRecognised,
+    isFileToEncryptSelected,
+    isRecorded
 } ) {
-    console.log(selectedAudioFile)
     return (
-        <div>
+        <div className="file-upload-section">
             <input
-                disabled={selectedAudioFile? false : true}
+                disabled={
+                    selectedAudioFile || ( !recordedNotRecognised && isRecorded ) ? false : true
+                }
                 type="file"
                 onChange={fileSelectedHandler}
             />
             <button
-                disabled={selectedAudioFile ? false : true}
+                disabled={!isFileToEncryptSelected}
                 onClick={() => fileUploadHandler( selectedFileToEncrypt )}
             >
                 Click to Encrypt File

@@ -34,6 +34,9 @@ class Workspaces extends Component {
             this.setState( { refreshList: true } );
         }
     }
+    switchToViewFiles = () => {
+        this.setState( { showUploadPane: false } );
+    };
 
     refreshDone = () => {
         this.setState( { refreshList: false } );
@@ -50,7 +53,8 @@ class Workspaces extends Component {
                 isAdmin: e.target.dataset.admin
             },
             deleteError: '',
-            refreshList: false
+            refreshList: false,
+            showUploadPane: false
         } );
     };
 
@@ -113,48 +117,37 @@ class Workspaces extends Component {
         return (
             <div className="dashbord">
                 <div className="workspaces">
-                    {selectedWorkspace !== null &&
-                        selectedWorkspace.isAdmin === 'true' && (
-                        <Button
-                            variant="danger"
-                            onClick={this.handleDeleteWorkspace}
-                        >
-                                Delete Workspace
+                    {selectedWorkspace !== null && selectedWorkspace.isAdmin === 'true' && (
+                        <Button variant="danger" onClick={this.handleDeleteWorkspace}>
+                            Delete Workspace
                         </Button>
                     )}
-                    {deleteError !== '' && (
-                        <Alert variant="danger">{deleteError} </Alert>
-                    )}
+                    {deleteError !== '' && <Alert variant="danger">{deleteError} </Alert>}
+                    <Card className="workspaceListCol">
+                        {selectedWorkspace && <h3>{selectedWorkspace.workspace}</h3>}
+                        <WorkspaceList
+                            refreshList={refreshList}
+                            username={username}
+                            handleWorkspaceClicked={this.handleWorkspaceClicked}
+                            refreshDone={this.refreshDone}
+                        />
+                    </Card>
                 </div>
-                <Card className="workspaceListCol">
-                    {selectedWorkspace && (
-                        <h3 className="workspaceTitle">
-                            {selectedWorkspace.workspace}
-                        </h3>
-                    )}
-                    <WorkspaceList
-                        refreshList={refreshList}
-                        username={username}
-                        handleWorkspaceClicked={this.handleWorkspaceClicked}
-                        refreshDone={this.refreshDone}
-                    />
-                </Card>
                 <div className="file-section-container">
                     {selectedWorkspace !== null && (
                         <div className="file-option-button">
                             <Button
+                                className="view-file-button"
                                 disabled={!showUploadPane}
-                                onClick={() =>
-                                    this.setState( { showUploadPane: false } )
-                                }
+                                onClick={() => this.setState( { showUploadPane: false } )}
                             >
                                 View Files
                             </Button>
                             <Button
+                                className="upload-file-button"
                                 disabled={showUploadPane}
-                                onClick={() =>
-                                    this.setState( { showUploadPane: true } )
-                                }
+                                onClick={() => this.setState( { showUploadPane: true } )}
+
                             >
                                 Upload File
                             </Button>
@@ -172,7 +165,11 @@ class Workspaces extends Component {
                         </Fragment>
                     )}
                     {showUploadPane && (
-                        <Encryption workspace={selectedWorkspace.workspace} />
+                        <Encryption
+                            workspace={selectedWorkspace.workspace}
+                            switchToViewFiles={this.switchToViewFiles}
+                        />
+
                     )}
                 </div>
                 <div className="workspacesUserCol">
