@@ -56,18 +56,17 @@ p {
 }
 
 .header {
-  top: 52px;
-  left: 33%;
-  font-size: 3rem;
-  display: flex;
-  position: fixed;
-  align-items: center;
+  position: relative;
+  top: 50px;
+  text-align: center;
   justify-content: center;
   opacity: 1;
   animation-name: fadeInOpacity;
   animation-iteration-count: 1;
   animation-timing-function: ease-in;
   animation-duration: 2.5s;
+  margin-bottom: 10px;
+  height: 150px;
 }
 
 @keyframes fadeInOpacity {
@@ -77,17 +76,41 @@ p {
   100% {
     opacity: 1;
   }
+}
 
-  
-  .makeAdmin, .removeFromWorkspace {
-      margin-top: 5px;
-      padding-bottom: 5px;    
-  }
+#logout {
+  position: fixed;
+  left: 90%;
+  top: 45px;
+  align-items: center;
+  height: 50px;
+  width: auto;
+}
+.fullUserList {
+  background-color: lightgrey;
+}
 
-  .workspace-file-view{
-    height: 60vh;
-  }
+.singleUserListBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  background-color: lavender;
+  border-radius: black 15px, 15px, 15px, 15px;
+  overflow-y: auto;
+  /* border-style: solid;
+ border-width: 0.5px; */
+  margin: 2px;
+}
 
+.makeAdmin,
+.removeFromWorkspace {
+  margin-top: 5px;
+  padding-bottom: 5px;
+}
+
+.workspace-file-view {
+  height: 60vh;
 }
 
 button {
@@ -107,7 +130,7 @@ button {
   align-items: center;
   justify-content: center;
   top: 25%;
-  left: 25%;
+  left: 28%;
   animation-name: fadeInOpacity;
   animation-iteration-count: 1;
   animation-timing-function: ease-in;
@@ -131,8 +154,8 @@ input[type='password'] {
   padding-left: 5px;
   position: fixed;
   border: none;
-  top: 480px;
-  left: 488px;
+  top: 50%;
+  left: 28.5%;
 }
 
 .animate {
@@ -163,8 +186,25 @@ input[type='password'] {
 }
 
 .dashbord {
-  margin-left: 10px;
-  margin-right: 10px;
+  display: grid;
+  margin-top: 7vh;
+  grid-auto-columns: 0.7fr 1fr 0.7fr;
+  grid-template-areas: 'workspace files users';
+}
+
+.workspaces {
+  grid-area: workspace;
+}
+.file-section-container {
+  background-color: slategray;
+  width: 50vw;
+  grid-area: files;
+  margin-left: 0.25vw;
+  margin-right: 0.25vw;
+}
+
+.workspacesUserCol {
+  grid-area: users;
 }
 
 .workspaceList,
@@ -189,16 +229,6 @@ input[type='password'] {
   padding-bottom: 5px;
 }
 
-.logout {
-  display: flex;
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  left: 1690px;
-  top: 50px;
-  width: 150px;
-}
-
 .container {
   display: flex;
   flex-direction: row;
@@ -216,8 +246,8 @@ input[type='password'] {
   justify-content: center;
   width: 296px;
   height: 52px;
-  top: 200px;
-  left: 496px;
+  top: 30px;
+  left: 28.9%;
 }
 
 .alert2 {
@@ -227,27 +257,33 @@ input[type='password'] {
   justify-content: center;
   width: 296px;
   height: 52px;
-  top: 520px;
-  left: 496px;
+  top: 360px;
+  left: 28.7%;
 }
 
 .overallDashboard {
-   margin-left: 10px;
-   margin-right: 10px;
- }
+  margin-left: 10px;
+  margin-right: 10px;
+}
 
- .invitesDiv {   
-   width: 100%;   
-   float: right;
- }
+.invitesDiv {
+  width: 100%;
+  float: right;
+}
 
- .acceptRejectSpan {
-   padding: 5px;
- }
+.acceptRejectSpan {
+  padding: 5px;
+}
 
- .workspaceListCol {
-    background-color: gainsboro;
-    width: 40vh;
-    padding-left: 20px;
- }
+.workspaceListCol {
+  background-color: gainsboro;
+  width: 40vh;
+  padding-left: 20px;
+  padding-right: 0;
+  margin-right: 0;
+}
 
+div.form-group {
+  width: 20vw;
+  margin-right: 0;
+}

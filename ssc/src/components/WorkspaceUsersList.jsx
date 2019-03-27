@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Alert, ListGroup, Button, Col, Row } from 'react-bootstrap';
@@ -7,35 +8,34 @@ import WorkspaceUserAdder from './WorkspaceUserAdder';
 // import WorkspaceUserAddAutoSuggester from './WorkspaceUserAddAutoSuggester';
 
 class WorkspaceUsersList extends Component {
-
     state = {
         users: [],
         nonMembers: [],
         filteredUsers: [],
         newUser: '',
         newUserAdded: false,
-        newUserError: '' , 
-        workspaceUpdated: false    
-    }
+        newUserError: '',
+        workspaceUpdated: false
+    };
 
-    getWorkspaceUsers = ( workspace ) => {                
+    getWorkspaceUsers = workspace => {
         const apiObj = {
             url: `/workspaces/${ workspace }/users`,
             reqObjectKey: 'users',
             method: 'get'
         };
         makeAPICalls( apiObj )
-            .then( ( users ) => {                
+            .then( users => {
                 this.setState( { users, workspaceUpdated: false }, () => {
                     this.getAllUsers();
-                } );                
+                } );
             } )
-            .catch( ( err ) => {
-                this.setState( { users: [], workspaceUpdated: false } ); 
-            } ); 
-    }
+            .catch( err => {
+                this.setState( { users: [], workspaceUpdated: false } );
+            } );
+    };
 
-    getAllUsers = ( ) => {  
+    getAllUsers = () => {
         const { users } = this.state;
 
         const apiObj = {
@@ -44,23 +44,25 @@ class WorkspaceUsersList extends Component {
             method: 'get'
         };
         makeAPICalls( apiObj )
-            .then( ( allUsers ) => {
+            .then( allUsers => {
                 const nonMembers = [];
                 allUsers.forEach( ( { username } ) => {
-                    const exists = users.some( user => user.username === username );                    
+                    const exists = users.some(
+                        user => user.username === username
+                    );
                     if ( !exists ) {
                         nonMembers.push( { username } );
                     }
                 } );
 
-                this.setState( { nonMembers, workspaceUpdated: false } );                
+                this.setState( { nonMembers, workspaceUpdated: false } );
             } )
-            .catch( ( err ) => {
-                this.setState( { nonMembers: [], workspaceUpdated: false } ); 
-            } ); 
-    }
+            .catch( err => {
+                this.setState( { nonMembers: [], workspaceUpdated: false } );
+            } );
+    };
 
-    handleAddUser = ( e ) => {
+    handleAddUser = e => {
         e.preventDefault();
         const { newUser } = this.state;
         const { username, workspace } = this.props;
@@ -73,84 +75,129 @@ class WorkspaceUsersList extends Component {
                 data: { invitedBy: username, username: newUser, workspace }
             };
             makeAPICalls( apiObj )
-                .then( ( isUserInvited ) => {
+                .then( isUserInvited => {
                     if ( isUserInvited ) {
-                        this.setState( { newUser: '', newUserAdded: true, newUserError: '' } );
+                        this.setState( {
+                            newUser: '',
+                            newUserAdded: true,
+                            newUserError: ''
+                        } );
                     } else {
-                        this.setState( { newUser: '', newUserAdded: false, 
-                            newUserError: 'User could not be invited' } );
+                        this.setState( {
+                            newUser: '',
+                            newUserAdded: false,
+                            newUserError: 'User could not be invited'
+                        } );
                     }
-                    
                 } )
-                .catch( ( err ) => {                    
-                    this.setState( { newUser: '', newUserAdded: false, newUserError: err } );
-                } ); 
+                .catch( err => {
+                    this.setState( {
+                        newUser: '',
+                        newUserAdded: false,
+                        newUserError: err
+                    } );
+                } );
         } else {
-            this.setState( { newUser: '', newUserAdded: false, newUserError: 'User cannot be blank' } );
+            this.setState( {
+                newUser: '',
+                newUserAdded: false,
+                newUserError: 'User cannot be blank'
+            } );
         }
-        
-    }
-    
-    handleNewUserChange = ( e ) => {           
+    };
+
+    handleNewUserChange = e => {
         const { nonMembers } = this.state;
         const txt = e.target.value;
-        const filteredUsers = nonMembers.filter( nonMember => nonMember.username.includes( txt ) );
-        this.setState( { newUser: txt, newUserError: '', newUserAdded: false, filteredUsers } );
-    }
+        const filteredUsers = nonMembers.filter( nonMember =>
+            nonMember.username.includes( txt )
+        );
+        this.setState( {
+            newUser: txt,
+            newUserError: '',
+            newUserAdded: false,
+            filteredUsers
+        } );
+    };
 
-    handleItemClick = ( e ) => {        
+    handleItemClick = e => {
         const { nonMembers } = this.state;
         const txt = e.target.textContent;
-        const filteredUsers = nonMembers.filter( nonMember => nonMember.username.includes( txt ) );
-        this.setState( { newUser: txt, newUserError: '', newUserAdded: false, filteredUsers } );
-    }
+        const filteredUsers = nonMembers.filter( nonMember =>
+            nonMember.username.includes( txt )
+        );
+        this.setState( {
+            newUser: txt,
+            newUserError: '',
+            newUserAdded: false,
+            filteredUsers
+        } );
+    };
 
     handleUpdateAdmin = ( userToUpdate, currentAdminFlag ) => {
         const admin = this.props.username;
         const { workspace } = this.props;
-        const newAdminFlag = currentAdminFlag === 'True' ? 'False' : 'True';        
+        const newAdminFlag = currentAdminFlag === 'True' ? 'False' : 'True';
         const apiObj = {
             url: `/workspaces/${ workspace }`,
             reqObjectKey: 'workspace_admin_updated',
             method: 'put',
-            data: { username: userToUpdate, admin_username: admin, make_admin: newAdminFlag }
+            data: {
+                username: userToUpdate,
+                admin_username: admin,
+                make_admin: newAdminFlag
+            }
         };
         makeAPICalls( apiObj )
-            .then( ( workspace_admin_updated ) => {
-                this.setState( { workspaceUpdated: workspace_admin_updated }, () => {
-                    this.props.refreshDone();
-                } );                
+            .then( workspace_admin_updated => {
+                this.setState(
+                    { workspaceUpdated: workspace_admin_updated },
+                    () => {
+                        this.props.refreshDone();
+                    }
+                );
             } )
-            .catch( ( err ) => {
-                this.setState( { workspaceUpdated: false } ); 
+            .catch( err => {
+                this.setState( { workspaceUpdated: false } );
             } );
+    };
 
-    }
-
-    handleRemoveUser = ( userToDelete ) => {
+    handleRemoveUser = userToDelete => {
         const admin = this.props.username;
         const { workspace } = this.props;
-        
+
         const apiObj = {
             url: '/deleteUser',
             reqObjectKey: 'user_deleted_from_workspace',
             method: 'delete',
-            data: { username: userToDelete, admin_username: admin, workspace_name: workspace }
+            data: {
+                username: userToDelete,
+                admin_username: admin,
+                workspace_name: workspace
+            }
         };
         makeAPICalls( apiObj )
-            .then( ( workspace_admin_updated ) => {
-                this.setState( { workspaceUpdated: workspace_admin_updated }, () => {
-                    this.props.refreshDone();
-                } );                
+            .then( workspace_admin_updated => {
+                this.setState(
+                    { workspaceUpdated: workspace_admin_updated },
+                    () => {
+                        this.props.refreshDone();
+                    }
+                );
             } )
-            .catch( ( err ) => {
-                this.setState( { workspaceUpdated: false } ); 
+            .catch( err => {
+                this.setState( { workspaceUpdated: false } );
             } );
+    };
 
-    }
-
-    componentDidUpdate ( prevProps, prevState ) {         
-        const { workspaceUpdated, newUserAdded, newUser, filteredUsers, nonMembers } = this.state;
+    componentDidUpdate( prevProps, prevState ) {
+        const {
+            workspaceUpdated,
+            newUserAdded,
+            newUser,
+            filteredUsers,
+            nonMembers
+        } = this.state;
         const { workspace } = this.props;
         if ( workspace !== prevProps.workspace ) {
             this.getWorkspaceUsers( workspace );
@@ -158,58 +205,106 @@ class WorkspaceUsersList extends Component {
             this.getWorkspaceUsers( workspace );
         } else if ( newUserAdded !== prevState.newUserAdded ) {
             this.getWorkspaceUsers( workspace );
-        } else if ( newUser === '' && filteredUsers.length === 0 && nonMembers.length !== 0 ) {
+        } else if (
+            newUser === '' &&
+            filteredUsers.length === 0 &&
+            nonMembers.length !== 0
+        ) {
             this.setState( { filteredUsers: nonMembers } );
         }
-
     }
-    componentDidMount() {        
-        const { workspace } = this.props;        
+    componentDidMount() {
+        const { workspace } = this.props;
         this.getWorkspaceUsers( workspace );
     }
 
-    render () {
-        const { users, newUserAdded, newUserError,newUser, filteredUsers } = this.state;
-        const { handleWorkspaceClicked, username } = this.props;        
-        return (            
+    render() {
+        const {
+            users,
+            newUserAdded,
+            newUserError,
+            newUser,
+            filteredUsers
+        } = this.state;
+        const { handleWorkspaceClicked, username } = this.props;
+        return (
             <>
-            {
-                users && 
-                <ListGroup className="workspaceUserList">
-                    {users.map( user => {
-                        
-                        return <Row key={user.username} className="userItemRow" >                        
-                            <Col>
-                                <ListGroup.Item
-                                    action className="singleWorkspaceItem" onClick={handleWorkspaceClicked}>{
-                                        user.username}
-                                </ListGroup.Item>
-                            </Col>
-                            
-                            <Col>
-                                <Button size="sm" disabled={user.username === username} className="makeAdmin" onClick={() => this.handleUpdateAdmin( user.username, user.is_admin )}>
-                                    {user.is_admin === 'True' ? 'Remove admin' : 'Make admin'}
-                                </Button> 
-                            </Col> 
+                {users && (
+                    <ListGroup className="fullUserList">
+                        {users.map( user => {
+                            return (
+                                <div
+                                    className="singleUserListBlock"
+                                    key={user.username}
+                                >
+                                    <div>
+                                        <ListGroup.Item
+                                            action
+                                            className="singleWorkspaceItem"
+                                            onClick={handleWorkspaceClicked}
+                                        >
+                                            {user.username}
+                                        </ListGroup.Item>
+                                    </div>
 
-                            <Col>
-                                <Button size="sm" disabled={user.username === username}className="removeFromWorkspace" variant="danger" onClick={() => this.handleRemoveUser( user.username )}>Remove user</Button> 
-                            </Col>
-                                                                                                                  
-                        </Row>;
-                        
-                    } )}                    
-                </ListGroup>
-            }
-            {!newUserAdded && newUserError !== '' 
-                && <Alert variant="danger">{newUserError} </Alert>}
-            {newUserAdded && newUserError === '' && newUser === ''
-            && <Alert variant="success">User has been invited</Alert>}                    
-                <WorkspaceUserAdder newUser={newUser} filteredUsers={filteredUsers} handleNewUserChange={this.handleNewUserChange} 
-                    handleAddUser={this.handleAddUser} handleItemClick={this.handleItemClick}/>      
+                                    <div>
+                                        <Button
+                                            size="sm"
+                                            disabled={
+                                                user.username === username
+                                            }
+                                            className="makeAdmin"
+                                            onClick={() =>
+                                                this.handleUpdateAdmin(
+                                                    user.username,
+                                                    user.is_admin
+                                                )
+                                            }
+                                        >
+                                            {user.is_admin === 'True'
+                                                ? 'Remove admin'
+                                                : 'Make admin'}
+                                        </Button>
+                                    </div>
+
+                                    <div>
+                                        <Button
+                                            size="sm"
+                                            disabled={
+                                                user.username === username
+                                            }
+                                            className="removeFromWorkspace"
+                                            variant="danger"
+                                            onClick={() =>
+                                                this.handleRemoveUser(
+                                                    user.username
+                                                )
+                                            }
+                                        >
+                                            Remove user
+                                        </Button>
+                                    </div>
+                                </div>
+                            );
+                        } )}
+                    </ListGroup>
+                )}
+                {!newUserAdded && newUserError !== '' && (
+                    <Alert variant="danger">{newUserError} </Alert>
+                )}
+                {newUserAdded && newUserError === '' && newUser === '' && (
+                    <Alert variant="success">User has been invited</Alert>
+                )}
+                <WorkspaceUserAdder
+                    newUser={newUser}
+                    filteredUsers={filteredUsers}
+                    handleNewUserChange={this.handleNewUserChange}
+                    handleAddUser={this.handleAddUser}
+                    handleItemClick={this.handleItemClick}
+                />
             </>
         );
-    }    
+    }
 }
 
 WorkspaceUsersList.propTypes = {

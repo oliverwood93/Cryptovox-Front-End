@@ -1,7 +1,7 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable complexity */
 import React, { Component } from 'react';
 import { Link } from '@reach/router';
-import { navigate } from '@reach/router';
 import { makeAPICalls } from '../utils/apiCalls';
 import { Alert } from 'react-bootstrap';
 //import { validateAll } from 'indicative';
@@ -154,12 +154,9 @@ export default class Home extends Component {
             makeAPICalls( apiObj )
                 .then( userExists => {
                     if ( userExists ) {
+                        localStorage.setItem( 'userLoggedIn', username );
                         this.setState( { userSignedIn: true }, () => {
-                            this.props.handleUpdateUser( username );
-                            navigate( '/dashboard', {
-                                state: { username },
-                                replace: true
-                            } );
+                            this.props.handleLogin( );
                         } );
                     } else {
                         this.setState( {
@@ -167,7 +164,7 @@ export default class Home extends Component {
                         } );
                     }
                 } )
-                .catch( err => {
+                .catch( () => {
                     this.setState( {
                         signInError: 'Invalid username and/or password'
                     } );
