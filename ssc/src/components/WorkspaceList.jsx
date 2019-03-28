@@ -76,7 +76,7 @@ class WorkspaceList extends Component {
                 this.setState( { newWorkspace: '', newWorkspaceAdded: false, newWorkspaceError: err } );
             } ); 
         } else {
-            if ( newWorkspace == '' ) {
+            if ( newWorkspace === '' ) {
                 this.setState( { newWorkspaceAdded: false, newWorkspaceError: 'Workspace cannot be blank' } );
             } else {
                 this.setState( { newWorkspaceAdded: false, newWorkspaceError: 'Workspace must be 3-63 characters, cannot contain uppercase or underscore, must not end in dash, should not have 2 adjacent period and dashes cannot be next to periods.' } );

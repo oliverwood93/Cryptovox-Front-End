@@ -1,11 +1,10 @@
 /* eslint-disable complexity */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Alert, ListGroup, Button, Col, Row } from 'react-bootstrap';
+import { Alert, ListGroup, Button } from 'react-bootstrap';
 import { makeAPICalls } from '../utils/apiCalls';
 import '../App.css';
 import WorkspaceUserAdder from './WorkspaceUserAdder';
-// import WorkspaceUserAddAutoSuggester from './WorkspaceUserAddAutoSuggester';
 
 class WorkspaceUsersList extends Component {
     state = {
