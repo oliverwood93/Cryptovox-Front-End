@@ -5,6 +5,8 @@
 }
 
 .signed-in-display {
+  padding: 0;
+  padding-top: 1vh;
   grid-area: signed;
   margin-bottom: 0.5vh;
   height: 4vh;
@@ -13,6 +15,7 @@
 }
 .pendingInvites {
   display:block;
+  padding: 0;
   width: 25vw;
   margin-top: 1vh;
   margin-bottom: 0.5vh;
