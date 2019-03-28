@@ -86,11 +86,8 @@ class WorkspaceList extends Component {
                     } );
                 } );
         } else {
-            if ( newWorkspace == '' ) {
-                this.setState( {
-                    newWorkspaceAdded: false,
-                    newWorkspaceError: 'Workspace cannot be blank'
-                } );
+            if ( newWorkspace === '' ) {
+                this.setState( { newWorkspaceAdded: false, newWorkspaceError: 'Workspace cannot be blank' } );
             } else {
                 this.setState( {
                     newWorkspaceAdded: false,

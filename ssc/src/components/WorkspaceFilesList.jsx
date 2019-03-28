@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { makeAPICalls } from '../utils/apiCalls';
 import '../App.css';
-import { Card, Button, CardColumns, Modal } from 'react-bootstrap';
+import { Card, Button, Modal } from 'react-bootstrap';
 import Mic from '../components/Mic';
 import axios from 'axios';
 import formatDownload from '../utils/formatDownload';
@@ -42,10 +42,10 @@ class WorkspaceFilesList extends Component {
                                         <p>Wrong Audio Key Used, if you used recorded please try again by uploading the audio file</p>
                                     </Modal.Body>
                                     <Modal.Footer>
-                                        <Button onClick={() => this.setState({wrongKey: false})}>Close</Button>
+                                        <Button onClick={() => this.setState( { wrongKey: false } )}>Close</Button>
                                     </Modal.Footer>
                                 </Modal.Dialog>
-                            </Modal>        }
+                            </Modal> }
                             <Card style={{ width: '30vw' }}>
                                 <Card.Title>{singlefile.file_name}</Card.Title>
                                 <Card.Body>
@@ -119,7 +119,7 @@ class WorkspaceFilesList extends Component {
             .then( ( { data } ) => {
                 formatDownload( data, selectedFile );
             } )
-            .catch(err =>  this.setState({wrongKey: true}));
+            .catch( err => this.setState( { wrongKey: true } ) );
     };
 }
 export default WorkspaceFilesList;
