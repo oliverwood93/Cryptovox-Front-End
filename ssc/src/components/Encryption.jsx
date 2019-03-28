@@ -5,7 +5,6 @@ import '../App.css';
 import Mic from '../components/Mic';
 import AudioFileUpload from '../components/AudioFileUpload';
 import FileToEncrypt from '../components/FileToEncrypt';
-import { navigate } from '@reach/router/lib/history';
 
 export default class Encryption extends Component {
     state = {
@@ -32,7 +31,7 @@ export default class Encryption extends Component {
     };
 
     audioUploadHandler = ( file, isRecorded ) => {
-        if (!file) return
+        if ( !file ) return;
         const sessionId = uuid.v1();
         const data = new FormData();
         data.append( 'file', file );
@@ -96,7 +95,7 @@ export default class Encryption extends Component {
                 if ( data === 'encrypted' ) switchToViewFiles();
             } )
             .catch( response => {
-                console.log( { status: response.status, msg: response.data.error } )
+                console.log( { status: response.status, msg: response.data.error } );
             } );
     };
 
