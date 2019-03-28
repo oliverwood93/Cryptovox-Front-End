@@ -125,7 +125,7 @@ class Workspaces extends Component {
                             <div className="current-space-container">
                                 {' '}
                                 <Badge className="space-header" variant="dark">
-                                    Workspace: {" "}
+                                    Workspace: {' '}
                                     {selectedWorkspace.workspace}
                                 </Badge>
                             </div>
@@ -180,6 +180,7 @@ class Workspaces extends Component {
                         <WorkspaceUsersList
                             username={username}
                             workspace={selectedWorkspace.workspace}
+                            isAdmin={selectedWorkspace.isAdmin}
                             refreshDone={this.refreshDone}
                         />
                     )}

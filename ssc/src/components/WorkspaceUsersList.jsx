@@ -222,9 +222,10 @@ class WorkspaceUsersList extends Component {
             newUserAdded,
             newUserError,
             newUser,
-            filteredUsers
+            filteredUsers            
         } = this.state;
-        const { handleWorkspaceClicked, username } = this.props;
+        const { handleWorkspaceClicked, username, isAdmin } = this.props;
+        
         return (
             <>
                 <h3 className="usersTitle">Users</h3>
@@ -248,7 +249,7 @@ class WorkspaceUsersList extends Component {
 
                                     <Button
                                         size="sm"
-                                        disabled={user.username === username}
+                                        disabled={user.username === username || isAdmin === 'false'}
                                         className="makeAdmin"
                                         onClick={() =>
                                             this.handleUpdateAdmin(
@@ -264,7 +265,7 @@ class WorkspaceUsersList extends Component {
 
                                     <Button
                                         size="sm"
-                                        disabled={user.username === username}
+                                        disabled={user.username === username || isAdmin === 'false'}
                                         className="removeFromWorkspace"
                                         variant="danger"
                                         onClick={() =>
