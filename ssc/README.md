@@ -1,68 +1,65 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# SecureSoniCryptor (SSC)
 
-## Available Scripts
+This is a secure file sharing [website](https://ssc-fe.netlify.com/) that allows you to encrypt files using audio. The backend API to this website is available [here](https://ssc-be.herokuapp.com/api) for which the git can be found [here](https://github.com/theshumanator/nc-be-finalproject). 
 
-In the project directory, you can run:
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Prerequisites
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+It is assumed that VS code (or another appropriate alternative) runs on your machine. 
 
-### `npm test`
+You also need node (at least v11.0.0) and npm (at least version 6.4.1) installed on your machine.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installing
 
-### `npm run build`
+#### Get the code
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Fork the project from git. Then copy the git url and in the appropriate folder on your machine:
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+```
+git clone <url from git>
+```
+This will create the project on your local machine. Open the project in VS code (or alternative app).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Install dependencies
 
-### `npm run eject`
+Run the following to install body-parser, chai, express, nodemon, knex, mocha, pg & supertest. 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+npm install 
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Once all required dependencies are installed, you can check the node_modules folder (which should be created now) to see if the folders for each of these libraries exists.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Running the app
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+To run the app:
+```
+npm start
+```
 
-## Learn More
+## Tech used
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Front end
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Frameworks
+The front-end was developed using React with some components taken from React Bootstrap.
 
-### Code Splitting
+#### Testing
+Testing was done with Cypress. Given the limited time, not all of the test cases were incorporated.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+### Back end
+The backend was written entirely in Python. The database holding the workspace, user and files info is Postgres and Flask was used to build the server. Tavern was used for testing.
 
-### Analyzing the Bundle Size
+### Sprint management
+A Trello board was used to track the todo list with 2 daily standups.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## Team
 
-### Making a Progressive Web App
+* **Lizzie** - [Coddzilla](https://github.com/Coddzilla)
+* **Ollie** - [oliverwood93](https://github.com/oliverwood93)
+* **Shumanator** - [theshumanator](https://github.com/theshumanator)
+* **Will** - [WillemTaylor](https://github.com/WillemTaylor)
+* **Yuvraj** - [yuvi1401](https://github.com/yuvi1401)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
