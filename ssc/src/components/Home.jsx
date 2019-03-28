@@ -28,16 +28,14 @@ export default class Home extends Component {
     render() {
         const errors = validate( this.state.username, this.state.password );
         const isDisabled = Object.keys( errors ).some( x => errors[ x ] );
-        const errors1 = validate(
-            this.state.registerUsername,
-            this.state.registerPassword
-        );
+        const errors1 = validate( this.state.registerUsername, this.state.registerPassword );
         const isDisabled1 = Object.keys( errors1 ).some( x => errors1[ x ] );
         return (
             <div className="loginForm">
                 {!this.state.userSignedIn && (
                     <form onSubmit={this.handleSubmit} className="container1">
                         <input
+                            className="log-ins"
                             type="text"
                             placeholder="Username"
                             value={this.state.username}
@@ -45,6 +43,7 @@ export default class Home extends Component {
                             required
                         />
                         <input
+                            className="log-ins"
                             type="password"
                             placeholder="Password"
                             value={this.state.password}
@@ -67,11 +66,9 @@ export default class Home extends Component {
                     </Alert>
                 )}
                 {this.state.showRegistration && !this.state.userSignedIn && (
-                    <form
-                        onSubmit={this.handleSubmit1}
-                        className="modal-content animate"
-                    >
+                    <form onSubmit={this.handleSubmit1} className="modal-content animate">
                         <input
+                            className="log-ins"
                             type="text"
                             placeholder="Username"
                             value={this.state.registerUsername}
@@ -79,6 +76,7 @@ export default class Home extends Component {
                             required
                         />
                         <input
+                            className="log-ins"
                             type="password"
                             placeholder="Password"
                             value={this.state.registerPassword}
@@ -199,12 +197,8 @@ export default class Home extends Component {
                     password: this.state.registerPassword
                 }
             };
-            const regUserisValid = this.isRegisterUserNameValid(
-                registerUsername
-            );
-            const regPsswordIsValid = this.isRegisterPasswordValid(
-                registerPassword
-            );
+            const regUserisValid = this.isRegisterUserNameValid( registerUsername );
+            const regPsswordIsValid = this.isRegisterPasswordValid( registerPassword );
             if (
                 registerUsername !== '' &&
                 registerPassword !== '' &&
@@ -214,31 +208,25 @@ export default class Home extends Component {
                 makeAPICalls( apiObj )
                     .then( userAdded => {
                         if ( userAdded ) {
-                            localStorage.setItem(
-                                'userLoggedIn',
-                                registerUsername
-                            );
+                            localStorage.setItem( 'userLoggedIn', registerUsername );
                             this.setState( { userSignedIn: true }, () => {
                                 this.props.handleLogin();
                             } );
                         } else {
                             this.setState( {
-                                newUserError:
-                                    'Username already exists, please sign in'
+                                newUserError: 'Username already exists, please sign in'
                             } );
                         }
                     } )
                     .catch( err => {
                         this.setState( {
-                            newUserError:
-                                'Username already exists, please sign in'
+                            newUserError: 'Username already exists, please sign in'
                         } );
                     } );
             } else {
                 if ( !regUserisValid ) {
                     this.setState( {
-                        newUserError:
-                            'Username should contain min six letters . e.g. joHn12'
+                        newUserError: 'Username should contain min six letters . e.g. joHn12'
                     } );
                 } else {
                     this.setState( {
@@ -251,10 +239,7 @@ export default class Home extends Component {
     };
 
     canBeSubmitted1() {
-        const errors1 = validate(
-            this.state.registerUsername,
-            this.state.registerPassword
-        );
+        const errors1 = validate( this.state.registerUsername, this.state.registerPassword );
         const isDisabled1 = Object.keys( errors1 ).some( x => errors1[ x ] );
         return !isDisabled1;
     }
