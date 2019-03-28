@@ -205,6 +205,7 @@ class WorkspaceUsersList extends Component {
                 {users && (
                     <ListGroup className="fullUserList">
                         {users.map( user => {
+                            console.log(user)
                             return (
                                 <div className="singleUserListBlock" key={user.username}>
                                     <div>
@@ -219,7 +220,9 @@ class WorkspaceUsersList extends Component {
 
                                     <Button
                                         size="sm"
-                                        disabled={user.username === username}
+                                        disabled={
+                                            user.username === username 
+                                        }
                                         className="makeAdmin"
                                         onClick={() =>
                                             this.handleUpdateAdmin( user.username, user.is_admin )
@@ -230,7 +233,9 @@ class WorkspaceUsersList extends Component {
 
                                     <Button
                                         size="sm"
-                                        disabled={user.username === username}
+                                        disabled={
+                                            user.username === username 
+                                        }
                                         className="removeFromWorkspace"
                                         variant="danger"
                                         onClick={() => this.handleRemoveUser( user.username )}

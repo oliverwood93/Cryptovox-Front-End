@@ -1,9 +1,21 @@
 .App {
   background-color: rgb(255, 255, 255);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
     "Open Sans", "Helvetica Neue", sans-serif;
 }
-
+/* 
+.invite-btn{
+  width: 30vw;
+  margin-right: 5vw
+} */
+.signed-in-display{
+  position: absolute;
+  width: 25vw;
+  align-self: right;
+ margin-left: 75vw;
+text-align: center;
+ top: 0.5vh
+}
 .pendingInvites {
   width: 25vw;
   right: 3.5vw;
@@ -66,7 +78,7 @@ p {
   background-color: #fffcf7;
 }
 
-.logo{
+.logo {
   height: 12vh;
 
   grid-area: logo;
@@ -86,7 +98,7 @@ p {
   animation-iteration-count: 1;
   animation-timing-function: ease-in;
   animation-duration: 2.5s;
-  margin-top: 2vh;
+  margin-top: 3vh;
   height: 7vh;
   margin-bottom: 1vh;
 }
@@ -107,13 +119,12 @@ p {
   justify-self: left;
   width: 25vw;
   margin-top: 3vh;
-  
 }
 .fullUserList {
   background-color: #9dd9d2;
 }
 
-.user-add-container{
+.user-add-container {
   margin-top: 2vh;
   display: grid;
   grid-template-columns: 1fr 0.5fr;
@@ -121,21 +132,21 @@ p {
   align-items: center;
 }
 
-.user-adder-form{
-  grid-area: form
+.user-adder-form {
+  grid-area: form;
 }
 
-.addButton{
+.addButton {
   grid-area: btn;
   width: 5vw;
   margin: 0 0 0 1vw;
 }
 
-.user-title{
-    margin-top: 1vh;
+.user-title {
+  margin-top: 1vh;
   margin-bottom: 0.5vh;
   font-size: 1.3rem;
-   margin-left: 0.5vw;
+  margin-left: 0.5vw;
   text-align: center;
 }
 
@@ -290,11 +301,15 @@ input::placeholder {
   width: 49vw;
   max-height: 100%;
   overflow-y: scroll;
-  overflow: hidden;
+  overflow-x: hidden;
   grid-area: files;
   margin-left: 0.25vw;
   margin-right: 0.25vw;
   border-radius: 5px 5px 5px 5px;
+}
+
+.file-section-container::-webkit-scrollbar {
+  width: 0 !important;
 }
 .record-img {
   border: 0;
@@ -378,6 +393,11 @@ input::placeholder {
   grid-area: users;
   background-color: #9dd9d2;
   border-radius: 5px 5px 5px 5px;
+  overflow-y: scroll;
+}
+
+.workspacesUserCol::-webkit-scrollbar {
+  width: 0 !important;
 }
 
 .workspaceList,
@@ -457,6 +477,11 @@ input::placeholder {
   padding-right: 0;
   margin-right: 0;
   height: 80vh;
+  overflow-y: scroll;
+}
+
+.workspaceListCol::-webkit-scrollbar {
+  width: 0 !important;
 }
 
 .workspaceTitle {
@@ -478,8 +503,7 @@ div.form-group {
   flex-direction: row;
   justify-content: space-evenly;
   width: 30vw;
-  margin: 0 auto
-
+  margin: 0 auto;
 }
 
 .encryption-container {
@@ -563,11 +587,10 @@ div.form-group {
 nav.nav.nav-tabs {
   height: 6vh;
   /* background-color:white; */
-  color: white
-
+  color: white;
 }
-a.nav-item.nav-link{
-  border: 1px solid rgb(255, 255, 255)
+a.nav-item.nav-link {
+  border: 1px solid rgb(255, 255, 255);
 }
 /* .upload-file-tab > a.nav-item.nav-link{
    background-color: #ca2727

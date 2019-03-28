@@ -158,7 +158,7 @@ class Workspaces extends Component {
                             </Button>
                         </div>
                     )}
-                    {!selectedWorkspace && <Alert variant="warning">Please select or create a workspace</Alert>}
+                    {!selectedWorkspace && <Alert className="no-ws-warn" variant="warning">Please select or create a workspace</Alert>}
                     {selectedWorkspace !== null && !showUploadPane && (
                         <Fragment>
                             <CardColumns className="filesStyle">

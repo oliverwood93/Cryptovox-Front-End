@@ -139,6 +139,7 @@ export default class Encryption extends Component {
                                 trackInfo={trackInfo}
                                 isUploadPage={true}
                                 handleRecording={this.handleRecording}
+                                isEncryption={true}
                                 recording={recording}
                             />
                         </Card>

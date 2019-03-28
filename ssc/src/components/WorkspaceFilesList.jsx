@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { makeAPICalls } from '../utils/apiCalls';
 import '../App.css';
-import { Card, Button, Modal, ListGroup } from 'react-bootstrap';
+import { Card, Button, Modal, ListGroup, Alert } from 'react-bootstrap';
 import Mic from '../components/Mic';
 import axios from 'axios';
 import formatDownload from '../utils/formatDownload';
@@ -15,12 +15,14 @@ class WorkspaceFilesList extends Component {
         selectedFile: null,
         showDecrypt: false,
         notIdentified: false,
-        wrongKey: false
+        wrongKey: false,
+        didMount: false,
     };
 
     componentDidMount() {
         const { workspace } = this.props;
         this.getWorkspaceFiles( workspace );
+        this.setState({didMount: true})
     }
     componentDidUpdate( prevProps ) {
         const { workspace } = this.props;
@@ -30,9 +32,10 @@ class WorkspaceFilesList extends Component {
         }
     }
     render() {
-        const { files, showDecrypt, notIdentified, wrongKey, selectedFile } = this.state;
+        const { files, showDecrypt, notIdentified, wrongKey, selectedFile, didMount } = this.state;
         return (
             <ListGroup className="container">
+            {files.length === 0 && didMount && <Alert variant="warning">There are currently no files in this workspace</Alert>}
                 {files.map( singlefile => {
                     return (
                         <ListGroup.Item className="file-item" key={singlefile.file_name}>

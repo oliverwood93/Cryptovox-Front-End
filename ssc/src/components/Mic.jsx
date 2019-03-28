@@ -6,7 +6,8 @@ import mic from '../resources/mic.png';
 export default class Mic extends Component {
     state = {
         audios: null,
-        blob: null
+        blob: null,
+        recording: false
     };
 
     async componentDidMount() {
@@ -21,16 +22,17 @@ export default class Mic extends Component {
     }
 
     startRecording( e ) {
-        const {handleRecording} = this.props
+        const { handleRecording, isEncryption } = this.props;
         this.deleteAudio();
         e.preventDefault();
         this.chunks = [];
         this.mediaRecorder.start( 10 );
-        handleRecording(true)
-        // this.setState( { recording: true } );
+        if ( isEncryption ) handleRecording( true );
+        this.setState( { recording: true } );
         setTimeout( () => {
             this.mediaRecorder.stop();
-            handleRecording(false);
+            if ( isEncryption ) handleRecording( false );
+            this.setState({ recording: false });
             this.saveAudio();
         }, 7000 );
     }
@@ -48,14 +50,14 @@ export default class Mic extends Component {
     }
 
     render() {
-        const { audios } = this.state;
-        const { recordedNotRecognised, isRecorded, trackInfo, isUploadPage, recording } = this.props;
+        const { audios, recording } = this.state;
+        const { recordedNotRecognised, isUploadPage } = this.props;
 
         return (
             <div className={isUploadPage ? 'encrypt-mic' : 'recording-section'}>
                 {!recording && (
                     <img
-                        className={isUploadPage ? 'encrypt-mic-logo' : "record-img"}
+                        className={isUploadPage ? 'encrypt-mic-logo' : 'record-img'}
                         src={mic}
                         alt="record"
                         onClick={e => this.startRecording( e )}
@@ -68,7 +70,6 @@ export default class Mic extends Component {
                     <Fragment>
                         {/* <div key="audio" className="playback"> */}
                         <audio key="audio" className="playback" controls src={audios} />
-                
                     </Fragment>
                 )}
             </div>
