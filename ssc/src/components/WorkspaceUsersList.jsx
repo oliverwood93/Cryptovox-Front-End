@@ -1,7 +1,7 @@
 /* eslint-disable complexity */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Alert, ListGroup, Button } from 'react-bootstrap';
+import { Alert, ListGroup, Button, Badge } from 'react-bootstrap';
 import { makeAPICalls } from '../utils/apiCalls';
 import '../App.css';
 import WorkspaceUserAdder from './WorkspaceUserAdder';
@@ -46,9 +46,7 @@ class WorkspaceUsersList extends Component {
             .then( allUsers => {
                 const nonMembers = [];
                 allUsers.forEach( ( { username } ) => {
-                    const exists = users.some(
-                        user => user.username === username
-                    );
+                    const exists = users.some( user => user.username === username );
                     if ( !exists ) {
                         nonMembers.push( { username } );
                     }
@@ -107,9 +105,7 @@ class WorkspaceUsersList extends Component {
     handleNewUserChange = e => {
         const { nonMembers } = this.state;
         const txt = e.target.value;
-        const filteredUsers = nonMembers.filter( nonMember =>
-            nonMember.username.includes( txt )
-        );
+        const filteredUsers = nonMembers.filter( nonMember => nonMember.username.includes( txt ) );
         this.setState( {
             newUser: txt,
             newUserError: '',
@@ -121,9 +117,7 @@ class WorkspaceUsersList extends Component {
     handleItemClick = e => {
         const { nonMembers } = this.state;
         const txt = e.target.textContent;
-        const filteredUsers = nonMembers.filter( nonMember =>
-            nonMember.username.includes( txt )
-        );
+        const filteredUsers = nonMembers.filter( nonMember => nonMember.username.includes( txt ) );
         this.setState( {
             newUser: txt,
             newUserError: '',
@@ -148,12 +142,9 @@ class WorkspaceUsersList extends Component {
         };
         makeAPICalls( apiObj )
             .then( workspace_admin_updated => {
-                this.setState(
-                    { workspaceUpdated: workspace_admin_updated },
-                    () => {
-                        this.props.refreshDone();
-                    }
-                );
+                this.setState( { workspaceUpdated: workspace_admin_updated }, () => {
+                    this.props.refreshDone();
+                } );
             } )
             .catch( err => {
                 this.setState( { workspaceUpdated: false } );
@@ -176,12 +167,9 @@ class WorkspaceUsersList extends Component {
         };
         makeAPICalls( apiObj )
             .then( workspace_admin_updated => {
-                this.setState(
-                    { workspaceUpdated: workspace_admin_updated },
-                    () => {
-                        this.props.refreshDone();
-                    }
-                );
+                this.setState( { workspaceUpdated: workspace_admin_updated }, () => {
+                    this.props.refreshDone();
+                } );
             } )
             .catch( err => {
                 this.setState( { workspaceUpdated: false } );
@@ -189,13 +177,7 @@ class WorkspaceUsersList extends Component {
     };
 
     componentDidUpdate( prevProps, prevState ) {
-        const {
-            workspaceUpdated,
-            newUserAdded,
-            newUser,
-            filteredUsers,
-            nonMembers
-        } = this.state;
+        const { workspaceUpdated, newUserAdded, newUser, filteredUsers, nonMembers } = this.state;
         const { workspace } = this.props;
         if ( workspace !== prevProps.workspace ) {
             this.getWorkspaceUsers( workspace );
@@ -203,11 +185,7 @@ class WorkspaceUsersList extends Component {
             this.getWorkspaceUsers( workspace );
         } else if ( newUserAdded !== prevState.newUserAdded ) {
             this.getWorkspaceUsers( workspace );
-        } else if (
-            newUser === '' &&
-            filteredUsers.length === 0 &&
-            nonMembers.length !== 0
-        ) {
+        } else if ( newUser === '' && filteredUsers.length === 0 && nonMembers.length !== 0 ) {
             this.setState( { filteredUsers: nonMembers } );
         }
     }
@@ -217,6 +195,7 @@ class WorkspaceUsersList extends Component {
     }
 
     render() {
+
         const {
             users,
             newUserAdded,
@@ -228,15 +207,15 @@ class WorkspaceUsersList extends Component {
         
         return (
             <>
-                <h3 className="usersTitle">Users</h3>
+                <Badge className="user-title" variant="dark">
+                    Workspace Users
+                </Badge>
                 {users && (
                     <ListGroup className="fullUserList">
                         {users.map( user => {
+                            console.log(user)
                             return (
-                                <div
-                                    className="singleUserListBlock"
-                                    key={user.username}
-                                >
+                                <div className="singleUserListBlock" key={user.username}>
                                     <div>
                                         <ListGroup.Item
                                             action
@@ -252,15 +231,10 @@ class WorkspaceUsersList extends Component {
                                         disabled={user.username === username || isAdmin === 'false'}
                                         className="makeAdmin"
                                         onClick={() =>
-                                            this.handleUpdateAdmin(
-                                                user.username,
-                                                user.is_admin
-                                            )
+                                            this.handleUpdateAdmin( user.username, user.is_admin )
                                         }
                                     >
-                                        {user.is_admin === 'True'
-                                            ? 'Remove admin'
-                                            : 'Make admin'}
+                                        {user.is_admin === 'True' ? 'Remove admin' : 'Make admin'}
                                     </Button>
 
                                     <Button
@@ -268,9 +242,7 @@ class WorkspaceUsersList extends Component {
                                         disabled={user.username === username || isAdmin === 'false'}
                                         className="removeFromWorkspace"
                                         variant="danger"
-                                        onClick={() =>
-                                            this.handleRemoveUser( user.username )
-                                        }
+                                        onClick={() => this.handleRemoveUser( user.username )}
                                     >
                                         Remove user
                                     </Button>

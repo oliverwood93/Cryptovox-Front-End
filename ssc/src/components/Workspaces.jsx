@@ -142,6 +142,7 @@ class Workspaces extends Component {
                     {selectedWorkspace !== null && (
                         <div className="file-option-button">
                             <Button
+                                variant="outline-primary"
                                 className="view-file-button"
                                 disabled={!showUploadPane}
                                 onClick={() => this.setState( { showUploadPane: false } )}
@@ -149,6 +150,7 @@ class Workspaces extends Component {
                                 View Files
                             </Button>
                             <Button
+                                variant="outline-primary"
                                 className="upload-file-button"
                                 disabled={showUploadPane}
                                 onClick={() => this.setState( { showUploadPane: true } )}
@@ -157,6 +159,7 @@ class Workspaces extends Component {
                             </Button>
                         </div>
                     )}
+                    {!selectedWorkspace && <Alert className="no-ws-warn" variant="warning">Please select or create a workspace</Alert>}
                     {selectedWorkspace !== null && !showUploadPane && (
                         <Fragment>
                             <CardColumns className="filesStyle">

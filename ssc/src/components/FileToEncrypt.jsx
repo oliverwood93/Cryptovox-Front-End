@@ -1,4 +1,5 @@
 import React from 'react';
+import Card from 'react-bootstrap/Card'
 
 export default function FileToEncrypt( {
     fileSelectedHandler,
@@ -9,8 +10,9 @@ export default function FileToEncrypt( {
     isFileToEncryptSelected,
     isRecorded
 } ) {
+    console.log(isFileToEncryptSelected, selectedFileToEncrypt)
     return (
-        <div className="file-upload-section">
+        <Card className="file-upload-section">
             <input
                 disabled={
                     selectedAudioFile || ( !recordedNotRecognised && isRecorded ) ? false : true
@@ -19,11 +21,11 @@ export default function FileToEncrypt( {
                 onChange={fileSelectedHandler}
             />
             <button
-                disabled={!isFileToEncryptSelected}
+                disabled={!selectedFileToEncrypt}
                 onClick={() => fileUploadHandler( selectedFileToEncrypt )}
             >
                 Click to Encrypt File
             </button>
-        </div>
+        </Card>
     );
 }

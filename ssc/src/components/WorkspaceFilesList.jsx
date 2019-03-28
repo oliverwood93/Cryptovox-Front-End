@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { makeAPICalls } from '../utils/apiCalls';
 import '../App.css';
-import { Card, Button, Modal } from 'react-bootstrap';
+import { Card, Button, Modal, ListGroup, Alert } from 'react-bootstrap';
 import Mic from '../components/Mic';
 import axios from 'axios';
 import formatDownload from '../utils/formatDownload';
+import fileIcon from '../resources/file.png'
 
 class WorkspaceFilesList extends Component {
     state = {
@@ -14,12 +15,14 @@ class WorkspaceFilesList extends Component {
         selectedFile: null,
         showDecrypt: false,
         notIdentified: false,
-        wrongKey: false
+        wrongKey: false,
+        didMount: false,
     };
 
     componentDidMount() {
         const { workspace } = this.props;
         this.getWorkspaceFiles( workspace );
+        this.setState({didMount: true})
     }
     componentDidUpdate( prevProps ) {
         const { workspace } = this.props;
@@ -29,63 +32,76 @@ class WorkspaceFilesList extends Component {
         }
     }
     render() {
-        const { files, showDecrypt, notIdentified, wrongKey } = this.state;
+        const { files, showDecrypt, notIdentified, wrongKey, selectedFile, didMount } = this.state;
         return (
-            <Fragment>
+            <ListGroup className="container">
+            {files.length === 0 && didMount && <Alert variant="warning">There are currently no files in this workspace</Alert>}
                 {files.map( singlefile => {
                     return (
-                        <div key={singlefile.file_name} className="container">
-                            {wrongKey && <Modal show={wrongKey}>
-                                <Modal.Dialog>
-                                    <Modal.Header />
-                                    <Modal.Body>
-                                        <p>Wrong Audio Key Used, if you used recorded please try again by uploading the audio file</p>
-                                    </Modal.Body>
-                                    <Modal.Footer>
-                                        <Button onClick={() => this.setState( { wrongKey: false } )}>Close</Button>
-                                    </Modal.Footer>
-                                </Modal.Dialog>
-                            </Modal> }
-                            <Card style={{ width: '30vw' }}>
-                                <Card.Title>{singlefile.file_name}</Card.Title>
-                                <Card.Body>
-                                    <Button
-                                        variant="primary"
-                                        data-filename={singlefile.file_name}
-                                        onClick={e =>
-                                            this.setState( {
-                                                selectedFile: e.target.dataset.filename,
-                                                showDecrypt: !showDecrypt
-                                            } )
-                                        }
-                                    >
-                                        Decrypt
-                                    </Button>
-                                    {showDecrypt && (
-                                        <div>
-                                            <Mic
-                                                decrypt={true}
-                                                handleRecordedAudio={this.handleClick}
-                                            />
-                                            <input
-                                                accept="audio/*"
-                                                type="file"
-                                                onChange={e => this.handleClick( e.target.files[ 0 ] )}
-                                            />
-                                        </div>
-                                    )}
-                                    {notIdentified && (
-                                        <p>
-                                            We have not identified your audio, if this is the
-                                            correct file then please upload directly
-                                        </p>
-                                    )}
-                                </Card.Body>
-                            </Card>
-                        </div>
+                        <ListGroup.Item className="file-item" key={singlefile.file_name}>
+                            <img className="file-icon" src={fileIcon} alt="file" />
+                            <p className="file-name">{singlefile.file_name}</p>
+                            <p className="file-type">Type: .{singlefile.file_name.slice( -3 )}</p>
+                            <Button
+                                className="decrypt-btn"
+                                variant="primary"
+                                data-filename={singlefile.file_name}
+                                onClick={e =>
+                                    this.setState( {
+                                        selectedFile: e.target.dataset.filename,
+                                        showDecrypt: !showDecrypt
+                                    } )
+                                }
+                            >
+                                Decrypt
+                            </Button>
+                            {showDecrypt && selectedFile === singlefile.file_name && (
+                                <Fragment>
+                                    <Mic
+                                        className="mic-decrypt"
+                                        decrypt={true}
+                                        handleRecordedAudio={this.handleClick}
+                                    />
+                                    <input
+                                        className="upload-decrypt"
+                                        id="audio-file-decrypt"
+                                        accept="audio/*"
+                                        type="file"
+                                        onChange={e => this.handleClick( e.target.files[ 0 ] )}
+                                    />
+                                </Fragment>
+                            )}
+                            {notIdentified && (
+                                <p>
+                                    We have not identified your audio, if this is the correct file
+                                    then please upload directly
+                                </p>
+                            )}
+
+                            {wrongKey && (
+                                <Modal show={wrongKey}>
+                                    <Modal.Dialog>
+                                        <Modal.Header />
+                                        <Modal.Body>
+                                            <p>
+                                                Wrong Audio Key Used, if you used recorded please
+                                                try again by uploading the audio file
+                                            </p>
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            <Button
+                                                onClick={() => this.setState( { wrongKey: false } )}
+                                            >
+                                                Close
+                                            </Button>
+                                        </Modal.Footer>
+                                    </Modal.Dialog>
+                                </Modal>
+                            )}
+                        </ListGroup.Item>
                     );
                 } )}
-            </Fragment>
+            </ListGroup>
         );
     }
     getWorkspaceFiles = workspace => {
