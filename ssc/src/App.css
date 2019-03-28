@@ -113,6 +113,32 @@ p {
   background-color: #9dd9d2;
 }
 
+.user-add-container{
+  margin-top: 2vh;
+  display: grid;
+  grid-template-columns: 1fr 0.5fr;
+  grid-template-areas: "form btn";
+  align-items: center;
+}
+
+.user-adder-form{
+  grid-area: form
+}
+
+.addButton{
+  grid-area: btn;
+  width: 5vw;
+  margin: 0 0 0 1vw;
+}
+
+.user-title{
+    margin-top: 1vh;
+  margin-bottom: 0.5vh;
+  font-size: 1.3rem;
+   margin-left: 0.5vw;
+  text-align: center;
+}
+
 .singleUserListBlock {
   display: flex;
   justify-content: space-around;

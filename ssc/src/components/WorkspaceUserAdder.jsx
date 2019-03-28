@@ -11,9 +11,10 @@ const WorkspaceUserAdder = ({
 }) => {
   const croppedList = filteredUsers.slice(0, 5);
   return (
-    <Form onSubmit={handleAddUser}>
+    <Form onSubmit={handleAddUser} className="user-add-container">
       <Form.Group controlId="formBasicUserName">
         <Form.Control
+        className="user-adder-form"
           type="text"
           value={newUser}
           placeholder="Enter new User to add"
