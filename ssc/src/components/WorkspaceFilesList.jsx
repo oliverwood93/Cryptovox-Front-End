@@ -5,7 +5,7 @@ import { Card, Button, Modal, ListGroup, Alert } from 'react-bootstrap';
 import Mic from '../components/Mic';
 import axios from 'axios';
 import formatDownload from '../utils/formatDownload';
-import fileIcon from '../resources/file.png'
+import fileIcon from '../resources/file.png';
 
 class WorkspaceFilesList extends Component {
     state = {
@@ -16,13 +16,13 @@ class WorkspaceFilesList extends Component {
         showDecrypt: false,
         notIdentified: false,
         wrongKey: false,
-        didMount: false,
+        didMount: false
     };
 
     componentDidMount() {
         const { workspace } = this.props;
         this.getWorkspaceFiles( workspace );
-        this.setState({didMount: true})
+        this.setState( { didMount: true } );
     }
     componentDidUpdate( prevProps ) {
         const { workspace } = this.props;
@@ -35,7 +35,11 @@ class WorkspaceFilesList extends Component {
         const { files, showDecrypt, notIdentified, wrongKey, selectedFile, didMount } = this.state;
         return (
             <ListGroup className="container">
-            {files.length === 0 && didMount && <Alert variant="warning">There are currently no files in this workspace</Alert>}
+                {files.length === 0 && didMount && (
+                    <Alert className="no-files" variant="warning">
+                        There are currently no files in this workspace
+                    </Alert>
+                )}
                 {files.map( singlefile => {
                     return (
                         <ListGroup.Item className="file-item" key={singlefile.file_name}>
@@ -81,11 +85,11 @@ class WorkspaceFilesList extends Component {
                             {wrongKey && (
                                 <Modal show={wrongKey}>
                                     <Modal.Dialog>
-                                        <Modal.Header />
                                         <Modal.Body>
                                             <p>
-                                                Wrong Audio Key Used, if you used recorded please
-                                                try again by uploading the audio file
+                                                Incorrect Audio Key Used, if you believe this to be
+                                                a mistake then please try by uploading the audio
+                                                file if you haven't already done so.
                                             </p>
                                         </Modal.Body>
                                         <Modal.Footer>
