@@ -316,7 +316,7 @@ input::placeholder {
 
 .file-item {
   display: grid;
-  grid-template-columns: 0.2fr 0.8fr 0.2fr 0.6fr 0.3fr 0.3fr;
+  grid-template-columns: 0.2fr 0.8fr 0.2fr 0.6fr 0.2fr 0.4fr;
   grid-template-areas: "file-icon name type decrypt mic upload";
   justify-items: left;
   align-items: center;
@@ -360,7 +360,7 @@ input::placeholder {
 }
 .upload-decrypt {
   grid-area: upload;
-  width: 5vw;
+  width: 8vw;
   color: transparent;
 }
 
