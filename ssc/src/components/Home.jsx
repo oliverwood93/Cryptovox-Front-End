@@ -76,6 +76,7 @@ export default class Home extends Component {
                             placeholder="Username"
                             value={this.state.registerUsername}
                             onChange={this.handleUsernameRChange}
+                            data-cy="usernameField"
                             required
                         />
                         <input
@@ -83,9 +84,10 @@ export default class Home extends Component {
                             placeholder="Password"
                             value={this.state.registerPassword}
                             onChange={this.handlePasswordRChange}
+                            data-cy="passwordField"
                             required
                         />
-                        <button className="homeButtons" disabled={isDisabled1}>
+                        <button className="homeButtons" disabled={isDisabled1} data-cy="registerButton">
                             Register
                         </button>
                     </form>
