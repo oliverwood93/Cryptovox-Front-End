@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Card from 'react-bootstrap/Card';
+import Spinner from 'react-bootstrap/Spinner';
+import mic from '../resources/mic.png';
 
 export default class Mic extends Component {
     state = {
@@ -20,7 +22,7 @@ export default class Mic extends Component {
     }
 
     startRecording( e ) {
-        this.deleteAudio()
+        this.deleteAudio();
         e.preventDefault();
         this.chunks = [];
         this.mediaRecorder.start( 10 );
@@ -46,12 +48,21 @@ export default class Mic extends Component {
 
     render() {
         const { recording, audios } = this.state;
-        const { recordedNotRecognised, isRecorded, trackInfo } = this.props;
+        const { recordedNotRecognised, isRecorded, trackInfo, isUploadPage } = this.props;
 
         return (
-            <Card className="recording-section">
-                {!recording && <button onClick={e => this.startRecording( e )}>Record</button>}
-                {recording && <p>Recording...</p>}
+            <div className={isUploadPage ? 'encrypt-mic' : 'recording-section'}>
+                {!recording && (
+                    <img
+                        className={isUploadPage ? 'encrypt-mic-logo' : "record-img"}
+                        src={mic}
+                        alt="record"
+                        onClick={e => this.startRecording( e )}
+                    />
+                )}
+                {recording && (
+                    <Spinner className="recording-ani" animation="grow" variant="danger" />
+                )}
                 {trackInfo && isRecorded && (
                     <Fragment>
                         <p>
@@ -59,19 +70,19 @@ export default class Mic extends Component {
                         </p>
                     </Fragment>
                 )}
-                {recordedNotRecognised && !recording &&(
+                {recordedNotRecognised && !recording && (
                     <Fragment>
-                        <div key="audio">
-                            <audio controls style={{ width: 200 }} src={audios} />
-                        </div>
-                        <p>
+                        {/* <div key="audio" className="playback"> */}
+                        <audio key="audio" className="playback" controls src={audios} />
+                      
+                        <p className="not-recog-msg">
                             We have not recognised your recorded audio sample, if this is custom
                             content please upload file directly, otherwise please choose another
                             audio sample
                         </p>
                     </Fragment>
                 )}
-            </Card>
+            </div>
         );
     }
 }

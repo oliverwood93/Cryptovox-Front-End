@@ -5,6 +5,7 @@ import '../App.css';
 import Mic from '../components/Mic';
 import AudioFileUpload from '../components/AudioFileUpload';
 import FileToEncrypt from '../components/FileToEncrypt';
+import { Tabs, Tab, Card } from 'react-bootstrap';
 
 export default class Encryption extends Component {
     state = {
@@ -16,7 +17,8 @@ export default class Encryption extends Component {
         notRecognised: false,
         recordedNotRecognised: false,
         fileError: false,
-        isRecorded: false
+        isRecorded: false,
+        activeTab: 'record'
     };
     audioSelectedHandler = event => {
         const audioFile = event.target.files[ 0 ];
@@ -108,36 +110,56 @@ export default class Encryption extends Component {
             recordedNotRecognised,
             selectedFileToEncrypt,
             isFileToEncryptSelected,
-            isRecorded
+            isRecorded,
+            activeTab
         } = this.state;
-
         return (
             <div className="encryption-container">
-                <AudioFileUpload
-                    audioSelectedHandler={this.audioSelectedHandler}
-                    selectedAudioFile={selectedAudioFile}
-                    audioUploadHandler={this.audioUploadHandler}
-                    trackInfo={trackInfo}
-                    notRecognised={notRecognised}
-                    fileError={fileError}
-                    recordedNotRecognised={recordedNotRecognised}
-                    isRecorded={isRecorded}
-                />
-                <Mic
-                    handleRecordedAudio={this.audioUploadHandler}
-                    recordedNotRecognised={recordedNotRecognised}
-                    isRecorded={isRecorded}
-                    trackInfo={trackInfo}
-                />
-                <FileToEncrypt
-                    recordedNotRecognised={recordedNotRecognised}
-                    selectedAudioFile={selectedAudioFile}
-                    fileSelectedHandler={this.fileSelectedHandler}
-                    fileUploadHandler={this.fileUploadHandler}
-                    selectedFileToEncrypt={selectedFileToEncrypt}
-                    isFileToEncryptSelected={isFileToEncryptSelected}
-                    isRecorded={isRecorded}
-                />
+                <Tabs
+                    activeKey={this.state.activeTab}
+                    onSelect={activeTab => this.setState( { activeTab } )}
+                >
+                    <Tab eventKey="record" title="Record Audio Key">
+                        <Card className="mic-encrypt-container">
+                            <Mic className="encrypt-mic"
+                                handleRecordedAudio={this.audioUploadHandler}
+                                recordedNotRecognised={recordedNotRecognised}
+                                isRecorded={isRecorded}
+                                trackInfo={trackInfo}
+                                isUploadPage={true}
+                            />
+                        </Card>
+                    </Tab>
+
+                    <Tab eventKey="upload" title="Upload Audio Key">
+                        <AudioFileUpload
+                            audioSelectedHandler={this.audioSelectedHandler}
+                            selectedAudioFile={selectedAudioFile}
+                            audioUploadHandler={this.audioUploadHandler}
+                            trackInfo={trackInfo}
+                            notRecognised={notRecognised}
+                            fileError={fileError}
+                            recordedNotRecognised={recordedNotRecognised}
+                            isRecorded={isRecorded}
+                        />
+                    </Tab>
+
+                    <Tab
+                        eventKey="file"
+                        title="Upload File To Encrypt"
+                        disabled={( !selectedAudioFile && !isRecorded ) || recordedNotRecognised}
+                    >
+                        <FileToEncrypt
+                            recordedNotRecognised={recordedNotRecognised}
+                            selectedAudioFile={selectedAudioFile}
+                            fileSelectedHandler={this.fileSelectedHandler}
+                            fileUploadHandler={this.fileUploadHandler}
+                            selectedFileToEncrypt={selectedFileToEncrypt}
+                            isFileToEncryptSelected={isFileToEncryptSelected}
+                            isRecorded={isRecorded}
+                        />
+                    </Tab>
+                </Tabs>
             </div>
         );
     }

@@ -54,14 +54,14 @@ p {
 }
 
 #loginForm {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+    "Open Sans", "Helvetica Neue", sans-serif;
   background-color: #fffcf7;
 }
 
 .header {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+    "Open Sans", "Helvetica Neue", sans-serif;
   position: relative;
   text-align: center;
   justify-content: center;
@@ -254,6 +254,83 @@ input::placeholder {
   margin-right: 0.25vw;
   border-radius: 5px 5px 5px 5px;
 }
+.record-img {
+  border: 0;
+  width: 2.8vw;
+  /* height: auto; */
+}
+.recording-ani {
+  border: 0;
+  width: 3vw;
+  height: 4vh;
+}
+
+.file-item {
+  display: grid;
+  grid-template-columns: 0.2fr 0.8fr 0.2fr 0.6fr 0.3fr 0.3fr;
+  grid-template-areas: "file-icon name type decrypt mic upload";
+  justify-items: left;
+  align-items: center;
+  margin-bottom: 0.5vh;
+  margin-left: 0.2vw;
+  margin-right: 10vw;
+}
+
+.file-icon {
+  grid-area: file-icon;
+  width: 2vw;
+}
+
+.file-type {
+  grid-area: type;
+  width: 5vw;
+  margin: 0;
+}
+
+.file-name {
+  grid-area: name;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 15vw;
+  margin: 0;
+}
+
+/* .file-name > p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+} */
+.decrypt-btn {
+  grid-area: decrypt;
+  width: 7vw;
+  margin: 0px;
+  height: 3.5vh;
+  justify-self: center;
+}
+.mic-decrypt {
+  grid-area: mic;
+  width: 3vw;
+  height: 3.5vh;
+}
+.upload-decrypt {
+  grid-area: upload;
+  width: 5vw;
+  color: transparent;
+}
+/* .upload-decrypt input[type="file"] {
+  border: 0;
+  clip: rect(0, 0, 0, 0); 
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  white-space: nowrap;
+  width: 1px;  
+} */
+
+/* [type="file"]  {
+  background: orange;
+} */
 
 .workspacesUserCol {
   grid-area: users;
@@ -280,10 +357,11 @@ input::placeholder {
 }
 
 .container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: start;
+  display: inline-block;
+  width: 60vw;
+  /* flex-direction: column; */
+  /* flex-wrap: wrap;  */
+  /* justify-content: start; */
 }
 .child {
   width: 50%;
@@ -380,7 +458,7 @@ div.form-group {
 }
 
 .recording-section {
-  border: 1px dotted black;
+  /* border: 1px dotted black; */
   grid-area: mic;
   margin-bottom: 0.5vh;
 }
@@ -428,4 +506,47 @@ div.form-group {
   padding: 0;
   /* background-color: white; */
   /* margin-left:0px; */
+}
+
+.nav-link {
+  position: static;
+}
+
+nav.nav.nav-tabs {
+  height: 6vh;
+}
+
+.mic-encrypt-container {
+  width: 45vw;
+  height: 22vh;
+  margin: 0 auto;
+
+  /* justify-content: center; */
+  align-content: center;
+  border-radius: 10px;
+  /* border-color:black solid 10px; */
+}
+.encrypt-mic {
+  display: grid;
+  grid-template-rows: 0.5fr 0.5fr 0.5fr;
+  grid-template-areas: "mic-logo" "playback" "mic-text";
+  padding-left: 1vw;
+  /* margin: 0 auto; */
+   justify-items: center; 
+  align-content: center;
+}
+
+.not-recog-msg{
+  grid-area: mic-text;
+  
+}
+.playback{
+margin: 0 auto;
+  grid-area: playback;
+   justify-items: center; 
+  align-content: center;
+
+}
+.encrypt-mic-logo{
+  grid-area: mic-logo
 }

@@ -26,7 +26,9 @@ class App extends Component {
 
     componentDidMount() {
         if ( localStorage.getItem( 'userLoggedIn' ) ) {
-            this.setState( { username: localStorage.getItem( 'userLoggedIn' ) } );
+            this.setState( { username: localStorage.getItem( 'userLoggedIn' ) }, () => {
+                navigate('/dashboard')
+            } )
         }
     }
 
