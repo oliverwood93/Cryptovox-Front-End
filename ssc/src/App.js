@@ -5,7 +5,6 @@ import Home from './components/Home';
 import UserDashboard from './components/UserDashboard';
 import Header from './components/Header';
 import './App.css';
-import { Alert } from 'react-bootstrap';
 
 class App extends Component {
     state = {

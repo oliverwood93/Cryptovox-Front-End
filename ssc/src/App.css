@@ -99,7 +99,6 @@ p {
   animation-timing-function: ease-in;
   animation-duration: 2.5s;
   height: 8vh;
-  /* margin-bottom: 3vh; */
   margin-top: 1vh;
 }
 .logged-out-header {
@@ -169,7 +168,6 @@ p {
   align-items: center;
   flex-wrap: nowrap;
   height: 53px;
-  /* border-radius: black 15px, 15px, 15px, 15px; */
   margin-top: 2px;
   margin-bottom: 2px;
   margin-left: 5px;
@@ -180,9 +178,6 @@ p {
 .removeFromWorkspace {
   height: 48.5px;
   width: 80px;
-  /* padding: 2px; */
-  /* margin-top: 5px;
-  padding-bottom: 5px; */
 }
 
 .workspace-file-view {
@@ -193,21 +188,8 @@ p {
   display: inline-block;
   height: 3vh;
   width: 20vw;
-  /* color: rgba(255, 255, 255, 0.8);
-  background: rgb(194, 68, 68);
-  border-radius: 4px;
-  font-weight: normal;
-  text-transform: uppercase;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1); */
 }
 
-/* .current-space-container{
-  margin-top: 0.5vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas: "head badge"
-} */
 .space-header {
   margin-top: 0.5vh;
   margin-bottom: 0.5vh;
@@ -284,9 +266,7 @@ input::placeholder {
 .singleWorkspaceItem:hover {
   background-color: lightskyblue;
 }
-/* .singleWorkspaceItem:focus {
-  background-color: lightcyan;
-} */
+
 
 .dashbord {
   display: grid;
@@ -362,10 +342,7 @@ input::placeholder {
   margin: 0;
 }
 
-/* .file-name > p {
-  text-overflow: ellipsis;
-  overflow: hidden;
-} */
+
 .decrypt-btn {
   grid-area: decrypt;
   width: 7vw;
@@ -383,20 +360,8 @@ input::placeholder {
   width: 5vw;
   color: transparent;
 }
-/* .upload-decrypt input[type="file"] {
-  border: 0;
-  clip: rect(0, 0, 0, 0); 
-  height: 1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute !important;
-  white-space: nowrap;
-  width: 1px;  
-} */
 
-/* [type="file"]  {
-  background: orange;
-} */
+
 
 .workspacesUserCol {
   grid-area: users;
@@ -469,7 +434,6 @@ input::placeholder {
   width: 25vw;
   text-align: center;
   float: right;
-  /* margin-right: 80px; */
 }
 
 .acceptRejectSpan {
@@ -494,7 +458,6 @@ input::placeholder {
 .workspaceTitle {
   margin-top: 20px;
   margin-bottom: 30px;
-  /* font-family: "Lucida Console", Monaco, monospace; */
 }
 
 div.form-group {
@@ -569,12 +532,8 @@ div.form-group {
 .workspace-form-group.form-group {
   grid-area: wsaddform;
   margin: 0;
-
-  /* margin-top: 2vh; */
   width: 16vw;
   padding: 0;
-  /* background-color: white; */
-  /* margin-left:0px; */
 }
 
 .nav-link {
@@ -583,32 +542,24 @@ div.form-group {
 
 nav.nav.nav-tabs {
   height: 6vh;
-  /* background-color:white; */
   color: white;
 }
 a.nav-item.nav-link {
   border: 1px solid rgb(255, 255, 255);
 }
-/* .upload-file-tab > a.nav-item.nav-link{
-   background-color: #ca2727
-} */
 
 .mic-encrypt-container {
   width: 45vw;
   height: 15vh;
   margin: 0 auto 2vh auto;
-
-  /* justify-content: center; */
   align-content: center;
   border-radius: 10px;
-  /* border-color:black solid 10px; */
 }
 .encrypt-mic {
   display: grid;
   grid-template-rows: 0.5fr 0.5fr;
   grid-template-areas: "mic-logo" "playback";
   padding-left: 1vw;
-  /* margin: 0 auto; */
   justify-items: center;
   align-content: center;
 }
@@ -624,4 +575,15 @@ a.nav-item.nav-link {
 }
 .encrypt-mic-logo {
   grid-area: mic-logo;
+}
+
+.create-account-modal{
+  background-color: #fefefe;
+  margin: 5% auto auto auto;
+  width: 58.5%;
+  padding-left: 5px;
+  position: fixed;
+  border: none;
+  top: 50%;
+  left: 28.5%;
 }

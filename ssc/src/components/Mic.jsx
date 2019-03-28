@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import Card from 'react-bootstrap/Card';
 import Spinner from 'react-bootstrap/Spinner';
 import mic from '../resources/mic.png';
 

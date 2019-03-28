@@ -2,7 +2,11 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import WorkspaceList from './WorkspaceList';
-import { Button, Badge, Col, Row, Alert, Card, CardColumns } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Badge from 'react-bootstrap/Badge';
+import Card from 'react-bootstrap/Card';
+import Alert from 'react-bootstrap/Alert';
+import CardColumns from 'react-bootstrap/CardColumns';
 import { makeAPICalls } from '../utils/apiCalls';
 import DeleteWorkspaceModal from './DeleteWorkspaceModal';
 import WorkspaceUsersList from './WorkspaceUsersList';
@@ -18,28 +22,28 @@ class Workspaces extends Component {
         showUploadPane: false
     };
 
-    componentDidUpdate( prevProps, prevState ) {
+    componentDidUpdate(prevProps, prevState) {
         if (
             this.props.refreshWorkspaces !== prevProps.refreshWorkspaces &&
             this.props.refreshWorkspaces
         ) {
-            this.setState( { refreshList: true } );
+            this.setState({ refreshList: true });
         }
     }
     switchToViewFiles = () => {
-        this.setState( { showUploadPane: false } );
+        this.setState({ showUploadPane: false });
     };
 
     refreshDone = () => {
-        this.setState( { refreshList: false } );
+        this.setState({ refreshList: false });
     };
 
     handleCloseModal = () => {
-        this.setState( { showDeleteConfirm: false } );
+        this.setState({ showDeleteConfirm: false });
     };
 
     handleWorkspaceClicked = e => {
-        this.setState( {
+        this.setState({
             selectedWorkspace: {
                 workspace: e.target.textContent,
                 isAdmin: e.target.dataset.admin
@@ -47,17 +51,17 @@ class Workspaces extends Component {
             deleteError: '',
             refreshList: false,
             showUploadPane: false
-        } );
+        });
     };
 
     handleDeleteWorkspace = () => {
-        if ( this.selectedWorkspace === null ) {
-            this.setState( {
+        if (this.selectedWorkspace === null) {
+            this.setState({
                 deleteError: 'Workspace must be selected',
                 refreshList: false
-            } );
+            });
         } else {
-            this.setState( { showDeleteConfirm: true } );
+            this.setState({ showDeleteConfirm: true });
         }
     };
 
@@ -71,30 +75,30 @@ class Workspaces extends Component {
             data: { deleted_by: username, workspace: workspace },
             method: 'delete'
         };
-        makeAPICalls( apiObj )
-            .then( workspace_deleted => {
-                if ( workspace_deleted ) {
-                    this.setState( {
+        makeAPICalls(apiObj)
+            .then(workspace_deleted => {
+                if (workspace_deleted) {
+                    this.setState({
                         deleteError: '',
                         selectedWorkspace: null,
                         refreshList: true,
                         showDeleteConfirm: false
-                    } );
+                    });
                 } else {
-                    this.setState( {
+                    this.setState({
                         deleteError: 'Workspace could not be deleted',
                         refreshList: false,
                         showDeleteConfirm: false
-                    } );
+                    });
                 }
-            } )
-            .catch( err => {
-                this.setState( {
+            })
+            .catch(err => {
+                this.setState({
                     deleteError: 'Workspace could not be deleted',
                     refreshList: false,
                     showDeleteConfirm: false
-                } );
-            } );
+                });
+            });
     };
 
     render() {
@@ -144,7 +148,7 @@ class Workspaces extends Component {
                                 variant="outline-primary"
                                 className="view-file-button"
                                 disabled={!showUploadPane}
-                                onClick={() => this.setState( { showUploadPane: false } )}
+                                onClick={() => this.setState({ showUploadPane: false })}
                             >
                                 View Files
                             </Button>
@@ -152,13 +156,17 @@ class Workspaces extends Component {
                                 variant="outline-primary"
                                 className="upload-file-button"
                                 disabled={showUploadPane}
-                                onClick={() => this.setState( { showUploadPane: true } )}
+                                onClick={() => this.setState({ showUploadPane: true })}
                             >
                                 Upload File
                             </Button>
                         </div>
                     )}
-                    {!selectedWorkspace && <Alert className="no-ws-warn" variant="warning">Please select or create a workspace</Alert>}
+                    {!selectedWorkspace && (
+                        <Alert className="no-ws-warn" variant="warning">
+                            Please select or create a workspace
+                        </Alert>
+                    )}
                     {selectedWorkspace !== null && !showUploadPane && (
                         <Fragment>
                             <CardColumns className="filesStyle">

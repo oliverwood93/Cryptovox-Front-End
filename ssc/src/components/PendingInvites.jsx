@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { makeAPICalls } from '../utils/apiCalls';
-import { Dropdown, Alert } from 'react-bootstrap';
+import Dropdown from 'react-bootstrap/Dropdown';
+import Alert from 'react-bootstrap/Alert';
 
 class PendingInvites extends Component {
     state = {
@@ -24,7 +25,7 @@ class PendingInvites extends Component {
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
                             {invites &&
-                                invites.map( invite => {
+                                invites.map(invite => {
                                     return (
                                         <Dropdown.Item
                                             key={invite.workspace}
@@ -34,7 +35,7 @@ class PendingInvites extends Component {
                                             <span
                                                 className="acceptRejectSpan"
                                                 onClick={() =>
-                                                    this.acceptReject( invite.workspace, 'True' )
+                                                    this.acceptReject(invite.workspace, 'True')
                                                 }
                                             >
                                                 ✅
@@ -42,14 +43,14 @@ class PendingInvites extends Component {
                                             <span
                                                 className="acceptRejectSpan"
                                                 onClick={() =>
-                                                    this.acceptReject( invite.workspace, 'False' )
+                                                    this.acceptReject(invite.workspace, 'False')
                                                 }
                                             >
                                                 ❌
                                             </span>
                                         </Dropdown.Item>
                                     );
-                                } )}
+                                })}
                         </Dropdown.Menu>
                     </Dropdown>
                 ) : (
@@ -64,43 +65,43 @@ class PendingInvites extends Component {
         this.fetchInvites();
     }
 
-    acceptReject = ( workspace, accept ) => {
+    acceptReject = (workspace, accept) => {
         const { username } = this.props;
         const apiObj = {
-            url: `/invites/${ username }`,
+            url: `/invites/${username}`,
             reqObjectKey: 'invite_processed',
             method: 'post',
             data: { accept, workspace }
         };
-        makeAPICalls( apiObj )
-            .then( invite_processed => {
-                if ( invite_processed ) {
+        makeAPICalls(apiObj)
+            .then(invite_processed => {
+                if (invite_processed) {
                     this.fetchInvites();
                     this.props.handleRefresh();
                 } else {
-                    this.setState( { invitesError: 'Could not accept/reject invite' } );
+                    this.setState({ invitesError: 'Could not accept/reject invite' });
                 }
-            } )
-            .catch( err => {
-                this.setState( { invitesError: 'Could not accept/reject invite' } );
-            } );
+            })
+            .catch(err => {
+                this.setState({ invitesError: 'Could not accept/reject invite' });
+            });
     };
 
     fetchInvites = () => {
         const { username } = this.props;
 
         const apiObj = {
-            url: `/invites/${ username }`,
+            url: `/invites/${username}`,
             reqObjectKey: 'invites',
             method: 'get'
         };
-        makeAPICalls( apiObj )
-            .then( invites => {
-                this.setState( { invites, invitesError: '' } );
-            } )
-            .catch( err => {
-                this.setState( { invites: [], invitesError: 'Could not get invites' } );
-            } );
+        makeAPICalls(apiObj)
+            .then(invites => {
+                this.setState({ invites, invitesError: '' });
+            })
+            .catch(err => {
+                this.setState({ invites: [], invitesError: 'Could not get invites' });
+            });
     };
 }
 
