@@ -1,14 +1,16 @@
 import React from 'react';
+import logo from '../resources/logo.png'
+import { Button } from 'react-bootstrap';
 
 export default function Header( { handleLogout } ) {
     
     return (
         <div className="header">
-            <h1>SecureSoniCryptor (SSC)</h1>
+            <img className="logo" src={logo} alt="crytovox logo"/>
             {localStorage.getItem( 'userLoggedIn' ) &&
-                <button id="logout" onClick={handleLogout}>
+                <Button variant="danger" id="logout" onClick={handleLogout}>
                     Log out
-                </button>
+                </Button>
             }
         </div>
     );

@@ -125,8 +125,7 @@ class Workspaces extends Component {
                             <div className="current-space-container">
                                 {' '}
                                 <Badge className="space-header" variant="dark">
-                                    Workspace: {" "}
-                                    {selectedWorkspace.workspace}
+                                    Workspace: {selectedWorkspace.workspace}
                                 </Badge>
                             </div>
                         )}
@@ -142,6 +141,7 @@ class Workspaces extends Component {
                     {selectedWorkspace !== null && (
                         <div className="file-option-button">
                             <Button
+                                variant="outline-primary"
                                 className="view-file-button"
                                 disabled={!showUploadPane}
                                 onClick={() => this.setState( { showUploadPane: false } )}
@@ -149,6 +149,7 @@ class Workspaces extends Component {
                                 View Files
                             </Button>
                             <Button
+                                variant="outline-primary"
                                 className="upload-file-button"
                                 disabled={showUploadPane}
                                 onClick={() => this.setState( { showUploadPane: true } )}
