@@ -24,7 +24,7 @@ This will create the project on your local machine. Open the project in VS code 
 
 #### Install dependencies
 
-Run the following to install body-parser, chai, express, nodemon, knex, mocha, pg & supertest. 
+Run the following to install the application dependencies. 
 
 ```
 npm install 
