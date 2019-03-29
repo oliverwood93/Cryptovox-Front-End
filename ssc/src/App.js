@@ -5,7 +5,6 @@ import Home from './components/Home';
 import UserDashboard from './components/UserDashboard';
 import Header from './components/Header';
 import './App.css';
-import { Alert } from 'react-bootstrap';
 
 class App extends Component {
     state = {
@@ -37,7 +36,6 @@ class App extends Component {
         const { username } = this.state;
         return (
             <div className="App">
-           {username && <Alert className="signed-in-display" variant="success">Signed-In: {username}</Alert>}
                 <Header username={username} handleLogout={this.handleLogout} />
                 <Router>
                     <Home path="/" handleLogin={this.handleLogin} />

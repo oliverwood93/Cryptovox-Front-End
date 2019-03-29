@@ -5,7 +5,10 @@ import '../App.css';
 import Mic from '../components/Mic';
 import AudioFileUpload from '../components/AudioFileUpload';
 import FileToEncrypt from '../components/FileToEncrypt';
-import { Tabs, Tab, Card, Alert } from 'react-bootstrap';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
+import Card from 'react-bootstrap/Card';
+import Alert from 'react-bootstrap/Alert';
 
 export default class Encryption extends Component {
     state = {
@@ -23,87 +26,87 @@ export default class Encryption extends Component {
     };
 
     handleRecording = recording => {
-        this.setState( { recording } );
+        this.setState({ recording });
     };
     audioSelectedHandler = event => {
-        const audioFile = event.target.files[ 0 ];
-        this.setState( {
+        const audioFile = event.target.files[0];
+        this.setState({
             selectedAudioFile: audioFile,
             isRecorded: false,
             recordedNotRecognised: false,
             notRecognised: false,
             trackInfo: false
-        } );
-        this.audioUploadHandler( audioFile );
+        });
+        this.audioUploadHandler(audioFile);
     };
 
-    audioUploadHandler = ( file, isRecorded ) => {
-        if ( !file ) return;
+    audioUploadHandler = (file, isRecorded) => {
+        if (!file) return;
         const sessionId = uuid.v1();
         const data = new FormData();
-        data.append( 'file', file );
-        data.append( 'filename', file.name ? file.name : `${ Date.now() }.ogg` );
-        data.append( 'session_id', sessionId );
-        if ( isRecorded ) data.append( 'isRecorded', isRecorded );
-        this.setState( { sessionId, isRecorded } );
+        data.append('file', file);
+        data.append('filename', file.name ? file.name : `${Date.now()}.ogg`);
+        data.append('session_id', sessionId);
+        if (isRecorded) data.append('isRecorded', isRecorded);
+        this.setState({ sessionId, isRecorded });
         axios
-            .post( 'https://ssc-be.herokuapp.com/api/audiokey', data )
-            .then( ( { data } ) => {
-                if ( data.artist ) {
-                    this.setState( {
+            .post('https://ssc-be.herokuapp.com/api/audiokey', data)
+            .then(({ data }) => {
+                if (data.artist) {
+                    this.setState({
                         trackInfo: data,
                         notRecognised: false,
                         fileError: false,
                         recordedNotRecognised: false
-                    } );
-                } else if ( data.notRecognised )
-                    this.setState( {
+                    });
+                } else if (data.notRecognised)
+                    this.setState({
                         trackInfo: null,
                         notRecognised: true,
                         fileError: false,
                         recordedNotRecognised: false
-                    } );
-                else if ( data.fileError )
-                    this.setState( {
+                    });
+                else if (data.fileError)
+                    this.setState({
                         fileError: true,
                         trackInfo: null,
                         notRecognised: false,
                         recordedNotRecognised: false
-                    } );
-                else if ( data.recordedNotRecognised ) {
-                    this.setState( {
+                    });
+                else if (data.recordedNotRecognised) {
+                    this.setState({
                         fileError: false,
                         trackInfo: null,
                         notRecognised: false,
                         recordedNotRecognised: true
-                    } );
+                    });
                 }
-            } )
-            .catch( err => console.log( err ) );
+            })
+            .catch(err => console.log(err));
     };
     fileSelectedHandler = event => {
-        const file = event.target.files[ 0 ];
-        this.setState( {
+        const file = event.target.files[0];
+        this.setState({
             selectedFileToEncrypt: file,
             isFileToEncryptSelected: true
-        } );
+        });
     };
 
     fileUploadHandler = file => {
         const { workspace, switchToViewFiles } = this.props;
         const data = new FormData();
-        data.append( 'file', file );
-        data.append( 'filename', file.name ? file.name : `${ Date.now() }.ogg` );
-        data.append( 'session_id', this.state.sessionId );
-        data.append( 'bucket_name', workspace );
+        data.append('file', file);
+        data.append('filename', file.name ? file.name : `${Date.now()}.ogg`);
+        data.append('session_id', this.state.sessionId);
+        data.append('bucket_name', workspace);
         axios
-            .post( 'https://ssc-be.herokuapp.com/api/encryptFile', data )
-            .then( ( { data } ) => {
-                if ( data === 'encrypted' ) switchToViewFiles();
-            } )
-            .catch( response => {
-                console.log( { status: response.status, msg: response.data.error } );
-            } );
+            .post('https://ssc-be.herokuapp.com/api/encryptFile', data)
+            .then(({ data }) => {
+                if (data === 'encrypted') switchToViewFiles();
+            })
+            .catch(response => {
+                console.log({ status: response.status, msg: response.data.error });
+            });
     };
 
     render() {
@@ -116,14 +119,13 @@ export default class Encryption extends Component {
             selectedFileToEncrypt,
             isFileToEncryptSelected,
             isRecorded,
-            activeTab,
             recording
         } = this.state;
         return (
             <div className="encryption-container">
                 <Tabs
                     activeKey={this.state.activeTab}
-                    onSelect={activeTab => this.setState( { activeTab } )}
+                    onSelect={activeTab => this.setState({ activeTab })}
                 >
                     <Tab eventKey="record" title="Record Audio Key">
                         <Alert variant="primary">
@@ -199,9 +201,11 @@ export default class Encryption extends Component {
                         className="upload-file-tab"
                         eventKey="file"
                         title="Upload File To Encrypt"
-                        disabled={( !selectedAudioFile && !isRecorded ) || recordedNotRecognised}
+                        disabled={(!selectedAudioFile && !isRecorded) || recordedNotRecognised}
                     >
-                    <Alert variant="primary">Please choose a file to encrypt and upload to CryptoVox</Alert>
+                        <Alert variant="primary">
+                            Please choose a file to encrypt and upload to CryptoVox
+                        </Alert>
                         <FileToEncrypt
                             recordedNotRecognised={recordedNotRecognised}
                             selectedAudioFile={selectedAudioFile}

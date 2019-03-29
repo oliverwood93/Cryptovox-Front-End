@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { Link } from '@reach/router';
 import { makeAPICalls } from '../utils/apiCalls';
-import { Alert } from 'react-bootstrap';
+import  Alert from 'react-bootstrap/Alert';
 
 function validate( username, password ) {
     return {
@@ -66,7 +66,7 @@ export default class Home extends Component {
                     </Alert>
                 )}
                 {this.state.showRegistration && !this.state.userSignedIn && (
-                    <form onSubmit={this.handleSubmit1} className="modal-content animate">
+                    <form onSubmit={this.handleSubmit1} className="create-account-modal animate">
                         <input
                             className="log-ins"
                             type="text"
