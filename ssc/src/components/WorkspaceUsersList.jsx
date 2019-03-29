@@ -198,8 +198,16 @@ class WorkspaceUsersList extends Component {
     }
 
     render() {
-        const { users, newUserAdded, newUserError, newUser, filteredUsers } = this.state;
-        const { handleWorkspaceClicked, username } = this.props;
+
+        const {
+            users,
+            newUserAdded,
+            newUserError,
+            newUser,
+            filteredUsers            
+        } = this.state;
+        const { handleWorkspaceClicked, username, isAdmin } = this.props;
+        
         return (
             <>
                 <Badge className="user-title" variant="dark">
@@ -223,7 +231,7 @@ class WorkspaceUsersList extends Component {
 
                                     <Button
                                         size="sm"
-                                        disabled={user.username === username}
+                                        disabled={user.username === username || isAdmin === 'false'}
                                         className="makeAdmin"
                                         onClick={() =>
                                             this.handleUpdateAdmin(user.username, user.is_admin)
@@ -234,7 +242,7 @@ class WorkspaceUsersList extends Component {
 
                                     <Button
                                         size="sm"
-                                        disabled={user.username === username}
+                                        disabled={user.username === username || isAdmin === 'false'}
                                         className="removeFromWorkspace"
                                         variant="danger"
                                         onClick={() => this.handleRemoveUser(user.username)}
