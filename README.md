@@ -1,5 +1,7 @@
 # Cryptovox
 
+_**PLEASE NOTE: due to a limited AWS account, the back-end is available on demand. Pls reach out to if you'd like a demo.**_
+
 This is a secure file sharing [website](https://cryptovox.netlify.com/) that allows you to encrypt files using audio. The backend API to this website is available [here](https://ssc-be.herokuapp.com/api) for which the git can be found [here](https://github.com/theshumanator/nc-be-finalproject). 
 
 
